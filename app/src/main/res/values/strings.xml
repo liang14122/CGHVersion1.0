@@ -10,4 +10,15 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <!--Navigation drawer menu labels-->
+    <string name="nav_patient">Patient List</string>
+    <string name="nav_roster">Roster</string>
+    <string name="nav_notification">Notification</string>
+    <string name="nav_Profile">Profile</string>
+    <string name="nav_about_us">About Us</string>
+
+    <string name="mark_all_as_read">Mark All as Read</string>
+
+
 </resources>
