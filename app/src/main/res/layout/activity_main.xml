@@ -58,20 +58,38 @@
             android:alpha="0.9"/>
 
         <!--external lib for edit text-->
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            app:layout_constraintLeft_toLeftOf="@+id/left_guideline">
+        <!--android:layout_centerVertical="true"-->
+        <!--app:layout_constraintLeft_toLeftOf="@+id/left_guideline"-->
+        <!--<android.support.design.widget.TextInputLayout-->
+            <!--android:id="@+id/input_layout_password"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:hintTextAppearance="@android:style/TextAppearance.Medium"-->
+            <!--&gt;-->
 
-            <EditText
-                android:id="@+id/input_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="" />
+            <!--<EditText-->
+                <!--android:id="@+id/input_password"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"/>-->
 
-        </android.support.design.widget.TextInputLayout>
+        <!--</android.support.design.widget.TextInputLayout>-->
+
+        <!--<android.support.design.widget.TextInputLayout-->
+            <!--android:id="@+id/txtEmail_InpLyt"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<EditText-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:inputType="textEmailAddress"-->
+                <!--android:ems="10"-->
+                <!--android:id="@+id/txtEmail"-->
+                <!--android:hint="Email Address"-->
+                <!--android:singleLine="true"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_alignParentEnd="true"/>-->
+        <!--</android.support.design.widget.TextInputLayout>-->
 
 
     </android.support.constraint.ConstraintLayout>
