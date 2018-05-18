@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CGHVersion1.0</string>
+    <string name="forget_passwrod"><u>Forget Passwrod</u></string>
 </resources>
