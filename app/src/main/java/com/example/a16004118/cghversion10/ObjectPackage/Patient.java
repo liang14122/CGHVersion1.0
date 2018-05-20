@@ -1,4 +1,4 @@
-package com.example.a16004118.cghversion10;
+package com.example.a16004118.cghversion10.ObjectPackage;
 
 public class Patient {
     private String name, nric, dateOfBirth, age, gender, race, languageSpoken, occupation, location, nextOfKinContact, drugAllergy;

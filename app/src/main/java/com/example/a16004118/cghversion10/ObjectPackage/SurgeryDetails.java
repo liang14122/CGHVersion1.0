@@ -1,4 +1,4 @@
-package com.example.a16004118.cghversion10;
+package com.example.a16004118.cghversion10.ObjectPackage;
 
 public class SurgeryDetails {
     private String anaesthesiaType, orthopaedicConsultantInCharge, registrarInCharge, timeWindow, otherRegistrars, available, otherTeamDoctors, lowestLevelOfSurgronAllowedToDoCase, natureOfSurgery, estimatedDuration, positioning, implantsm, imagingRequired, repeatSurgery, operatingTheatre;
