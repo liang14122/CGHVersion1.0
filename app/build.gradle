@@ -35,6 +35,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     //firebase message
     implementation 'com.google.firebase:firebase-messaging:15.0.2'
+//
+//    //firebasse admin
+//    implementation 'com.google.firebase:firebase-admin:6.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
