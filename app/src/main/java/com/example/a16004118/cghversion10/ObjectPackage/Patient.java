@@ -3,6 +3,9 @@ package com.example.a16004118.cghversion10.ObjectPackage;
 public class Patient {
     private String name, nric, dateOfBirth, age, gender, race, languageSpoken, occupation, location, nextOfKinContact, drugAllergy;
 
+    public Patient() {
+    }
+
     public Patient(String name, String nric, String dateOfBirth, String age, String gender, String race, String languageSpoken, String occupation, String location, String nextOfKinContact, String drugAllergy) {
         this.name = name;
         this.nric = nric;

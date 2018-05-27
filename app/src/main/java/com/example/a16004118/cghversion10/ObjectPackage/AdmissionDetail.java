@@ -10,6 +10,9 @@ public class AdmissionDetail {
         this.lastFluid = lastFluid;
     }
 
+    public AdmissionDetail() {
+    }
+
     public String getDateOfAdmission() {
         return dateOfAdmission;
     }

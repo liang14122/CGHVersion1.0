@@ -21,6 +21,9 @@ public class SurgeryDetails {
         this.operatingTheatre = operatingTheatre;
     }
 
+    public SurgeryDetails() {
+    }
+
     public String getAnaesthesiaType() {
         return anaesthesiaType;
     }

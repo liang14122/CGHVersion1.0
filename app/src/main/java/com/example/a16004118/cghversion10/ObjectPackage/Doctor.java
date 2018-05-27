@@ -4,6 +4,9 @@ public class Doctor {
     private String name, fin, dateOfBirth,doctorLicense, contact, rank, description, address;
     private Boolean working, dayOff;
 
+    public Doctor() {
+    }
+
     public Doctor(String name, String fin, String dateOfBirth, String doctorLicense, String contact, String rank, String description, String address, Boolean working, Boolean dayOff) {
         this.name = name;
         this.fin = fin;

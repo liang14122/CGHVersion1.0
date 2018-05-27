@@ -3,6 +3,9 @@ package com.example.a16004118.cghversion10.ObjectPackage;
 public class Investigations {
     private String fullBloodCount, penalPanel, gxm, ptOrPtt, cxr, ecg;
 
+    public Investigations() {
+    }
+
     public Investigations(String fullBloodCount, String penalPanel, String gxm, String ptOrPtt, String cxr, String ecg) {
         this.fullBloodCount = fullBloodCount;
         this.penalPanel = penalPanel;

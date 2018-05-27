@@ -10,6 +10,9 @@ public class SurgicalTable {
         this.working = working;
     }
 
+    public SurgicalTable() {
+    }
+
     public String getTableCode() {
         return tableCode;
     }

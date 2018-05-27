@@ -9,6 +9,9 @@ public class Consent {
         this.others = others;
     }
 
+    public Consent() {
+    }
+
     public String getSurgicalConsent() {
         return surgicalConsent;
     }
