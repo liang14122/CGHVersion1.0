@@ -38,6 +38,9 @@ dependencies {
 //
 //    //firebasse admin
 //    implementation 'com.google.firebase:firebase-admin:6.1.0'
+
+    //implement cardview
+    implementation 'com.android.support:cardview-v7:27.1.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

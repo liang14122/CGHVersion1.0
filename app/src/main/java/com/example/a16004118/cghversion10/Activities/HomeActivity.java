@@ -2,11 +2,6 @@ package com.example.a16004118.cghversion10.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,9 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.a16004118.cghversion10.NotificationService.Common;
 import com.example.a16004118.cghversion10.R;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -96,7 +89,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.home_action_bar_button, menu);
         return true;
     }
 
@@ -122,6 +115,8 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_patient) {
             // Handle the camera action
+            Intent i = new Intent(HomeActivity.this, MedicalDetailActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_roster) {
 
         } else if (id == R.id.nav_notification) {

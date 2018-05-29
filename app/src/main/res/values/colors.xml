@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#2d76ed</color>
     <color name="colorAccent">#FF4081</color>
     <color name="LoginButton">#ffffff</color>
+    <color name="EmergencyCardViewBG">#ffd575</color>
+
 </resources>

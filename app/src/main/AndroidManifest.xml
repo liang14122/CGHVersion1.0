@@ -60,7 +60,13 @@
             android:name="firebase_analytics_collection_enabled"
             android:value="false" />
 
-        <activity android:name=".Activities.MedicalDetailActivity">
+        <activity android:name=".Activities.MedicalDetailActivity"
+            android:theme="@style/AppThemeWithActionBar">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.HomeActivity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
