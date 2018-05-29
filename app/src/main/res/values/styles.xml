@@ -11,6 +11,14 @@
         <!--<item name="android:actionBarStyle">@style/MyActionBar</item>-->
     </style>
 
+    <style name="AppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:actionBarStyle">@style/MyActionBar</item>-->
+    </style>
+
     <!--&lt;!&ndash; ActionBar styles &ndash;&gt;-->
     <!--<style name="MyActionBar"-->
         <!--parent="@android:style/Theme.Holo.Light.DarkActionBar">-->
