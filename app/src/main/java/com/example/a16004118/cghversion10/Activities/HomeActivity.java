@@ -1,8 +1,11 @@
 package com.example.a16004118.cghversion10.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -23,13 +26,60 @@ public class HomeActivity extends AppCompatActivity
 
     private static final String TAG = "HomeActivity";
 
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        //Better check user login status
+        //may not be using intent
+        Intent i = getIntent();
+        boolean data = i.getBooleanExtra("userLogin", false);
+        if (data) {
+            Bundle bundle = new Bundle();
+            double distance = i.getDoubleExtra("distance", 0.0);
+            String duration = i.getStringExtra("duration");
+            bundle.putDouble("distance", distance);
+            bundle.putString("duration", duration);
+
+            //Set initial fragment
+//            Fragment frag = new HistoryFragment();
+//            frag.setArguments(bundle);
+
+            //open initiated fragment at begin
+//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.addToBackStack(null);
+//            ft.replace(R.id.drawer_fragment_container, frag);
+//            ft.commit();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Common.currentToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d("My Token", Common.currentToken);
+        Toolbar toolbar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        //initiate navigation drawer header
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        //Initiate UI element for navigation drawer header here
+//        tvUserName = headerView.findViewById(R.id.textViewUsername);
+//        ivProfile = headerView.findViewById(R.id.imageViewProfilePic);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
@@ -50,21 +100,20 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
+@Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.action_add_patient:
+                // User chose the "Settings" item, show the app settings UI...
+                return true;
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
         }
-
-        return super.onOptionsItemSelected(item);
     }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
