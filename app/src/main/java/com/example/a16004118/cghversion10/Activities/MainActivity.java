@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.a16004118.cghversion10.NotificationService.Common;
 import com.example.a16004118.cghversion10.ObjectPackage.AdmissionDetail;
 import com.example.a16004118.cghversion10.ObjectPackage.Chit;
 import com.example.a16004118.cghversion10.ObjectPackage.Consent;
@@ -30,6 +32,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //find the table name and start to add
+
+        Log.d("Test Purpose", "Refreshed token: " + Common.currentToken);
 
         btnLogin = findViewById(R.id.btnLogin);
 
