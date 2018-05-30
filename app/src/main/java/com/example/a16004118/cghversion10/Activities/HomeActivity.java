@@ -1,7 +1,11 @@
 package com.example.a16004118.cghversion10.Activities;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -112,21 +116,31 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Fragment fragment = null;
 
         if (id == R.id.nav_patient) {
             // Handle the camera action
             Intent i = new Intent(HomeActivity.this, MedicalDetailActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_roster) {
+            Log.i("HomeActivity","select nav_roster button");
 
         } else if (id == R.id.nav_notification) {
 
+            fragment = new Activity_notification_list();
+            Log.i("HomeActivity","select notification button");
         } else if (id == R.id.nav_profile) {
+            Log.i("HomeActivity","select nav_profile button");
 
         } else if (id == R.id.nav_about_us) {
+            Log.i("HomeActivity","select nav_aboutUs button");
 
         }
-
+        if (fragment != null){
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.drawer_layout, fragment);
+            fragmentTransaction.commit();
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
