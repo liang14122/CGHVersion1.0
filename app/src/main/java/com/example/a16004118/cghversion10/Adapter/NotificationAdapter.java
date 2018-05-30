@@ -32,6 +32,7 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // "Inflate" the row.xml as the layout for the View object
+
         View rowView = inflater.inflate(R.layout.notification_list_adapter, parent, false);
 
         // Get the TextView object
@@ -61,7 +62,7 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
             alertImg.setImageResource(R.drawable.alert);
         }
         if(current.isRead() == false) {
-            checkImg.setImageResource(R.drawable.ic_launcher_background);
+            checkImg.setImageResource(0);
         }
         else {
             checkImg.setImageResource(R.drawable.check);
