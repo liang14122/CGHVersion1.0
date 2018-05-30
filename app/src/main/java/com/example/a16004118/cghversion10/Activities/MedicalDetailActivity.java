@@ -53,6 +53,24 @@ public class MedicalDetailActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        lvMedicalDetail.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        listMDHeader.get(groupPosition) + " Expanded",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        lvMedicalDetail.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        listMDHeader.get(groupPosition) + " Collapsed",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
