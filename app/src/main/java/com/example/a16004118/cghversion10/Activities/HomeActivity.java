@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.a16004118.cghversion10.Fragment.PatientListFragment;
 import com.example.a16004118.cghversion10.R;
 
 public class HomeActivity extends AppCompatActivity
@@ -119,9 +120,8 @@ public class HomeActivity extends AppCompatActivity
         Fragment fragment = null;
 
         if (id == R.id.nav_patient) {
-            // Handle the camera action
-            Intent i = new Intent(HomeActivity.this, MedicalDetailActivity.class);
-            startActivity(i);
+            fragment = new PatientListFragment();
+            Log.i("HomeActivity","select Patient List button");
         } else if (id == R.id.nav_roster) {
             Log.i("HomeActivity","select nav_roster button");
 

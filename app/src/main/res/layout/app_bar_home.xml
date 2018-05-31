@@ -20,5 +20,10 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_home" />
+    <!--<FrameLayout-->
+        <!--android:id="@+id/fragment_container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:layout_behavior="@string/action_settings" />-->
 
 </android.support.design.widget.CoordinatorLayout>

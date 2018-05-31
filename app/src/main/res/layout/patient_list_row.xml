@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="1"
+        android:rowCount="1"
+        android:padding="8dp">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:id="@+id/ivGender"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvPatientNameCard"
+                    app:layout_constraintStart_toStartOf="@id/ivGender"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvGenderAgeCard"
+                    app:layout_constraintStart_toStartOf="@id/ivGender"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPatientNameCard"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:id="@+id/ivWaitingTime"
+                    android:src="@drawable/waiting_time"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ivGender"
+                    app:layout_constraintEnd_toStartOf="@id/tvWaitingTimeCard"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvWaitingTimeCard"
+                    app:layout_constraintStart_toStartOf="@id/ivWaitingTime"
+                    app:layout_constraintTop_toBottomOf="@+id/ivGender"
+                    app:layout_constraintEnd_toStartOf="@id/ivLastMeal"/>
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:id="@+id/ivLastMeal"
+                    android:src="@drawable/last_meal"
+                    app:layout_constraintStart_toStartOf="@id/tvWaitingTimeCard"
+                    app:layout_constraintTop_toTopOf="@id/ivGender"
+                    app:layout_constraintEnd_toStartOf="@id/tvLastMealCard"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvLastMealCard"
+                    app:layout_constraintStart_toStartOf="@id/ivLastMeal"
+                    app:layout_constraintTop_toBottomOf="@+id/ivGender"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </GridLayout>
+
+</android.support.constraint.ConstraintLayout>
