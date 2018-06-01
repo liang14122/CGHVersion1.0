@@ -71,6 +71,11 @@ public class HomeActivity extends AppCompatActivity
 //        tvUserName = headerView.findViewById(R.id.textViewUsername);
 //        ivProfile = headerView.findViewById(R.id.imageViewProfilePic);
 
+        Fragment fragment = new PatientListFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.drawer_fragment_container, fragment);
+        ft.commit();
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -138,7 +143,7 @@ public class HomeActivity extends AppCompatActivity
         }
         if (fragment != null){
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.drawer_layout, fragment);
+            fragmentTransaction.replace(R.id.drawer_fragment_container, fragment);
             fragmentTransaction.commit();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
