@@ -41,6 +41,7 @@ dependencies {
 
     //implement cardview
     implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.google.firebase:firebase-functions:16.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

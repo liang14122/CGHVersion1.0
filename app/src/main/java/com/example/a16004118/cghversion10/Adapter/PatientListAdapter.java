@@ -10,7 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.a16004118.cghversion10.ObjectPackage.AdmissionDetail;
 import com.example.a16004118.cghversion10.ObjectPackage.Chit;
+import com.example.a16004118.cghversion10.ObjectPackage.Patient;
 import com.example.a16004118.cghversion10.R;
 
 import java.util.ArrayList;
@@ -48,15 +50,29 @@ public class PatientListAdapter extends ArrayAdapter {
 
         Chit currentChit = chitList.get(position);
 
+        Patient currentPatient = currentChit.getPatient();
+        AdmissionDetail currentAdmissionDetail = currentChit.getAdmissionDetail();
+
+
         TextView tvPatientNameCard = rowView.findViewById(R.id.tvPatientNameCard);
         TextView tvGenderAgeCard = rowView.findViewById(R.id.tvGenderAgeCard);
         TextView tvWaitingTimeCard = rowView.findViewById(R.id.tvWaitingTimeCard);
         TextView tvLastMealCard = rowView.findViewById(R.id.tvLastMealCard);
 
         ImageView ivGender = rowView.findViewById(R.id.ivGender);
-        ImageView ivWaitingTime = rowView.findViewById(R.id.ivWaitingTime);
-        ImageView ivLastMeal = rowView.findViewById(R.id.ivLastMeal);
 
+        tvPatientNameCard.setText(currentPatient.getName());
+        tvWaitingTimeCard.setText(currentAdmissionDetail.getTimeOfAdmission());
+        tvLastMealCard.setText(currentAdmissionDetail.getLastMeal());
+
+        String currentPatientGender = currentPatient.getGender();
+        if (currentPatientGender.equalsIgnoreCase("male")){
+            ivGender.setImageResource(R.drawable.male);
+            tvGenderAgeCard.setText("Male " + currentPatient.getAge());
+        }else if (currentPatient.getGender().equalsIgnoreCase("female")){
+            ivGender.setImageResource(R.drawable.female);
+            tvGenderAgeCard.setText("Female " + currentPatient.getAge());
+        }
         return rowView;
 
     }

@@ -1,5 +1,6 @@
 package com.example.a16004118.cghversion10.Activities;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
@@ -16,8 +17,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.a16004118.cghversion10.Fragment.Activity_notification_list;
 import com.example.a16004118.cghversion10.Fragment.PatientListFragment;
 import com.example.a16004118.cghversion10.R;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.FirebaseFunctionsException;
+import com.google.firebase.functions.HttpsCallableResult;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -25,6 +33,7 @@ public class HomeActivity extends AppCompatActivity
     private static final String TAG = "HomeActivity";
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private FirebaseFunctions mFunctions;
 
     @Override
     protected void onStart() {
@@ -63,6 +72,7 @@ public class HomeActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mFunctions = FirebaseFunctions.getInstance();
 
         //initiate navigation drawer header
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -84,6 +94,30 @@ public class HomeActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
+        //get Doctor info Demo
+        getDoctorInfo("-LDCBIk78ZRzk7JDA7qO")
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Exception e = task.getException();
+                            if (e instanceof FirebaseFunctionsException) {
+                                FirebaseFunctionsException ffe = (FirebaseFunctionsException) e;
+                                FirebaseFunctionsException.Code code = ffe.getCode();
+                                Object details = ffe.getDetails();
+                            }
+
+                            // [START_EXCLUDE]
+                            Log.w(TAG, "getDoctorInfo:onFailure", e);
+                            return;
+                            // [END_EXCLUDE]
+                        }
+
+                        // [START_EXCLUDE]
+                        String result = task.getResult();
+                        Log.w(TAG, "getDoctorInfo:result" + result);                                // [END_EXCLUDE]
+                    }
+                });
     }
 
     @Override
@@ -149,5 +183,25 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private Task<String> getDoctorInfo(String doctorID) {
+        // Create the arguments to the callable function, which is just one string
+
+
+        return mFunctions
+                .getHttpsCallable("getDoctorInfo")
+                .call(doctorID)
+                .continueWith(new Continuation<HttpsCallableResult, String>() {
+                    @Override
+                    public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                        // This continuation runs on either success or failure, but if the task
+                        // has failed then getResult() will throw an Exception which will be
+                        // propagated down.
+                        String result = (String) task.getResult().getData();
+                        Log.w(TAG, "getDoctorInfo:result" + result);
+                        return result;
+                    }
+                });
     }
 }

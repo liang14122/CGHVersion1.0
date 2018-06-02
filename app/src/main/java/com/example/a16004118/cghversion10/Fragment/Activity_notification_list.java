@@ -1,4 +1,4 @@
-package com.example.a16004118.cghversion10.Activities;
+package com.example.a16004118.cghversion10.Fragment;
 
 import android.content.Context;
 import android.net.Uri;
