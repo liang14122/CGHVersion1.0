@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.a16004118.cghversion10.Activities.MedicalDetailActivity;
 import com.example.a16004118.cghversion10.Adapter.PatientListAdapter;
@@ -29,10 +30,9 @@ import java.util.ArrayList;
 
 public class PatientListFragment extends Fragment {
     ImageButton emergency,nonEmergency,viewAll;
-    ArrayList<Chit> arrayListForAll;
-    ArrayList<Chit> currentArrayList;
+    ArrayList<Chit> arrayListForAll = new ArrayList<>();
+    ArrayList<Chit> currentArrayList = new ArrayList<>();
     DatabaseReference databaseReferenceChit;
-
     ListView lvPatientList;
     PatientListAdapter pla;
 
@@ -47,10 +47,10 @@ public class PatientListFragment extends Fragment {
         viewAll = view.findViewById(R.id.imageButton4);
         lvPatientList = view.findViewById(R.id.lvPatientList);
 
-        arrayListForAll = new ArrayList<>();
-        currentArrayList = new ArrayList<>();
 
-        pla = new PatientListAdapter(view.getContext(), R.layout.patient_list_row, arrayListForAll);
+        currentArrayList = arrayListForAll;
+        //setAdapterTry(currentArrayList);
+        pla = new PatientListAdapter(view.getContext(), R.layout.patient_list_row, currentArrayList);
         lvPatientList.setAdapter(pla);
 
         lvPatientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,7 +69,7 @@ public class PatientListFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //check for each one
-                arrayListForAll.clear();
+                //arrayListForAll.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Log.i("Menu page", "Finding...");
 
@@ -89,41 +89,113 @@ public class PatientListFragment extends Fragment {
         emergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentArrayList = getCurrentArrayList(false, true);
-                pla.notifyDataSetChanged();
+//                currentArrayList = getCurrentArrayList(false, true);
+                //setAdapterTry(currentArrayList);
+                arrayListForAll.clear();
+
+                Toast.makeText(getContext(),"Emergence num: "+currentArrayList.size(),Toast.LENGTH_LONG).show();
+                databaseReferenceChit.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            Log.i("Menu page", "Finding...");
+
+                            Chit current = child.getValue(Chit.class);
+                            if(current.getLifeThreatening()==true)
+                            currentArrayList.add(current);
+                        }
+                        pla.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
         nonEmergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentArrayList = getCurrentArrayList(false, false);
-                pla.notifyDataSetChanged();
+//                currentArrayList = getCurrentArrayList(false, false);
+                //setAdapterTry(currentArrayList);
+                arrayListForAll.clear();
 
+                databaseReferenceChit.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            Log.i("Menu page", "Finding...");
+
+                            Chit current = child.getValue(Chit.class);
+                            if(current.getLifeThreatening()==false)
+                                currentArrayList.add(current);
+                        }
+                        pla.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
         viewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentArrayList = getCurrentArrayList(true, true);
-                pla.notifyDataSetChanged();
+                //currentArrayList = getCurrentArrayList(true, true);
+                arrayListForAll.clear();
+
+                databaseReferenceChit.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            Log.i("Menu page", "Finding...");
+
+                            Chit current = child.getValue(Chit.class);
+                            currentArrayList.add(current);
+                        }
+                        pla.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                //Toast.makeText(getContext(),"view all num: "+currentArrayList.size(),Toast.LENGTH_LONG).show();
             }
         });
         return view;
 
     }
 
-    public ArrayList<Chit> getCurrentArrayList(boolean viewAll, boolean emergency) {
-        currentArrayList.clear();
-        ArrayList<Chit> arrayList = new ArrayList<>();
-        if(viewAll){
-            return arrayListForAll;
-        }
-        for(int i = 0 ; i<arrayListForAll.size(); i++){
-            if(arrayListForAll.get(i).getLifeThreatening()==emergency){
-                arrayList.add(arrayListForAll.get(i));
-            }
-        }
-        return arrayList;
-    }
+//    public ArrayList<Chit> getCurrentArrayList(Boolean viewAll, Boolean emergencyBoolean) {
+//        currentArrayList.clear();
+//        ArrayList<Chit> arrayList = new ArrayList<>();
+//        if(viewAll == true){
+//            Toast.makeText(getContext(),"view all == : "+viewAll+arrayListForAll.size(),Toast.LENGTH_LONG).show();
+//
+//            arrayList =  arrayListForAll;
+//
+//        }else {
+//            Toast.makeText(getContext(),"filter == "+ emergencyBoolean+": "+currentArrayList.size(),Toast.LENGTH_LONG).show();
+//
+//            for (int i = 0; i < arrayListForAll.size(); i++) {
+//                if (arrayListForAll.get(i).getLifeThreatening() == emergencyBoolean) {
+//                    arrayList.add(arrayListForAll.get(i));
+//                }
+//            }
+//        }
+//        return arrayList;
+//    }
+//    public void setAdapterTry(ArrayList<Chit> arrayList){
+//        pla = new PatientListAdapter(getContext(), R.layout.patient_list_row, arrayList);
+//        lvPatientList.setAdapter(pla);
+//    }
 
 }
