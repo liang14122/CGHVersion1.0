@@ -17,69 +17,102 @@
             android:layout_margin="4dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="4dp">
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            android:id="@+id/cvPatientList">
 
             <android.support.constraint.ConstraintLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
                     android:id="@+id/ivGender"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvPatientNameCard"/>
 
                 <TextView
+                    android:id="@+id/tvPatientNameCard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tvPatientNameCard"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/ivGender"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/tvGenderAgeCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/ivGender"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPatientNameCard"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tvPatientNameCard" />
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
                     android:id="@+id/ivWaitingTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/waiting_time"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvWaitingTimeCard"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/ivGender"
-                    app:layout_constraintEnd_toStartOf="@id/tvWaitingTimeCard"/>
+                    app:layout_constraintTop_toBottomOf="@id/tvGenderAgeCard" />
 
                 <TextView
+                    android:id="@+id/tvWaitingTimeCard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tvWaitingTimeCard"
-                    app:layout_constraintStart_toStartOf="@id/ivWaitingTime"
-                    app:layout_constraintTop_toBottomOf="@+id/ivGender"
-                    app:layout_constraintEnd_toStartOf="@id/ivLastMeal"/>
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/ivLastMeal"
+                    app:layout_constraintStart_toEndOf="@id/ivWaitingTime"
+                    app:layout_constraintTop_toBottomOf="@+id/tvGenderAgeCard" />
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
                     android:id="@+id/ivLastMeal"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/last_meal"
-                    app:layout_constraintStart_toStartOf="@id/tvWaitingTimeCard"
-                    app:layout_constraintTop_toTopOf="@id/ivGender"
-                    app:layout_constraintEnd_toStartOf="@id/tvLastMealCard"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvLastMealCard"
+                    app:layout_constraintStart_toEndOf="@id/tvWaitingTimeCard"
+                    app:layout_constraintTop_toBottomOf="@id/tvGenderAgeCard" />
 
                 <TextView
+                    android:id="@+id/tvLastMealCard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tvLastMealCard"
-                    app:layout_constraintStart_toStartOf="@id/ivLastMeal"
-                    app:layout_constraintTop_toBottomOf="@+id/ivGender"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivLastMeal"
+                    app:layout_constraintTop_toBottomOf="@+id/tvGenderAgeCard" />
 
             </android.support.constraint.ConstraintLayout>
 

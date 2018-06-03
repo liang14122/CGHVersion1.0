@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
+import com.example.a16004118.cghversion10.Adapter.PatientListAdapter;
 import com.example.a16004118.cghversion10.ObjectPackage.Chit;
 import com.example.a16004118.cghversion10.ObjectPackage.Notification;
 import com.example.a16004118.cghversion10.R;
@@ -29,16 +31,28 @@ public class PatientListFragment extends Fragment {
     ArrayList<Chit> currentArrayList;
     DatabaseReference databaseReferenceChit;
 
+    ListView lvPatientList;
+    PatientListAdapter pla;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_patient_list, container, false);
+
         emergency = view.findViewById(R.id.imageButton2);
         nonEmergency = view.findViewById(R.id.imageButton3);
         viewAll = view.findViewById(R.id.imageButton4);
+        lvPatientList = view.findViewById(R.id.lvPatientList);
+
         arrayListForAll = new ArrayList<>();
         currentArrayList = new ArrayList<>();
+
+        pla = new PatientListAdapter(view.getContext(), R.layout.patient_list_row, arrayListForAll);
+        lvPatientList.setAdapter(pla);
+
         databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion01").child("chit");
+
         databaseReferenceChit.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -49,6 +63,7 @@ public class PatientListFragment extends Fragment {
 
                     Chit current = child.getValue(Chit.class);
                     arrayListForAll.add(current);
+                    pla.notifyDataSetChanged();
                 }
                 //listView.setAdapter(notificationAdapter);
             }
@@ -63,12 +78,14 @@ public class PatientListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 currentArrayList = getCurrentArrayList(false, true);
+                pla.notifyDataSetChanged();
             }
         });
         nonEmergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 currentArrayList = getCurrentArrayList(false, false);
+                pla.notifyDataSetChanged();
 
             }
         });
@@ -76,6 +93,7 @@ public class PatientListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 currentArrayList = getCurrentArrayList(true, true);
+                pla.notifyDataSetChanged();
             }
         });
         return view;
@@ -94,4 +112,6 @@ public class PatientListFragment extends Fragment {
         }
         return arrayList;
     }
+
+
 }

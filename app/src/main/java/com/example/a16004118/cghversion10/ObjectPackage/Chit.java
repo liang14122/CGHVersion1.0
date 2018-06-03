@@ -29,6 +29,9 @@ public class Chit {
     public Chit() {
     }
 
+    public Chit(Patient patient, Issues issues, AdmissionDetail admissionDetail, Investigations investigations, Consent consent, SurgeryDetails surgeryDetails, boolean b) {
+    }
+
     public String getIdFB() {
         return idFB;
     }
