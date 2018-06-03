@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.example.a16004118.cghversion10.Fragment.Activity_notification_list;
 import com.example.a16004118.cghversion10.Fragment.PatientListFragment;
@@ -39,7 +40,7 @@ public class HomeActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
-
+        Button btn = findViewById(R.id.action_add_patient);
         //Better check user login status
         //may not be using intent
         Intent i = getIntent();
