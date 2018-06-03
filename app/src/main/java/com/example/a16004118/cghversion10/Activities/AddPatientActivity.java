@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -36,9 +37,10 @@ import java.util.Date;
 public class AddPatientActivity extends AppCompatActivity {
     DatabaseReference databaseReferenceChit,databaseReferenceNotification;
 
-    EditText etPODoagnosos,etDOA, etAdmission, etLastMeal, etLastClearFluid, etBloodCount, etRenalPenal, etGXM, etECG, etPTPTT, etCXR, etOthers, etAType, etOCIC, etCICR, etRIC, etRICR, etORA, etOTD, etLowest, etSNature, etEstTime, etPosition, etImplants;
-    Spinner dSconsent, dAconsent, dImaging, dRepeat, dot;
+    EditText etPODoagnosos,etDOA, etAdmission, etLastMeal, etLastClearFluid, etBloodCount, etRenalPenal, etGXM, etECG, etPTPTT, etCXR, etOthers, etAType, etOCIC, etCICR, etRIC, etRICR, etORA, etOTD, etLowest, etSNature, etEstTime, etPosition, etImplants, etPName, etPAge, etPDoB, etPLocation, etPNoKContact, etPNRIC, etPOccupation, etDName, etSTable;
+    Spinner dSconsent, dAconsent, dImaging, dRepeat, dot, dPAllergy, dPGender, dPRace;
     RadioGroup rgEMG, rgThreat;
+    CheckBox checkBoxEN, checkBoxCHN, checkBoxML, checkBoxTML, checkBoxGA, checkBoxRA, checkBoxLA;
     Button btnAdd;
 
     String day;
@@ -67,6 +69,29 @@ public class AddPatientActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
                         etDOA.setText(dayOfMonth + "/" + (monthOfYear+1) + "/" + year);
+                    }
+                };
+                int Year = now.get(Calendar.YEAR);
+                int Month = now.get(Calendar.MONTH);
+                int Day = now.get(Calendar.DAY_OF_MONTH);
+
+                // Create the Date Picker Dialog
+                DatePickerDialog myDateDialog = new DatePickerDialog(AddPatientActivity.this,
+                        myDateListener, Year, Month, Day);
+
+                myDateDialog.show();
+            }
+        });
+
+        etPDoB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                        etPDoB.setText(dayOfMonth + "/" + (monthOfYear+1) + "/" + year);
                     }
                 };
                 int Year = now.get(Calendar.YEAR);
@@ -127,6 +152,9 @@ public class AddPatientActivity extends AppCompatActivity {
 
             }
         });
+
+
+
 
         etLastClearFluid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,6 +225,37 @@ public class AddPatientActivity extends AppCompatActivity {
                         String Position = etPosition.getText().toString();
                         String Implants = etImplants.getText().toString();
                         String pODoagnosos = etPODoagnosos.getText().toString();
+
+                        //Patient personal details
+                        String PName = etPName.getText().toString();
+                        String PAge = etPAge.getText().toString();
+                        String PDoB = etPDoB.getText().toString();
+                        String PLocation = etPLocation.getText().toString();
+                        String PNoKContact = etPNoKContact.getText().toString();
+                        String PNRIC = etPNRIC.getText().toString();
+                        String POccupation = etPOccupation.getText().toString();
+                        String PAllergy = dPAllergy.getSelectedItem().toString();
+                        String PGender = dPGender.getSelectedItem().toString();
+                        String PRace = dPRace.getSelectedItem().toString();
+                        String Lang = "";
+                        if (checkBoxEN.isChecked()){
+                            Lang = Lang + checkBoxEN.getText().toString();
+                        }
+                        if (checkBoxCHN.isChecked()){
+                            Lang = Lang + checkBoxCHN.getText().toString();
+                        }
+                        if (checkBoxML.isChecked()){
+                            Lang = Lang + checkBoxML.getText().toString();
+                        }
+                        if (checkBoxTML.isChecked()){
+                            Lang = Lang + checkBoxTML.getText().toString();
+                        }
+
+
+                        //patient assignment
+                        String DName = etDName.getText().toString();
+                        String STable = etSTable.getText().toString();
+
                         RadioButton rbEMG = findViewById(rgEMG.getCheckedRadioButtonId());
                         String EMG = rbEMG.getText().toString();
                         RadioButton rbThreat = findViewById(rgThreat.getCheckedRadioButtonId());
@@ -211,13 +270,13 @@ public class AddPatientActivity extends AppCompatActivity {
                         String idFbChit = databaseReferenceChit.push().getKey();
                         AdmissionDetail admissionDetail = new AdmissionDetail(DOA,Admission, LastMeal,LastClearFluid);
                         //dsConsent,dAconsent
-                        Consent consent = new Consent("","",Others);
+                        Consent consent = new Consent(SConsent,AConsent,Others);
                         Investigations investigations = new Investigations(BloodCount,RenalPenal,GXM,PTPTT,CXR,ECG);
 
                         Issues issues = new Issues(pODoagnosos,"","");
-                        Patient patient = new Patient("","","","","","","","","","","");
-                        SurgeryDetails surgeryDetails = new SurgeryDetails(AType,OCIC,CICR,RIC,RICR,ORA,OTD,Lowest,SNature,EstTime,Position,Implants,Imaging,Repeat,"");
-                        Chit chit = new Chit(idFbChit,patient,issues,admissionDetail,investigations,consent,"doctorId",surgeryDetails,"surgicalTable",true);
+                        Patient patient = new Patient(PName,PNRIC,PDoB,PAge,PGender,PRace,Lang,POccupation,PLocation,PNoKContact,PAllergy);
+                        SurgeryDetails surgeryDetails = new SurgeryDetails(AType,OCIC,CICR,RIC,RICR,ORA,OTD,Lowest,SNature,EstTime,Position,Implants,Imaging,Repeat,ot);
+                        Chit chit = new Chit(idFbChit,patient,issues,admissionDetail,investigations,consent,"doctorId",surgeryDetails,STable,true);
                         databaseReferenceChit.child(idFbChit).setValue(chit);
 
 
@@ -225,7 +284,7 @@ public class AddPatientActivity extends AppCompatActivity {
                         String idFBN = databaseReferenceNotification.push().getKey();
                         Date currentTime = Calendar.getInstance().getTime();
                         String currentTimeS = String.valueOf(currentTime);
-                        Notification notification = new Notification(idFBN,"doctor Id","patient name","fin","setence",currentTimeS,false,false);
+                        Notification notification = new Notification(idFBN,"doctor Id",PName,"fin","setence",currentTimeS,false,false);
                         databaseReferenceNotification.child(idFBN).setValue(notification);
                         finish();
                     }
@@ -265,6 +324,16 @@ public class AddPatientActivity extends AppCompatActivity {
         etPosition = (EditText)findViewById(R.id.etPosition);
         etImplants = (EditText)findViewById(R.id.etImplants);
         etPODoagnosos = (EditText)findViewById(R.id.editTextPODiagnosis);
+        etPName = (EditText)findViewById(R.id.etPName);
+        etPAge = (EditText)findViewById(R.id.etPAge);
+        etPDoB = (EditText)findViewById(R.id.etPDoB);
+        etPLocation = (EditText)findViewById(R.id.etPLocation);
+        etPNoKContact = (EditText)findViewById(R.id.etPNoKContact);
+        etPNRIC = (EditText)findViewById(R.id.etPNRIC);
+        etPOccupation = (EditText)findViewById(R.id.etPOccupation);
+        etDName = (EditText)findViewById(R.id.etDName);
+        etSTable = (EditText)findViewById(R.id.etSTable);
+
         rgEMG = (RadioGroup)findViewById(R.id.rgEMG);
         rgThreat = (RadioGroup)findViewById(R.id.rgThreat);
 
@@ -273,6 +342,17 @@ public class AddPatientActivity extends AppCompatActivity {
         dImaging = (Spinner)findViewById(R.id.dImaging);
         dRepeat = (Spinner)findViewById(R.id.dRepeat);
         dot = (Spinner)findViewById(R.id.dot);
+        dPAllergy = (Spinner)findViewById(R.id.dPDAllergy);
+        dPGender = (Spinner)findViewById(R.id.dPGender);
+        dPRace = (Spinner)findViewById(R.id.dPRace);
+
+        checkBoxGA = (CheckBox)findViewById(R.id.checkBoxGA);
+        checkBoxRA = (CheckBox)findViewById(R.id.checkBoxRA);
+        checkBoxLA = (CheckBox)findViewById(R.id.checkBoxLA);
+        checkBoxEN = (CheckBox)findViewById(R.id.checkBoxEN);
+        checkBoxCHN = (CheckBox)findViewById(R.id.checkBoxCHN);
+        checkBoxML = (CheckBox)findViewById(R.id.checkBoxML);
+        checkBoxTML = (CheckBox)findViewById(R.id.checkBoxTML);
 
         btnAdd = (Button)findViewById(R.id.buttonAdd);
     }
