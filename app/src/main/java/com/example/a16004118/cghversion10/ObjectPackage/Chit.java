@@ -1,7 +1,9 @@
 package com.example.a16004118.cghversion10.ObjectPackage;
 
 
-public class Chit {
+import java.io.Serializable;
+
+public class Chit implements Serializable{
     String idFB;
     Patient patient;
     Issues issues;

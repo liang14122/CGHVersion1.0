@@ -9,6 +9,7 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.example.a16004118.cghversion10.Adapter.MedicalDetailExpandableListAdapter;
+import com.example.a16004118.cghversion10.ObjectPackage.Chit;
 import com.example.a16004118.cghversion10.R;
 
 import java.util.ArrayList;
@@ -32,7 +33,8 @@ public class MedicalDetailActivity extends AppCompatActivity {
 
         lvMedicalDetail = findViewById(R.id.lvMedicalDetail);
 
-        prepareDemoMD();
+        Chit currentChit = (Chit) getIntent().getSerializableExtra("currentChit");
+        prepareMD(currentChit);
 
         listAdapter = new MedicalDetailExpandableListAdapter(this, listMDHeader, listMDDetail);
 
@@ -91,7 +93,7 @@ public class MedicalDetailActivity extends AppCompatActivity {
         return true;
     }
 
-    private void prepareDemoMD(){
+    private void prepareMD(Chit currentChit){
 
         listMDHeader = new ArrayList<>();
         listMDDetail = new HashMap<String, List<String>>();

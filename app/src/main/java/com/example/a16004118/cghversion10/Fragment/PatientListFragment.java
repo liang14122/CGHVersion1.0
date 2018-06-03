@@ -1,6 +1,7 @@
 package com.example.a16004118.cghversion10.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.example.a16004118.cghversion10.Activities.MedicalDetailActivity;
 import com.example.a16004118.cghversion10.Adapter.PatientListAdapter;
 import com.example.a16004118.cghversion10.ObjectPackage.Chit;
 import com.example.a16004118.cghversion10.ObjectPackage.Notification;
@@ -51,6 +53,16 @@ public class PatientListFragment extends Fragment {
         pla = new PatientListAdapter(view.getContext(), R.layout.patient_list_row, arrayListForAll);
         lvPatientList.setAdapter(pla);
 
+        lvPatientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Chit currentChit = arrayListForAll.get(position);
+                Intent i = new Intent(getContext(), MedicalDetailActivity.class);
+                i.putExtra("currentChit", currentChit);
+                startActivity(i);
+            }
+        });
+
         databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion01").child("chit");
 
         databaseReferenceChit.addValueEventListener(new ValueEventListener() {
@@ -63,15 +75,15 @@ public class PatientListFragment extends Fragment {
 
                     Chit current = child.getValue(Chit.class);
                     arrayListForAll.add(current);
-                    pla.notifyDataSetChanged();
+
                 }
+                pla.notifyDataSetChanged();
                 //listView.setAdapter(notificationAdapter);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("LogFragment", "loadLog:onCancelled", databaseError.toException());
-
             }
         });
         emergency.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +109,7 @@ public class PatientListFragment extends Fragment {
             }
         });
         return view;
+
     }
 
     public ArrayList<Chit> getCurrentArrayList(boolean viewAll, boolean emergency) {
@@ -112,6 +125,5 @@ public class PatientListFragment extends Fragment {
         }
         return arrayList;
     }
-
 
 }
