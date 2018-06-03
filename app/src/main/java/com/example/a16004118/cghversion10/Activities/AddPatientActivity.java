@@ -17,14 +17,26 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.a16004118.cghversion10.ObjectPackage.AdmissionDetail;
+import com.example.a16004118.cghversion10.ObjectPackage.Chit;
+import com.example.a16004118.cghversion10.ObjectPackage.Consent;
+import com.example.a16004118.cghversion10.ObjectPackage.Investigations;
+import com.example.a16004118.cghversion10.ObjectPackage.Issues;
+import com.example.a16004118.cghversion10.ObjectPackage.Notification;
+import com.example.a16004118.cghversion10.ObjectPackage.Patient;
+import com.example.a16004118.cghversion10.ObjectPackage.SurgeryDetails;
 import com.example.a16004118.cghversion10.ObjectPackage.TimePickerFragment;
 import com.example.a16004118.cghversion10.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class AddPatientActivity extends AppCompatActivity {
+    DatabaseReference databaseReferenceChit,databaseReferenceNotification;
 
-    EditText etDOA, etAdmission, etLastMeal, etLastClearFluid, etBloodCount, etRenalPenal, etGXM, etECG, etPTPTT, etCXR, etOthers, etAType, etOCIC, etCICR, etRIC, etRICR, etORA, etOTD, etLowest, etSNature, etEstTime, etPosition, etImplants;
+    EditText etPODoagnosos,etDOA, etAdmission, etLastMeal, etLastClearFluid, etBloodCount, etRenalPenal, etGXM, etECG, etPTPTT, etCXR, etOthers, etAType, etOCIC, etCICR, etRIC, etRICR, etORA, etOTD, etLowest, etSNature, etEstTime, etPosition, etImplants;
     Spinner dSconsent, dAconsent, dImaging, dRepeat, dot;
     RadioGroup rgEMG, rgThreat;
     Button btnAdd;
@@ -41,11 +53,10 @@ public class AddPatientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_patient);
 
         initialize();
-/*
+
         databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion01").child("chit");
-        databaseReferenceDoc = FirebaseDatabase.getInstance().getReference("cghversion01").child("doctor");
-        databaseReferenceTable = FirebaseDatabase.getInstance().getReference("cghversion01").child("surgicaltable");
-        databaseReferenceNotification = FirebaseDatabase.getInstance().getReference("cghversion01").child("notification"); */
+
+        databaseReferenceNotification = FirebaseDatabase.getInstance().getReference("cghversion01").child("notification");
 
         etDOA.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,7 +196,7 @@ public class AddPatientActivity extends AppCompatActivity {
                         String EstTime = etEstTime.getText().toString();
                         String Position = etPosition.getText().toString();
                         String Implants = etImplants.getText().toString();
-
+                        String pODoagnosos = etPODoagnosos.getText().toString();
                         RadioButton rbEMG = findViewById(rgEMG.getCheckedRadioButtonId());
                         String EMG = rbEMG.getText().toString();
                         RadioButton rbThreat = findViewById(rgThreat.getCheckedRadioButtonId());
@@ -197,10 +208,26 @@ public class AddPatientActivity extends AppCompatActivity {
                         String Repeat = dRepeat.getSelectedItem().toString();
                         String ot = dot.getSelectedItem().toString();
 
-                        Toast.makeText(AddPatientActivity.this,
-                                "text is:" +Implants, Toast.LENGTH_LONG).show();
+                        String idFbChit = databaseReferenceChit.push().getKey();
+                        AdmissionDetail admissionDetail = new AdmissionDetail(DOA,Admission, LastMeal,LastClearFluid);
+                        //dsConsent,dAconsent
+                        Consent consent = new Consent("","",Others);
+                        Investigations investigations = new Investigations(BloodCount,RenalPenal,GXM,PTPTT,CXR,ECG);
+
+                        Issues issues = new Issues(pODoagnosos,"","");
+                        Patient patient = new Patient("","","","","","","","","","","");
+                        SurgeryDetails surgeryDetails = new SurgeryDetails(AType,OCIC,CICR,RIC,RICR,ORA,OTD,Lowest,SNature,EstTime,Position,Implants,Imaging,Repeat,"");
+                        Chit chit = new Chit(idFbChit,patient,issues,admissionDetail,investigations,consent,"doctorId",surgeryDetails,"surgicalTable",true);
+                        databaseReferenceChit.child(idFbChit).setValue(chit);
 
 
+                        //notification part;
+                        String idFBN = databaseReferenceNotification.push().getKey();
+                        Date currentTime = Calendar.getInstance().getTime();
+                        String currentTimeS = String.valueOf(currentTime);
+                        Notification notification = new Notification(idFBN,"doctor Id","patient name","fin","setence",currentTimeS,false,false);
+                        databaseReferenceNotification.child(idFBN).setValue(notification);
+                        finish();
                     }
                 });
             }
@@ -237,7 +264,7 @@ public class AddPatientActivity extends AppCompatActivity {
         etEstTime = (EditText)findViewById(R.id.etEstTime);
         etPosition = (EditText)findViewById(R.id.etPosition);
         etImplants = (EditText)findViewById(R.id.etImplants);
-
+        etPODoagnosos = (EditText)findViewById(R.id.editTextPODiagnosis);
         rgEMG = (RadioGroup)findViewById(R.id.rgEMG);
         rgThreat = (RadioGroup)findViewById(R.id.rgThreat);
 

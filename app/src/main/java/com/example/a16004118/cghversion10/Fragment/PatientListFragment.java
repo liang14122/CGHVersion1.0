@@ -93,7 +93,6 @@ public class PatientListFragment extends Fragment {
                 //setAdapterTry(currentArrayList);
                 arrayListForAll.clear();
 
-                Toast.makeText(getContext(),"Emergence num: "+currentArrayList.size(),Toast.LENGTH_LONG).show();
                 databaseReferenceChit.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -118,8 +117,7 @@ public class PatientListFragment extends Fragment {
         nonEmergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                currentArrayList = getCurrentArrayList(false, false);
-                //setAdapterTry(currentArrayList);
+
                 arrayListForAll.clear();
 
                 databaseReferenceChit.addValueEventListener(new ValueEventListener() {
@@ -146,7 +144,6 @@ public class PatientListFragment extends Fragment {
         viewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //currentArrayList = getCurrentArrayList(true, true);
                 arrayListForAll.clear();
 
                 databaseReferenceChit.addValueEventListener(new ValueEventListener() {
@@ -167,7 +164,6 @@ public class PatientListFragment extends Fragment {
 
                     }
                 });
-                //Toast.makeText(getContext(),"view all num: "+currentArrayList.size(),Toast.LENGTH_LONG).show();
             }
         });
         return view;
