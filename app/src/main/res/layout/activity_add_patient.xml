@@ -187,6 +187,372 @@
                 android:ems="10"
                 android:inputType="textMultiLine" />
 
+
+            <!-- Patient details -->
+
+            <TextView
+                android:id="@+id/textViewpd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Patient Details"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Full Name :"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etPName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:ems="5"
+                    android:hint="XXXXXXX"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Age :"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etPAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:ems="5"
+                    android:hint="XXXXXXX"
+                    android:inputType="number"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPDOB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="DoB :"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etPDoB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:ems="5"
+                    android:hint="XXXXXXX"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPDAllergy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Drug Allergy :"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/dPDAllergy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/YesNo"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPSex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Gender :"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/dPGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/Gender"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewPLang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:text="Language(s) Spoken:"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/checkBoxEN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="EN" />
+
+
+                <CheckBox
+                    android:id="@+id/checkBoxCHN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="CHN" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxML"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:paddingLeft="10dp"
+                    android:text="ML" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxTML"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:paddingLeft="10dp"
+                    android:text="TML" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Location :"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etPLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:ems="5"
+                    android:hint="XXXXXXX"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPNOKC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Next of Kin Contact :"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etPNoKContact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:ems="5"
+                    android:hint="XXXXXXX"
+                    android:inputType="number"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPIC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="NRIC :"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etPNRIC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:ems="5"
+                    android:hint="XXXXXXX"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPOc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Occupation :"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etPOccupation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:ems="5"
+                    android:hint="XXXXXXX"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPRace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Race :"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/dPRace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/Race"/>
+
+            </LinearLayout>
+
+            <!-- Patient Details End-->
+
+
+            <TextView
+                android:id="@+id/textViewdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Assign Details"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvDName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Assigned Doctor :"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etDName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:ems="5"
+                    android:hint="XXXXXXX"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvSTable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Surgical Table :"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etSTable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:ems="5"
+                    android:hint="XXXXXXX"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+            </LinearLayout>
+
+
+
+
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
