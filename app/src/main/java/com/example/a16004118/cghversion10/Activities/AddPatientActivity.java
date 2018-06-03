@@ -1,6 +1,7 @@
 package com.example.a16004118.cghversion10.Activities;
 
 import android.app.DatePickerDialog;
+import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -209,7 +210,7 @@ public class AddPatientActivity extends AppCompatActivity {
 
 
     public void showTimePickerDialog(View v) {
-        DialogFragment newFragment = new TimePickerFragment();
+        TimePickerFragment newFragment = new TimePickerFragment();
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
