@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -17,15 +18,26 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.a16004118.cghversion10.ObjectPackage.AdmissionDetail;
+import com.example.a16004118.cghversion10.ObjectPackage.Chit;
+import com.example.a16004118.cghversion10.ObjectPackage.Consent;
+import com.example.a16004118.cghversion10.ObjectPackage.Investigations;
+import com.example.a16004118.cghversion10.ObjectPackage.Issues;
+import com.example.a16004118.cghversion10.ObjectPackage.Patient;
+import com.example.a16004118.cghversion10.ObjectPackage.SurgeryDetails;
 import com.example.a16004118.cghversion10.ObjectPackage.TimePickerFragment;
 import com.example.a16004118.cghversion10.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
 public class AddPatientActivity extends AppCompatActivity {
+    DatabaseReference databaseReferenceChit,databaseReferenceDoc,databaseReferenceTable,databaseReferenceNotification;
 
-    EditText etDOA, etAdmission, etLastMeal, etLastClearFluid, etBloodCount, etRenalPenal, etGXM, etECG, etPTPTT, etCXR, etOthers, etAType, etOCIC, etCICR, etRIC, etRICR, etORA, etOTD, etLowest, etSNature, etEstTime, etPosition, etImplants;
-    Spinner dSconsent, dAconsent, dImaging, dRepeat, dot;
+    EditText etDOA, etAdmission, etLastMeal, etLastClearFluid, etBloodCount, etRenalPenal, etGXM, etECG, etPTPTT, etCXR, etOthers, etAType, etOCIC, etCICR, etRIC, etRICR, etORA, etOTD, etLowest, etSNature, etEstTime, etPosition, etImplants, etPODiagnosis, etPName, etPAge, etPDoB, etPLocation, etPNoKContact, etPNRIC, etOccupation, etDName, etSTable;
+    Spinner dSconsent, dAconsent, dImaging, dRepeat, dot, dPDAllergy, dPGender, dPRace;
+    CheckBox checkBoxGA,checkBoxRA, checkBoxLA, checkBoxEN, checkBoxCHN, checkBoxML, checkBoxTML;
     RadioGroup rgEMG, rgThreat;
     Button btnAdd;
 
@@ -41,11 +53,11 @@ public class AddPatientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_patient);
 
         initialize();
-/*
+
         databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion01").child("chit");
         databaseReferenceDoc = FirebaseDatabase.getInstance().getReference("cghversion01").child("doctor");
         databaseReferenceTable = FirebaseDatabase.getInstance().getReference("cghversion01").child("surgicaltable");
-        databaseReferenceNotification = FirebaseDatabase.getInstance().getReference("cghversion01").child("notification"); */
+        databaseReferenceNotification = FirebaseDatabase.getInstance().getReference("cghversion01").child("notification");
 
         etDOA.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,9 +197,41 @@ public class AddPatientActivity extends AppCompatActivity {
                         String EstTime = etEstTime.getText().toString();
                         String Position = etPosition.getText().toString();
                         String Implants = etImplants.getText().toString();
+                        String PODiagnosis = etPODiagnosis.getText().toString();
+
+                        //================Patient details here===================
+                        String PName = etPName.getText().toString();
+                        String PAge = etPAge.getText().toString();
+                        String PDoB = etPDoB.getText().toString();
+                        String PLocation = etPLocation.getText().toString();
+                        String PNokContact = etPNoKContact.getText().toString();
+                        String PNRIC = etPNRIC.getText().toString();
+                        String POccupation = etOccupation.getText().toString();
+                        String DAllergy = dPDAllergy.getSelectedItem().toString();
+                        String PGender = dPGender.getSelectedItem().toString();
+                        String PRace = dPRace.getSelectedItem().toString();
+                        String LanguageSpoken = "";
+                        if(checkBoxEN.isChecked()){
+                            LanguageSpoken = LanguageSpoken + checkBoxEN.getText().toString();
+                        }
+                        if(checkBoxCHN.isChecked()){
+                            LanguageSpoken = LanguageSpoken + checkBoxCHN.getText().toString();
+                        }
+                        if(checkBoxML.isChecked()){
+                            LanguageSpoken = LanguageSpoken + checkBoxML.getText().toString();
+                        }
+                        if(checkBoxTML.isChecked()){
+                            LanguageSpoken = LanguageSpoken + checkBoxTML.getText().toString();
+                        }
+
+                        //=============Doctor and table assigned==================
+                        String DName = etDName.getText().toString();
+                        String STable = etSTable.getText().toString();
+
 
                         RadioButton rbEMG = findViewById(rgEMG.getCheckedRadioButtonId());
                         String EMG = rbEMG.getText().toString();
+                        //======Life-Threatening=========
                         RadioButton rbThreat = findViewById(rgThreat.getCheckedRadioButtonId());
                         String Threat = rbThreat.getText().toString();
 
@@ -197,6 +241,18 @@ public class AddPatientActivity extends AppCompatActivity {
                         String Repeat = dRepeat.getSelectedItem().toString();
                         String ot = dot.getSelectedItem().toString();
 
+
+
+                        String idFBchit = databaseReferenceChit.push().getKey();
+                        Patient patient = new Patient("Leo","123456789","date of birth","18","male","Chinese","Chinese","1","2","3","4");
+                        Issues issues = new Issues();
+                        AdmissionDetail admissionDetail = new AdmissionDetail();
+                        Investigations investigations = new Investigations();
+                        Consent consent = new Consent();
+                        SurgeryDetails surgeryDetails = new SurgeryDetails();
+
+                        Chit chit = new Chit(idFBchit,patient,issues,admissionDetail,investigations,consent,"name",surgeryDetails,"table 1B",false);
+                        databaseReferenceChit.child(idFBchit).setValue(chit);
                         Toast.makeText(AddPatientActivity.this,
                                 "text is:" +Implants, Toast.LENGTH_LONG).show();
 
@@ -237,6 +293,16 @@ public class AddPatientActivity extends AppCompatActivity {
         etEstTime = (EditText)findViewById(R.id.etEstTime);
         etPosition = (EditText)findViewById(R.id.etPosition);
         etImplants = (EditText)findViewById(R.id.etImplants);
+        etPODiagnosis = (EditText)findViewById(R.id.editTextPODiagnosis) ;
+        etPName =(EditText)findViewById(R.id.etPName);
+        etPAge =(EditText)findViewById(R.id.etPAge);
+        etPDoB =(EditText)findViewById(R.id.etPDoB);
+        etPLocation =(EditText)findViewById(R.id.etPLocation);
+        etPNoKContact =(EditText)findViewById(R.id.etPNoKContact);
+        etPNRIC =(EditText)findViewById(R.id.etPNRIC);
+        etOccupation =(EditText)findViewById(R.id.etPOccupation);
+        etDName =(EditText)findViewById(R.id.etDName);
+        etSTable = (EditText)findViewById(R.id.etSTable);
 
         rgEMG = (RadioGroup)findViewById(R.id.rgEMG);
         rgThreat = (RadioGroup)findViewById(R.id.rgThreat);
@@ -246,6 +312,17 @@ public class AddPatientActivity extends AppCompatActivity {
         dImaging = (Spinner)findViewById(R.id.dImaging);
         dRepeat = (Spinner)findViewById(R.id.dRepeat);
         dot = (Spinner)findViewById(R.id.dot);
+        dPDAllergy = (Spinner)findViewById(R.id.dPDAllergy);
+        dPGender = (Spinner)findViewById(R.id.dPGender);
+        dPRace = (Spinner)findViewById(R.id.dPRace);
+
+        checkBoxGA = (CheckBox)findViewById(R.id.checkBoxGA);
+        checkBoxRA = (CheckBox)findViewById(R.id.checkBoxRA);
+        checkBoxLA = (CheckBox)findViewById(R.id.checkBoxLA);
+        checkBoxEN = (CheckBox)findViewById(R.id.checkBoxEN);
+        checkBoxCHN = (CheckBox)findViewById(R.id.checkBoxCHN);
+        checkBoxML = (CheckBox)findViewById(R.id.checkBoxML);
+        checkBoxTML = (CheckBox)findViewById(R.id.checkBoxTML);
 
         btnAdd = (Button)findViewById(R.id.buttonAdd);
     }
