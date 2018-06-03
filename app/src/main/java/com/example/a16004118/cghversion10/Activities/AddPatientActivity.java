@@ -2,6 +2,7 @@ package com.example.a16004118.cghversion10.Activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.a16004118.cghversion10.ObjectPackage.TimePickerFragment;
 import com.example.a16004118.cghversion10.R;
 
 import java.util.Calendar;

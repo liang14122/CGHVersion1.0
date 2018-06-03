@@ -28,8 +28,8 @@ public class TimePickerFragment extends DialogFragment
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         // Do something with the time chosen by the user
-        etAdmission=(EditText) getActivity().findViewById(R.id.etAdmission);
-        etAdmission.setText(hourOfDay + ":" + minute );
+        //etAdmission=(EditText) getActivity().findViewById(R.id.etAdmission);
+        //etAdmission.setText(hourOfDay + ":" + minute );
 
         /*
         final Calendar c = Calendar.getInstance();
