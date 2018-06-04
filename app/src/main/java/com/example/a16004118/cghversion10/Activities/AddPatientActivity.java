@@ -3,6 +3,7 @@ package com.example.a16004118.cghversion10.Activities;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -286,7 +287,11 @@ public class AddPatientActivity extends AppCompatActivity {
                         String currentTimeS = String.valueOf(currentTime);
                         Notification notification = new Notification(idFBN,"doctor Id",PName,"fin","setence",currentTimeS,false,false);
                         databaseReferenceNotification.child(idFBN).setValue(notification);
+                        Intent i = new Intent();
+                        // Set result to RESULT_OK to indicate normal
+                        setResult(RESULT_OK, i);
                         finish();
+
                     }
                 });
             }
