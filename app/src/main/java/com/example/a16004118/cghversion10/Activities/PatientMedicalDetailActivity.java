@@ -3,11 +3,13 @@ package com.example.a16004118.cghversion10.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.a16004118.cghversion10.Adapter.MedicalDetailExpandableListAdapter;
@@ -35,6 +37,9 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
     private List<String> listMDHeader;
     private HashMap<String, List<String>> listMDDetail;
     private DatabaseReference databaseReferenceChit;
+
+//    private TextView tvWaitingTime, tvLastMeal, tvBedLocation,tvWarningMsg;
+//    private CardView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +98,7 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
             case R.id.action_personal_detail:
                 // User chose the "Settings" item, show the app settings UI...
                 Intent i = new Intent(PatientMedicalDetailActivity.this, PatientPersonalDetailsActivity.class);
+                i.putExtra("idFB", getIntent().getStringExtra("idFB"));
                 startActivity(i);
                 return true;
             default:
