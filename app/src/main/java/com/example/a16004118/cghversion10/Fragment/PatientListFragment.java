@@ -1,8 +1,6 @@
 package com.example.a16004118.cghversion10.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,15 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.a16004118.cghversion10.Activities.MedicalDetailActivity;
+import com.example.a16004118.cghversion10.Activities.PatientMedicalDetailActivity;
 import com.example.a16004118.cghversion10.Adapter.PatientListAdapter;
 import com.example.a16004118.cghversion10.ObjectPackage.Chit;
-import com.example.a16004118.cghversion10.ObjectPackage.Notification;
 import com.example.a16004118.cghversion10.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,7 +42,6 @@ public class PatientListFragment extends Fragment {
         viewAll = view.findViewById(R.id.imageButton4);
         lvPatientList = view.findViewById(R.id.lvPatientList);
 
-
         currentArrayList = arrayListForAll;
         //setAdapterTry(currentArrayList);
         pla = new PatientListAdapter(view.getContext(), R.layout.patient_list_row, currentArrayList);
@@ -56,9 +50,9 @@ public class PatientListFragment extends Fragment {
         lvPatientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Chit currentChit = arrayListForAll.get(position);
-                Intent i = new Intent(getContext(), MedicalDetailActivity.class);
-                i.putExtra("currentChit", currentChit);
+                String idFB = arrayListForAll.get(position).getIdFB();
+                Intent i = new Intent(view.getContext(), PatientMedicalDetailActivity.class);
+                i.putExtra("idFB", idFB);
                 startActivity(i);
             }
         });

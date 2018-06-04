@@ -40,7 +40,6 @@ public class HomeActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
-        Button btn = findViewById(R.id.action_add_patient);
         //Better check user login status
         //may not be using intent
         Intent i = getIntent();
@@ -138,12 +137,12 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
-@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add_patient:
                 // User chose the "Settings" item, show the app settings UI...
-                Intent i = new Intent(HomeActivity.this,AddPatientActivity.class);
+                Intent i = new Intent(HomeActivity.this, AddPatientActivity.class);
                 startActivity(i);
                 return true;
 
@@ -154,6 +153,7 @@ public class HomeActivity extends AppCompatActivity
 
         }
     }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -163,22 +163,22 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_patient) {
             fragment = new PatientListFragment();
-            Log.i("HomeActivity","select Patient List button");
+            Log.i("HomeActivity", "select Patient List button");
         } else if (id == R.id.nav_roster) {
-            Log.i("HomeActivity","select nav_roster button");
+            Log.i("HomeActivity", "select nav_roster button");
 
         } else if (id == R.id.nav_notification) {
 
             fragment = new Activity_notification_list();
-            Log.i("HomeActivity","select notification button");
+            Log.i("HomeActivity", "select notification button");
         } else if (id == R.id.nav_profile) {
-            Log.i("HomeActivity","select nav_profile button");
+            Log.i("HomeActivity", "select nav_profile button");
 
         } else if (id == R.id.nav_about_us) {
-            Log.i("HomeActivity","select nav_aboutUs button");
+            Log.i("HomeActivity", "select nav_aboutUs button");
 
         }
-        if (fragment != null){
+        if (fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.drawer_fragment_container, fragment);
             fragmentTransaction.commit();

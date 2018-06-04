@@ -57,7 +57,7 @@
             android:resource="@color/colorAccent" />
 
         <activity
-            android:name=".Activities.MedicalDetailActivity"
+            android:name=".Activities.PatientMedicalDetailActivity"
             android:theme="@style/AppThemeWithActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
