@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:visibility="visible"
-    tools:context=".AddPatient">
+    tools:context=".Activities.AddPatientActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -272,6 +272,7 @@
                     android:ems="5"
                     android:hint="XXXXXXX"
                     android:inputType="textPersonName"
+                    android:focusableInTouchMode="false"
                     android:text="" />
 
             </LinearLayout>
@@ -584,6 +585,7 @@
                     android:ems="5"
                     android:hint="XXXXXXX"
                     android:inputType="textPersonName"
+                    android:focusableInTouchMode="false"
                     android:text="" />
 
             </LinearLayout>
@@ -610,6 +612,7 @@
                     android:hint="XXXXXXX"
                     android:inputType="textPersonName"
                     android:onClick="showTimePickerDialog"
+                    android:focusableInTouchMode="false"
                     android:text="" />
 
             </LinearLayout>
@@ -635,6 +638,7 @@
                     android:ems="5"
                     android:hint="XXXXXXX"
                     android:inputType="textPersonName"
+                    android:focusableInTouchMode="false"
                     android:text="" />
 
             </LinearLayout>
@@ -650,6 +654,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:text="Time  of last clear fluid:"
+                    android:focusableInTouchMode="false"
                     android:textStyle="bold" />
 
                 <EditText
@@ -660,6 +665,7 @@
                     android:ems="5"
                     android:hint="XXXXXXX"
                     android:inputType="textPersonName"
+                    android:focusableInTouchMode="false"
                     android:text="" />
 
             </LinearLayout>
