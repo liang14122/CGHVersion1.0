@@ -36,7 +36,7 @@ public class PatientListAdapter extends ArrayAdapter {
         chitList = objects;
     }
 
-    @SuppressLint({"WrongViewCast", "ResourceAsColor"})
+    @SuppressLint({"WrongViewCast", "ResourceAsColor", "SetTextI18n"})
     @NonNull
     @Override
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {

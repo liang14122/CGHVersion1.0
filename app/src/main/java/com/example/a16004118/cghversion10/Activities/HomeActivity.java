@@ -1,13 +1,14 @@
 package com.example.a16004118.cghversion10.Activities;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import com.example.a16004118.cghversion10.Fragment.Activity_notification_list;
 import com.example.a16004118.cghversion10.Fragment.PatientListFragment;
@@ -28,12 +28,13 @@ import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.FirebaseFunctionsException;
 import com.google.firebase.functions.HttpsCallableResult;
 
+import java.util.Objects;
+
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "HomeActivity";
 
-    private ActionBarDrawerToggle actionBarDrawerToggle;
     private FirebaseFunctions mFunctions;
 
     @Override
@@ -63,23 +64,22 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
+
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         mFunctions = FirebaseFunctions.getInstance();
 
         //initiate navigation drawer header
         NavigationView navigationView = findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
-        //Initiate UI element for navigation drawer header here
-//        tvUserName = headerView.findViewById(R.id.textViewUsername);
-//        ivProfile = headerView.findViewById(R.id.imageViewProfilePic);
 
         Fragment fragment = new PatientListFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -95,16 +95,16 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //get Doctor info Demo
-        getDoctorInfo("-LDCBIk78ZRzk7JDA7qO")
+        getDoctorInfo("")
                 .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
                         if (!task.isSuccessful()) {
                             Exception e = task.getException();
                             if (e instanceof FirebaseFunctionsException) {
-                                FirebaseFunctionsException ffe = (FirebaseFunctionsException) e;
-                                FirebaseFunctionsException.Code code = ffe.getCode();
-                                Object details = ffe.getDetails();
+//                                FirebaseFunctionsException ffe = (FirebaseFunctionsException) e;
+//                                FirebaseFunctionsException.Code code = ffe.getCode();
+//                                Object details = ffe.getDetails();
                             }
 
                             // [START_EXCLUDE]
@@ -156,7 +156,7 @@ public class HomeActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment = null;
@@ -188,16 +188,15 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
-    private Task<String> getDoctorInfo(String doctorID) {
+    private Task<String> getDoctorInfo(String doctor) {
         // Create the arguments to the callable function, which is just one string
-
 
         return mFunctions
                 .getHttpsCallable("getDoctorInfo")
-                .call(doctorID)
+                .call(doctor)
                 .continueWith(new Continuation<HttpsCallableResult, String>() {
                     @Override
-                    public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                    public String then(@NonNull Task<HttpsCallableResult> task) {
                         // This continuation runs on either success or failure, but if the task
                         // has failed then getResult() will throw an Exception which will be
                         // propagated down.

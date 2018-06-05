@@ -1,7 +1,10 @@
 package com.example.a16004118.cghversion10.Fragment;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class PatientListFragment extends Fragment {
     ImageButton emergency,nonEmergency,viewAll;
@@ -31,11 +35,14 @@ public class PatientListFragment extends Fragment {
     ListView lvPatientList;
     PatientListAdapter pla;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_patient_list, container, false);
+
+        Objects.requireNonNull(getActivity()).setTitle("Patient List");
 
         emergency = view.findViewById(R.id.imageButton2);
         nonEmergency = view.findViewById(R.id.imageButton3);
@@ -94,7 +101,8 @@ public class PatientListFragment extends Fragment {
                             Log.i("Menu page", "Finding...");
 
                             Chit current = child.getValue(Chit.class);
-                            if(current.getLifeThreatening()==true)
+                            assert current != null;
+                            if(current.getLifeThreatening())
                             currentArrayList.add(current);
                         }
                         pla.notifyDataSetChanged();
@@ -121,7 +129,8 @@ public class PatientListFragment extends Fragment {
                             Log.i("Menu page", "Finding...");
 
                             Chit current = child.getValue(Chit.class);
-                            if(current.getLifeThreatening()==false)
+                            assert current != null;
+                            if(current.getLifeThreatening())
                                 currentArrayList.add(current);
                         }
                         pla.notifyDataSetChanged();

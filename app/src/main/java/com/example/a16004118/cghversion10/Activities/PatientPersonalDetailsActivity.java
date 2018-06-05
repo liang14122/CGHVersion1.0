@@ -1,18 +1,18 @@
 package com.example.a16004118.cghversion10.Activities;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.a16004118.cghversion10.ObjectPackage.AdmissionDetail;
 import com.example.a16004118.cghversion10.ObjectPackage.Chit;
-import com.example.a16004118.cghversion10.ObjectPackage.Consent;
-import com.example.a16004118.cghversion10.ObjectPackage.Investigations;
-import com.example.a16004118.cghversion10.ObjectPackage.Issues;
 import com.example.a16004118.cghversion10.ObjectPackage.Patient;
-import com.example.a16004118.cghversion10.ObjectPackage.SurgeryDetails;
 import com.example.a16004118.cghversion10.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,13 +20,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class PatientPersonalDetailsActivity extends AppCompatActivity {
 
     TextView tvName, tvId, tvAge, tvJob, tvOccupation, tvLanguage;
-    private DatabaseReference databaseReferenceChit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,23 +38,25 @@ public class PatientPersonalDetailsActivity extends AppCompatActivity {
         tvOccupation = findViewById(R.id.tvOccupation);
         tvLanguage = findViewById(R.id.tvLanguage);
 
-        String idFB = getIntent().getStringExtra("idFb");
+        String idFB = getIntent().getStringExtra("idFB");
+        Toast.makeText(getApplicationContext(), idFB, Toast.LENGTH_LONG).show();
 
-        databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion01").child("chit/" + idFB);
+        DatabaseReference databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion01").child("chit/" + idFB);
 
         databaseReferenceChit.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //check for each one
 
                 Chit currentChit = dataSnapshot.getValue(Chit.class);
 
-                if (currentChit == null){
-                    Toast.makeText(getApplicationContext(), "chit null", Toast.LENGTH_LONG).show();
-                }else {
+                if (currentChit != null) {
 
                     Patient currentPatient = currentChit.getPatient();
 
+                    Objects.requireNonNull(getSupportActionBar()).setTitle( currentPatient.getName());
                     tvName.setText("Name: " + currentPatient.getName());
                     tvId.setText("NRIC: " + currentPatient.getNric());
                     tvAge.setText("Age: " + currentPatient.getAge());
@@ -67,12 +67,21 @@ public class PatientPersonalDetailsActivity extends AppCompatActivity {
                 }
             }
 
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("LogFragment", "loadLog:onCancelled", databaseError.toException());
             }
         });
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
