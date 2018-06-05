@@ -143,7 +143,7 @@ public class HomeActivity extends AppCompatActivity
             case R.id.action_add_patient:
                 // User chose the "Settings" item, show the app settings UI...
                 Intent i = new Intent(HomeActivity.this, AddPatientActivity.class);
-                startActivity(i);
+                startActivityForResult(i,123);
                 return true;
 
             default:
@@ -206,4 +206,13 @@ public class HomeActivity extends AppCompatActivity
                     }
                 });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.i("Home Activity","Add patient successfully");
+
+    }
+
 }

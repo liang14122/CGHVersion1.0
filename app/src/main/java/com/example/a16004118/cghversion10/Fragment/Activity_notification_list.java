@@ -81,7 +81,6 @@ public class Activity_notification_list extends Fragment {
                 current.setRead(true);
                 databaseReferenceNotification.child(idFB).setValue(current);
 
-
             }
         });
 
