@@ -94,7 +94,6 @@ public class PatientListAdapter extends ArrayAdapter {
         return rowView;
 
     }
-
-
+    //test branch
 
 }
