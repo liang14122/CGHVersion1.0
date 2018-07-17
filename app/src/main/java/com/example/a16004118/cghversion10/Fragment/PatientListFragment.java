@@ -1,21 +1,23 @@
 package com.example.a16004118.cghversion10.Fragment;
 
-import android.content.Intent;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
-import com.example.a16004118.cghversion10.Activities.PatientMedicalDetailActivity;
-import com.example.a16004118.cghversion10.Adapter.PatientListAdapter;
+import com.example.a16004118.cghversion10.Adapter.PatientRecyclerViewAdapter;
+import com.example.a16004118.cghversion10.Adapter.PatientTouchHelperCallback;
 import com.example.a16004118.cghversion10.ObjectPackage.Chit;
 import com.example.a16004118.cghversion10.R;
 import com.google.firebase.database.DataSnapshot;
@@ -29,11 +31,10 @@ import java.util.Objects;
 
 public class PatientListFragment extends Fragment {
     ImageButton emergency,nonEmergency,viewAll;
-    ArrayList<Chit> arrayListForAll = new ArrayList<>();
-    ArrayList<Chit> currentArrayList = new ArrayList<>();
+    ArrayList<Chit> alPatient = new ArrayList<>();
     DatabaseReference databaseReferenceChit;
-    ListView lvPatientList;
-    PatientListAdapter pla;
+    RecyclerView rvPatientList;
+    PatientRecyclerViewAdapter pla;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -47,22 +48,30 @@ public class PatientListFragment extends Fragment {
         emergency = view.findViewById(R.id.imageButton2);
         nonEmergency = view.findViewById(R.id.imageButton3);
         viewAll = view.findViewById(R.id.imageButton4);
-        lvPatientList = view.findViewById(R.id.lvPatientList);
+        rvPatientList = view.findViewById(R.id.rvPatientList);
 
-        currentArrayList = arrayListForAll;
+//        currentArrayList = arrayListForAll;
         //setAdapterTry(currentArrayList);
-        pla = new PatientListAdapter(view.getContext(), R.layout.patient_list_row, currentArrayList);
-        lvPatientList.setAdapter(pla);
+        pla = new PatientRecyclerViewAdapter(alPatient);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+        rvPatientList.setLayoutManager(layoutManager);
+        rvPatientList.setItemAnimator(new DefaultItemAnimator());
+        rvPatientList.setAdapter(pla);
 
-        lvPatientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String idFB = arrayListForAll.get(position).getIdFB();
-                Intent i = new Intent(view.getContext(), PatientMedicalDetailActivity.class);
-                i.putExtra("idFB", idFB);
-                startActivity(i);
-            }
-        });
+        ItemTouchHelper.Callback callback = new PatientTouchHelperCallback(pla);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(rvPatientList);
+        rvPatientList.setAdapter(pla);
+
+//        lvPatientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                String idFB = arrayListForAll.get(position).getIdFB();
+//                Intent i = new Intent(view.getContext(), PatientMedicalDetailActivity.class);
+//                i.putExtra("idFB", idFB);
+//                startActivity(i);
+//            }
+//        });
 
         databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion01").child("chit");
 
@@ -70,12 +79,12 @@ public class PatientListFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //check for each one
-                //arrayListForAll.clear();
+                alPatient.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Log.i("Menu page", "Finding...");
 
                     Chit current = child.getValue(Chit.class);
-                    arrayListForAll.add(current);
+                    alPatient.add(current);
 
                 }
                 pla.notifyDataSetChanged();
@@ -92,7 +101,7 @@ public class PatientListFragment extends Fragment {
             public void onClick(View v) {
 //                currentArrayList = getCurrentArrayList(false, true);
                 //setAdapterTry(currentArrayList);
-                arrayListForAll.clear();
+                alPatient.clear();
 
                 databaseReferenceChit.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -103,7 +112,7 @@ public class PatientListFragment extends Fragment {
                             Chit current = child.getValue(Chit.class);
                             assert current != null;
                             if(current.getLifeThreatening())
-                            currentArrayList.add(current);
+                            alPatient.add(current);
                         }
                         pla.notifyDataSetChanged();
 
@@ -120,7 +129,7 @@ public class PatientListFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                arrayListForAll.clear();
+                alPatient.clear();
 
                 databaseReferenceChit.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -130,8 +139,8 @@ public class PatientListFragment extends Fragment {
 
                             Chit current = child.getValue(Chit.class);
                             assert current != null;
-                            if(current.getLifeThreatening())
-                                currentArrayList.add(current);
+                            if(!current.getLifeThreatening())
+                                alPatient.add(current);
                         }
                         pla.notifyDataSetChanged();
 
@@ -147,7 +156,7 @@ public class PatientListFragment extends Fragment {
         viewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arrayListForAll.clear();
+                alPatient.clear();
 
                 databaseReferenceChit.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -156,7 +165,7 @@ public class PatientListFragment extends Fragment {
                             Log.i("Menu page", "Finding...");
 
                             Chit current = child.getValue(Chit.class);
-                            currentArrayList.add(current);
+                            alPatient.add(current);
                         }
                         pla.notifyDataSetChanged();
 

@@ -47,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  <!--      <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
@@ -70,7 +70,16 @@
                 android:divider="@null"
                 android:scrollbars="none" />
 
-        </LinearLayout>
+        </LinearLayout>-->
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rvPatientList"
+            android:scrollbars="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton4"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
     </android.support.constraint.ConstraintLayout>
 
