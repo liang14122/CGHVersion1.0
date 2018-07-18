@@ -23,8 +23,8 @@
 
     <!--&lt;!&ndash; ActionBar styles &ndash;&gt;-->
     <!--<style name="MyActionBar"-->
-        <!--parent="@android:style/Theme.Holo.Light.DarkActionBar">-->
-        <!--<item name="android:background">#6a9ef2</item>-->
+    <!--parent="@android:style/Theme.Holo.Light.DarkActionBar">-->
+    <!--<item name="android:background">#6a9ef2</item>-->
     <!--</style>-->
 
     <style name="AppTheme.NoActionBar">

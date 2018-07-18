@@ -1,63 +1,29 @@
 package com.example.a16004118.cghversion10.ObjectPackage;
 
 public class Doctor {
-    private String name, fin, dateOfBirth,doctorLicense, contact, rank, description, address;
-    private Boolean working, dayOff;
+    private String idFB,surgeronId, rank, name, pager;
 
-    public Doctor() {
-    }
-
-    public Doctor(String name, String fin, String dateOfBirth, String doctorLicense, String contact, String rank, String description, String address, Boolean working, Boolean dayOff) {
-        this.name = name;
-        this.fin = fin;
-        this.dateOfBirth = dateOfBirth;
-        this.doctorLicense = doctorLicense;
-        this.contact = contact;
+    public Doctor(String idFB, String surgeronId, String rank, String name, String pager) {
+        this.idFB = idFB;
+        this.surgeronId = surgeronId;
         this.rank = rank;
-        this.description = description;
-        this.address = address;
-        this.working = working;
-        this.dayOff = dayOff;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
+        this.pager = pager;
+    }
+    public Doctor(){
+
     }
 
-    public String getFin() {
-        return fin;
+    public String getIdFB() {
+        return idFB;
     }
 
-    public void setFin(String fin) {
-        this.fin = fin;
+    public String getSurgeronId() {
+        return surgeronId;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getDoctorLicense() {
-        return doctorLicense;
-    }
-
-    public void setDoctorLicense(String doctorLicense) {
-        this.doctorLicense = doctorLicense;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setSurgeronId(String surgeronId) {
+        this.surgeronId = surgeronId;
     }
 
     public String getRank() {
@@ -68,19 +34,19 @@ public class Doctor {
         this.rank = rank;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public String getPager() {
+        return pager;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPager(String pager) {
+        this.pager = pager;
     }
 }

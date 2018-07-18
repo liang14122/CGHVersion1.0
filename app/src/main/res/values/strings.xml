@@ -47,6 +47,46 @@
         <item>Malay</item>
         <item>Other</item>
     </string-array>
+    <string name="title_activity_add_patient">AddPatient</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
+    <string-array name="spContact">
+        <item>None</item>
+        <item>MRSA</item>
+        <item>VRE</item>
+        <item>Multi drug resistant organisms</item>
+    </string-array>
+    <string-array name="spBlood">
+        <item>None</item>
+        <item>Hep B and C</item>
+        <item>HIV</item>
+    </string-array>
+    <string-array name="spAirBorne">
+        <item>None</item>
+        <item>PTB</item>
+    </string-array>
+    <string-array name="spOther">
+        <item>None</item>
+        <item>SARS</item>
+        <item>Mers-Cov</item>
+        <item>Bird Flu</item>
+    </string-array>
+    <string-array name="spLocation">
+        <item>None</item>
+        <item>MOT</item>
+        <item>MOT(1)</item>
+        <item>MOT(2)</item>
+        <item>MOT(3)</item>
+    </string-array>
+    <string-array name="spOT">
+        <item>None</item>
+        <item>OT</item>
+        <item>OT(1)</item>
+        <item>OT(2)</item>
+        <item>OT(3)</item>
+    </string-array>
 
 </resources>
