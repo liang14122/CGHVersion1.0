@@ -142,7 +142,7 @@ public class HomeActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.action_add_patient:
                 // User chose the "Settings" item, show the app settings UI...
-                Intent i = new Intent(HomeActivity.this, AddPatientActivity.class);
+                Intent i = new Intent(HomeActivity.this, AddPatient.class);
                 startActivityForResult(i,123);
                 return true;
 
