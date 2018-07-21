@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.a16004118.cghversion10.ObjectPackage.PatientAndMedicalDetail;
 import com.example.a16004118.cghversion10.R;
 
 import java.util.ArrayList;
@@ -20,11 +21,11 @@ public class PatientListAdapter extends ArrayAdapter {
 
     private Context parent_context;
     private int layout_id;
-    private ArrayList<Chit> chitList;
+    private ArrayList<PatientAndMedicalDetail> chitList;
 
     public PatientListAdapter(Context context,
                       int resource,
-                      ArrayList<Chit> objects) {
+                      ArrayList<PatientAndMedicalDetail> objects) {
         super(context, resource, objects);
         parent_context = context;
         layout_id = resource;
@@ -47,10 +48,8 @@ public class PatientListAdapter extends ArrayAdapter {
             rowView = convertView;
         }
 
-        Chit currentChit = chitList.get(position);
+        PatientAndMedicalDetail currentChit = chitList.get(position);
 
-        Patient currentPatient = currentChit.getPatient();
-        AdmissionDetail currentAdmissionDetail = currentChit.getAdmissionDetail();
 
 
         TextView tvPatientNameCard = rowView.findViewById(R.id.tvPatientNameCard);
@@ -61,21 +60,21 @@ public class PatientListAdapter extends ArrayAdapter {
 
         ImageView ivGender = rowView.findViewById(R.id.ivGender);
 
-        tvPatientNameCard.setText(currentPatient.getName());
-        tvWaitingTimeCard.setText(currentAdmissionDetail.getTimeOfAdmission()+" Mins");
-        tvLastMealCard.setText(currentAdmissionDetail.getLastMeal());
+        tvPatientNameCard.setText(currentChit.getName());
+        tvWaitingTimeCard.setText(currentChit.getChitSubmission()+" Mins");
+        tvLastMealCard.setText(currentChit.getLastMeal());
 
-        String currentPatientGender = currentPatient.getGender();
+        String currentPatientGender = currentChit.getGender();
         if (currentPatientGender.equalsIgnoreCase("male")){
             ivGender.setImageResource(R.drawable.male);
-            tvGenderAgeCard.setText("Male " + currentPatient.getAge());
-        }else if (currentPatient.getGender().equalsIgnoreCase("female")){
+            tvGenderAgeCard.setText("Male " + currentChit.getAge());
+        }else if (currentChit.getGender().equalsIgnoreCase("female")){
             ivGender.setImageResource(R.drawable.female);
-            tvGenderAgeCard.setText("Female " + currentPatient.getAge());
+            tvGenderAgeCard.setText("Female " + currentChit.getAge());
         }
-        Log.d("TAG", "getView: " + currentChit.getLifeThreatening());
+        Log.d("TAG", "getView: " + currentChit.getLifeThreating());
 //        Toast.makeText(parent_context, currentChit.getLifeThreatening()+"", Toast.LENGTH_LONG).show();
-        if (currentChit.getLifeThreatening()){
+        if (currentChit.getLifeThreating()){
             cvPatientList.setBackgroundResource(R.color.EmergencyPatientList);
         }else{
 //            if (currentChit.getReady()){

@@ -54,7 +54,7 @@ public class AddPatient extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_patient);
-        databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion01").child("chit");
+        databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion20").child("chit");
 
 
 

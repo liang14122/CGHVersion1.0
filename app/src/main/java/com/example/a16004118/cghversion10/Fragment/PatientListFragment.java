@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 
 import com.example.a16004118.cghversion10.Adapter.PatientRecyclerViewAdapter;
 import com.example.a16004118.cghversion10.Adapter.PatientTouchHelperCallback;
+import com.example.a16004118.cghversion10.ObjectPackage.PatientAndMedicalDetail;
 import com.example.a16004118.cghversion10.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,7 +31,7 @@ import java.util.Objects;
 
 public class PatientListFragment extends Fragment {
     ImageButton emergency,nonEmergency,viewAll;
-    ArrayList<Chit> alPatient = new ArrayList<>();
+    ArrayList<PatientAndMedicalDetail> alPatient = new ArrayList<>();
     DatabaseReference databaseReferenceChit;
     RecyclerView rvPatientList;
     PatientRecyclerViewAdapter pla;
@@ -82,7 +83,7 @@ public class PatientListFragment extends Fragment {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Log.i("Menu page", "Finding...");
 
-                    Chit current = child.getValue(Chit.class);
+                    PatientAndMedicalDetail current = child.getValue(PatientAndMedicalDetail.class);
                     alPatient.add(current);
 
                 }
@@ -108,9 +109,9 @@ public class PatientListFragment extends Fragment {
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                             Log.i("Menu page", "Finding...");
 
-                            Chit current = child.getValue(Chit.class);
+                            PatientAndMedicalDetail current = child.getValue(PatientAndMedicalDetail.class);
                             assert current != null;
-                            if(current.getLifeThreatening())
+                            if(current.getLifeThreating())
                             alPatient.add(current);
                         }
                         pla.notifyDataSetChanged();
@@ -136,9 +137,9 @@ public class PatientListFragment extends Fragment {
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                             Log.i("Menu page", "Finding...");
 
-                            Chit current = child.getValue(Chit.class);
+                            PatientAndMedicalDetail current = child.getValue(PatientAndMedicalDetail.class);
                             assert current != null;
-                            if(!current.getLifeThreatening())
+                            if(!current.getLifeThreating())
                                 alPatient.add(current);
                         }
                         pla.notifyDataSetChanged();
@@ -163,7 +164,7 @@ public class PatientListFragment extends Fragment {
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                             Log.i("Menu page", "Finding...");
 
-                            Chit current = child.getValue(Chit.class);
+                            PatientAndMedicalDetail current = child.getValue(PatientAndMedicalDetail.class);
                             alPatient.add(current);
                         }
                         pla.notifyDataSetChanged();

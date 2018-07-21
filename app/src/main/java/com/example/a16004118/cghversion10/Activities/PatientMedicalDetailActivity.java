@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.a16004118.cghversion10.Adapter.MedicalDetailExpandableListAdapter;
+import com.example.a16004118.cghversion10.ObjectPackage.PatientAndMedicalDetail;
 import com.example.a16004118.cghversion10.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -125,11 +126,8 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
         listMDHeader = new ArrayList<>();
         listMDDetail = new HashMap<>();
 
-        listMDHeader.add("Issues");
-        listMDHeader.add("Admission Details");
-        listMDHeader.add("Investigations");
-        listMDHeader.add("Consent");
-        listMDHeader.add("Surgery Details");
+        listMDHeader.add("Medical Details");
+        listMDHeader.add("Assign Details");
 
         DatabaseReference databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion01").child("chit/" + idFB);
 
@@ -140,76 +138,41 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //check for each one
 
-                Chit currentChit = dataSnapshot.getValue(Chit.class);
+                PatientAndMedicalDetail currentChit = dataSnapshot.getValue(PatientAndMedicalDetail.class);
 
                 if (currentChit == null) {
                     Toast.makeText(getApplicationContext(), "chit null", Toast.LENGTH_LONG).show();
                 } else {
 
-                    Objects.requireNonNull(getSupportActionBar()).setTitle(currentChit.getPatient().getName());
+                    Objects.requireNonNull(getSupportActionBar()).setTitle(currentChit.getName());
 
-                    if (currentChit.getLifeThreatening()) {
-                        tvWarningMsg.setText(currentChit.getIssues().getPreOpDiagnosis());
+                    if (currentChit.getLifeThreating()) {
+                        tvWarningMsg.setText(currentChit.getPreOpDiagnosis());
                     } else {
                         glEmergency.setVisibility(GridLayout.GONE);
                     }
 
-                    List<String> issues = new ArrayList<>();
-                    Issues currentIssues = currentChit.getIssues();
-                    issues.add("Pre-op Diagnosis: " + currentIssues.getPreOpDiagnosis());
-                    issues.add("Remarks: " + currentIssues.getRemarks());
-                    issues.add("Infection Control Concerns (Yes/No): " + currentIssues.getInfectionControlConcerns());
+                    List<String> medical = new ArrayList<>();
+                    medical.add("Last Meal Taken: " + currentChit.getLastMeal());
+                    medical.add("Last Clear Fluid: " + currentChit.getLastClearFluid());
+                    medical.add("Type of Anaesthesia/Sedation: " + currentChit.getTypeOfAnaesthesiaSedation());
+                    medical.add("Pre-Op Diagnosis: " + currentChit.getPreOpDiagnosis());
+                    medical.add("Contact Precautions: " + currentChit.getContactPrecautionsString());
+                    medical.add("Blood borne infections: " + currentChit.getBloodBorneInfectionString());
+                    medical.add("AirBorne precautions: " + currentChit.getAirbornePrecautionsString());
+                    medical.add("Location: " + currentChit.getLocation());
+                    medical.add("OT: " + currentChit.getOt());
 
-                    List<String> admissionDetails = new ArrayList<>();
-                    AdmissionDetail currentAdmissionDetail = currentChit.getAdmissionDetail();
-                    admissionDetails.add("Date of admission: " + currentAdmissionDetail.getDateOfAdmission());
-                    admissionDetails.add("Time of admission: " + currentAdmissionDetail.getTimeOfAdmission());
-                    admissionDetails.add("Time of admission: " + currentAdmissionDetail.getTimeOfAdmission());
-                    admissionDetails.add("Time of last meal: " + currentAdmissionDetail.getLastMeal());
-                    admissionDetails.add("Time of last clear fluid: " + currentAdmissionDetail.getLastFluid());
+                    List<String> assign = new ArrayList<>();
+                    assign.add("Assign Doctor: " + currentChit.getAssignDoctorId());
+                    assign.add("Assign Table: " + currentChit.getTable());
 
-                    tvWaitingTime.setText(currentAdmissionDetail.getTimeOfAdmission() + "Mins");
-                    tvLastMeal.setText(currentAdmissionDetail.getLastMeal());
-                    tvBedLocation.setText("R1-B2");
+                    tvWaitingTime.setText(currentChit.getChitSubmission());
+                    tvLastMeal.setText(currentChit.getLastMeal());
+                    tvBedLocation.setText(currentChit.getBed());
 
-                    List<String> investigations = new ArrayList<>();
-                    Investigations currentInvestigations = currentChit.getInvestigations();
-                    investigations.add("Full blood count: " + currentInvestigations.getFullBloodCount());
-                    investigations.add("Renal panel: " + currentInvestigations.getPenalPanel());
-                    investigations.add("GXM: " + currentInvestigations.getGxm());
-                    investigations.add("PT/PTT: " + currentInvestigations.getPtOrPtt());
-                    investigations.add("CXR: " + currentInvestigations.getCxr());
-                    investigations.add("ECG: " + currentInvestigations.getEcg());
-
-                    List<String> consent = new ArrayList<>();
-                    Consent currentConsent = currentChit.getConsent();
-                    consent.add("Surgical consent: " + currentConsent.getSurgicalConsent());
-                    consent.add("Anaesthesia consent: " + currentConsent.getAnaesthesiaConsent());
-                    consent.add("Others (if applicable): " + currentConsent.getOthers());
-
-                    List<String> surgeryDetails = new ArrayList<>();
-                    SurgeryDetails currentSurgeryDetails = currentChit.getSurgeryDetails();
-//                    surgeryDetails.add("surgeryDetails);
-                    surgeryDetails.add("Orthopaedic consultant-in-charge: " + currentSurgeryDetails.getOrthopaedicConsultantInCharge());
-                    surgeryDetails.add("Time windows during which consultant-in-charge is ready (if applicable): " + currentSurgeryDetails.getTimeWindow());
-                    surgeryDetails.add("Registrar-in-charge (usually registrar-on-call): " + currentSurgeryDetails.getRegistrarInCharge());
-                    surgeryDetails.add("Time window during which registrar-in-charge is ready: " + currentSurgeryDetails.getTimeWindow());
-                    surgeryDetails.add("Other registrars available (to be linked with department roster): " + currentSurgeryDetails.getOtherRegistrars());
-                    surgeryDetails.add("Other team doctors: " + currentSurgeryDetails.getOtherTeamDoctors());
-                    surgeryDetails.add("Lowest level of surgeon allowed to do case (consultant/registar/MO): " + currentSurgeryDetails.getLowestLevelOfSurgronAllowedToDoCase());
-                    surgeryDetails.add("Nature of surgery: " + currentSurgeryDetails.getNatureOfSurgery());
-                    surgeryDetails.add("Estimated duration: " + currentSurgeryDetails.getEstimatedDuration());
-                    surgeryDetails.add("Positioning: " + currentSurgeryDetails.getPositioning());
-                    surgeryDetails.add("Implants: " + currentSurgeryDetails.getImplantsm());
-                    surgeryDetails.add("Imaging required?" + currentSurgeryDetails.getImagingRequired());
-                    surgeryDetails.add("Repeat surgery?: " + currentSurgeryDetails.getRepeatSurgery());
-                    surgeryDetails.add("Operating theatre (which OT patient is to be listed in – drop-down menu): " + currentSurgeryDetails.getOperatingTheatre());
-
-                    listMDDetail.put(listMDHeader.get(0), issues); // Header, Child data
-                    listMDDetail.put(listMDHeader.get(1), admissionDetails);
-                    listMDDetail.put(listMDHeader.get(2), investigations);
-                    listMDDetail.put(listMDHeader.get(3), consent);
-                    listMDDetail.put(listMDHeader.get(4), surgeryDetails);
+                    listMDDetail.put(listMDHeader.get(0), medical); // Header, Child data
+                    listMDDetail.put(listMDHeader.get(1), assign);
                 }
             }
 

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.a16004118.cghversion10.ObjectPackage.PatientAndMedicalDetail;
 import com.example.a16004118.cghversion10.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,9 +33,6 @@ public class PatientPersonalDetailsActivity extends AppCompatActivity {
         tvId = findViewById(R.id.tvId);
         tvAge = findViewById(R.id.tvAge);
         tvJob = findViewById(R.id.tvJob);
-        tvOccupation = findViewById(R.id.tvOccupation);
-        tvLanguage = findViewById(R.id.tvLanguage);
-
         String idFB = getIntent().getStringExtra("idFB");
         Toast.makeText(getApplicationContext(), idFB, Toast.LENGTH_LONG).show();
 
@@ -47,19 +45,16 @@ public class PatientPersonalDetailsActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //check for each one
 
-                Chit currentChit = dataSnapshot.getValue(Chit.class);
+                PatientAndMedicalDetail currentChit = dataSnapshot.getValue(PatientAndMedicalDetail.class);
 
                 if (currentChit != null) {
 
-                    Patient currentPatient = currentChit.getPatient();
 
-                    Objects.requireNonNull(getSupportActionBar()).setTitle( currentPatient.getName());
-                    tvName.setText("Name: " + currentPatient.getName());
-                    tvId.setText("NRIC: " + currentPatient.getNric());
-                    tvAge.setText("Age: " + currentPatient.getAge());
-                    tvJob.setText("Office/School: " + currentPatient.getLocation());
-                    tvOccupation.setText("Occupation: " + currentPatient.getOccupation());
-                    tvLanguage.setText("Language: " + currentPatient.getLanguageSpoken());
+                    Objects.requireNonNull(getSupportActionBar()).setTitle( currentChit.getName());
+                    tvName.setText("Name: " + currentChit.getName());
+                    tvId.setText("MRIN: " + currentChit.getMrin());
+                    tvAge.setText("Age: " + currentChit.getAge());
+                    tvJob.setText("Office/School: " + currentChit.getLocation());
 
                 }
             }
