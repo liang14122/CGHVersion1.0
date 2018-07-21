@@ -1,28 +1,32 @@
 package com.example.a16004118.cghversion10.ObjectPackage;
 
-public class PatientAndMedicalDetail {
-    //patient part
-    String mrin, acountNo, name, age, gender;
-    //medical part
-    String lastMeal, lastClearFluid;
-    Boolean lifeThreating;
-    String typeOfAnaesthesiaSedation, preOpDiagnosis;
+import java.io.Serializable;
 
-    String contactPrecautionsString, bloodBorneInfectionString, airbornePrecautionsString, otherHighRiskInfectionsString;
-    String assignDoctorId,location, ot, chitSubmission;
-    String dept, ward, room, bed, table;
+public class PatientAndMedicalDetail implements Serializable{
+    //patient part
+    private String mrin, acountNo, name, age, gender;
+    //medical part
+    private String lastMeal, lastClearFluid;
+    private Boolean lifeThreating;
+    private String typeOfAnaesthesiaSedation, preOpDiagnosis;
+
+    private String contactPrecautionsString, bloodBorneInfectionString, airbornePrecautionsString, otherHighRiskInfectionsString;
+    private String assignDoctorId, location, ot, chitSubmission;
+    private String dept, ward, room, bed, table;
     //chitSubmission is the data for calculation;
 
+    public PatientAndMedicalDetail() {
+    }
 
-    public PatientAndMedicalDetail(String mrin, String acountNo, String name, String age, String gender, String lastMeal, String lastClearFluid, Boolean lifeThreating, String typeOfAnaesthesiaSedation, String preOpDiagnosis, String contactPrecautionsString, String bloodBorneInfectionString, String airbornePrecautionsString, String otherHighRiskInfectionsString, String assignDoctorId, String location, String ot, String chitSubmission, String dept, String ward, String room, String bed, String table) {
+    public PatientAndMedicalDetail(String mrin, String accountNo, String name, String age, String gender, String lastMeal, String lastClearFluid, Boolean lifeThreatening, String typeOfAnaesthesiaSedation, String preOpDiagnosis, String contactPrecautionsString, String bloodBorneInfectionString, String airbornePrecautionsString, String otherHighRiskInfectionsString, String assignDoctorId, String location, String ot, String chitSubmission, String dept, String ward, String room, String bed, String table) {
         this.mrin = mrin;
-        this.acountNo = acountNo;
+        this.acountNo = accountNo;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.lastMeal = lastMeal;
         this.lastClearFluid = lastClearFluid;
-        this.lifeThreating = lifeThreating;
+        this.lifeThreating = lifeThreatening;
         this.typeOfAnaesthesiaSedation = typeOfAnaesthesiaSedation;
         this.preOpDiagnosis = preOpDiagnosis;
         this.contactPrecautionsString = contactPrecautionsString;
@@ -48,12 +52,12 @@ public class PatientAndMedicalDetail {
         this.mrin = mrin;
     }
 
-    public String getAcountNo() {
+    public String getAccountNo() {
         return acountNo;
     }
 
-    public void setAcountNo(String acountNo) {
-        this.acountNo = acountNo;
+    public void setAccountNo(String accountNo) {
+        this.acountNo = accountNo;
     }
 
     public String getName() {
@@ -182,8 +186,8 @@ public class PatientAndMedicalDetail {
         return lifeThreating;
     }
 
-    public void setLifeThreating(Boolean lifeThreating) {
-        this.lifeThreating = lifeThreating;
+    public void setLifeThreating(Boolean lifeThreatening) {
+        this.lifeThreating = lifeThreatening;
     }
 
     public String getDept() {

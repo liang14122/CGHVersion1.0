@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +36,8 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
 
     private List<String> listMDHeader;
     private HashMap<String, List<String>> listMDDetail;
-    private String idFB;
+    private PatientAndMedicalDetail patientDetail;
+    private String patientDetailString;
     private TextView tvWaitingTime, tvLastMeal, tvBedLocation, tvWarningMsg;
     private GridLayout glEmergency;
 
@@ -45,7 +47,7 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_detail);
 
-        idFB = getIntent().getStringExtra("idFB");
+        patientDetail = (PatientAndMedicalDetail) getIntent().getSerializableExtra("patientDetail");
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
@@ -57,7 +59,7 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
         tvWarningMsg = findViewById(R.id.tvWarningMsg);
         glEmergency = findViewById(R.id.glEmergency);
 
-        prepareMD(idFB);
+        prepareMD();
 
         MedicalDetailExpandableListAdapter listAdapter = new MedicalDetailExpandableListAdapter(this, listMDHeader, listMDDetail);
 
@@ -121,7 +123,7 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
         return true;
     }
 
-    private void prepareMD(String idFB) {
+    private void prepareMD() {
 
         listMDHeader = new ArrayList<>();
         listMDDetail = new HashMap<>();
@@ -129,59 +131,45 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
         listMDHeader.add("Medical Details");
         listMDHeader.add("Assign Details");
 
-        DatabaseReference databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion01").child("chit/" + idFB);
 
-        databaseReferenceChit.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("SetTextI18n")
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //check for each one
-
-                PatientAndMedicalDetail currentChit = dataSnapshot.getValue(PatientAndMedicalDetail.class);
-
-                if (currentChit == null) {
+                if (patientDetail == null) {
                     Toast.makeText(getApplicationContext(), "chit null", Toast.LENGTH_LONG).show();
                 } else {
 
-                    Objects.requireNonNull(getSupportActionBar()).setTitle(currentChit.getName());
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        Objects.requireNonNull(getSupportActionBar()).setTitle(patientDetail.getName());
+                    }
 
-                    if (currentChit.getLifeThreating()) {
-                        tvWarningMsg.setText(currentChit.getPreOpDiagnosis());
+                    if (patientDetail.getLifeThreating()) {
+                        tvWarningMsg.setText(patientDetail.getPreOpDiagnosis());
                     } else {
                         glEmergency.setVisibility(GridLayout.GONE);
                     }
 
                     List<String> medical = new ArrayList<>();
-                    medical.add("Last Meal Taken: " + currentChit.getLastMeal());
-                    medical.add("Last Clear Fluid: " + currentChit.getLastClearFluid());
-                    medical.add("Type of Anaesthesia/Sedation: " + currentChit.getTypeOfAnaesthesiaSedation());
-                    medical.add("Pre-Op Diagnosis: " + currentChit.getPreOpDiagnosis());
-                    medical.add("Contact Precautions: " + currentChit.getContactPrecautionsString());
-                    medical.add("Blood borne infections: " + currentChit.getBloodBorneInfectionString());
-                    medical.add("AirBorne precautions: " + currentChit.getAirbornePrecautionsString());
-                    medical.add("Location: " + currentChit.getLocation());
-                    medical.add("OT: " + currentChit.getOt());
+                    medical.add("Last Meal Taken: " + patientDetail.getLastMeal());
+                    medical.add("Last Clear Fluid: " + patientDetail.getLastClearFluid());
+                    medical.add("Type of Anaesthesia/Sedation: " + patientDetail.getTypeOfAnaesthesiaSedation());
+                    medical.add("Pre-Op Diagnosis: " + patientDetail.getPreOpDiagnosis());
+                    medical.add("Contact Precautions: " + patientDetail.getContactPrecautionsString());
+                    medical.add("Blood borne infections: " + patientDetail.getBloodBorneInfectionString());
+                    medical.add("AirBorne precautions: " + patientDetail.getAirbornePrecautionsString());
+                    medical.add("Location: " + patientDetail.getLocation());
+                    medical.add("OT: " + patientDetail.getOt());
 
                     List<String> assign = new ArrayList<>();
-                    assign.add("Assign Doctor: " + currentChit.getAssignDoctorId());
-                    assign.add("Assign Table: " + currentChit.getTable());
+                    assign.add("Assign Doctor: " + patientDetail.getAssignDoctorId());
+                    assign.add("Assign Table: " + patientDetail.getTable());
 
-                    tvWaitingTime.setText(currentChit.getChitSubmission());
-                    tvLastMeal.setText(currentChit.getLastMeal());
-                    tvBedLocation.setText(currentChit.getBed());
+                    tvWaitingTime.setText(patientDetail.getChitSubmission());
+                    tvLastMeal.setText(patientDetail.getLastMeal());
+                    tvBedLocation.setText(patientDetail.getBed());
 
                     listMDDetail.put(listMDHeader.get(0), medical); // Header, Child data
                     listMDDetail.put(listMDHeader.get(1), assign);
                 }
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("LogFragment", "loadLog:onCancelled", databaseError.toException());
-            }
-        });
-    }
 
     @Override
     protected void onResume() {
@@ -190,7 +178,9 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(this);
 
-        idFB = prefs.getString("idFB", null);
+        patientDetailString = prefs.getString("patientDetail", null);
+        Gson gson = new Gson();
+        patientDetail = gson.fromJson(patientDetailString, PatientAndMedicalDetail.class);
     }
 
     @Override
@@ -200,9 +190,11 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
                 PreferenceManager.getDefaultSharedPreferences(this);
 
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("idFB", idFB);
+
+        Gson gson = new Gson();
+        patientDetailString = gson.toJson(patientDetail);
+        editor.putString("patientDetail", patientDetailString);
         editor.apply();
     }
-
 
 }
