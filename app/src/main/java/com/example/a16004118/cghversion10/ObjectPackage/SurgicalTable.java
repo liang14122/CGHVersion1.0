@@ -1,16 +1,23 @@
 package com.example.a16004118.cghversion10.ObjectPackage;
 
 public class SurgicalTable {
-    private String tableCode, description;
-    private Boolean working;
+    private String surgicalCode, tableCode, detail;
 
-    public SurgicalTable(String tableCode, String description, Boolean working) {
+    public SurgicalTable(String surgicalCode, String tableCode, String detail) {
+        this.surgicalCode = surgicalCode;
         this.tableCode = tableCode;
-        this.description = description;
-        this.working = working;
+        this.detail = detail;
+    }
+    public SurgicalTable(){
+
     }
 
-    public SurgicalTable() {
+    public String getSurgicalCode() {
+        return surgicalCode;
+    }
+
+    public void setSurgicalCode(String surgicalCode) {
+        this.surgicalCode = surgicalCode;
     }
 
     public String getTableCode() {
@@ -21,19 +28,11 @@ public class SurgicalTable {
         this.tableCode = tableCode;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Boolean getWorking() {
-        return working;
-    }
-
-    public void setWorking(Boolean working) {
-        this.working = working;
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 }

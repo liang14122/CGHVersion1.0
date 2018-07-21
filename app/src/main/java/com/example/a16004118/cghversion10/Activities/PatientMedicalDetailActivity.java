@@ -18,12 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.a16004118.cghversion10.Adapter.MedicalDetailExpandableListAdapter;
-import com.example.a16004118.cghversion10.ObjectPackage.AdmissionDetail;
-import com.example.a16004118.cghversion10.ObjectPackage.Chit;
-import com.example.a16004118.cghversion10.ObjectPackage.Consent;
-import com.example.a16004118.cghversion10.ObjectPackage.Investigations;
-import com.example.a16004118.cghversion10.ObjectPackage.Issues;
-import com.example.a16004118.cghversion10.ObjectPackage.SurgeryDetails;
 import com.example.a16004118.cghversion10.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

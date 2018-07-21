@@ -22,8 +22,7 @@
         </activity>
         <activity
             android:name=".Activities.HomeActivity"
-            android:label="@string/title_activity_home">
-        </activity>
+            android:label="@string/title_activity_home"></activity>
 
         <service android:name=".NotificationService.MyFirebaseMessaging">
             <intent-filter>
@@ -58,21 +57,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.HomeActivity" />
         </activity>
-
-        <activity android:name=".Activities.AddPatientActivity"
-            android:theme="@style/AppThemeWithActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.HomeActivity" />
-        </activity>
-
         <activity
             android:name=".Activities.PatientPersonalDetailsActivity"
             android:theme="@style/AppThemeWithActionBar">
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value=".Activities.PatientMedicalDetailActivity" />-->
+
+            <!-- <meta-data -->
+            <!-- android:name="android.support.PARENT_ACTIVITY" -->
+            <!-- android:value=".Activities.PatientMedicalDetailActivity" /> -->
         </activity>
+        <activity
+            android:name=".Activities.AddPatient"
+            android:label="@string/title_activity_add_patient"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

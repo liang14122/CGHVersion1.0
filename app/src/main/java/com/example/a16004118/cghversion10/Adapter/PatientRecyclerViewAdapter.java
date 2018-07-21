@@ -12,9 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.a16004118.cghversion10.Interface.PatientTouchHelperAdapter;
-import com.example.a16004118.cghversion10.ObjectPackage.AdmissionDetail;
-import com.example.a16004118.cghversion10.ObjectPackage.Chit;
-import com.example.a16004118.cghversion10.ObjectPackage.Patient;
 import com.example.a16004118.cghversion10.R;
 
 import java.util.Collections;

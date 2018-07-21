@@ -1,7 +1,6 @@
 package com.example.a16004118.cghversion10.Activities;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +10,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.a16004118.cghversion10.ObjectPackage.Chit;
-import com.example.a16004118.cghversion10.ObjectPackage.Patient;
 import com.example.a16004118.cghversion10.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

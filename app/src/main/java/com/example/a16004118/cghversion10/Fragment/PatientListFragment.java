@@ -18,7 +18,6 @@ import android.widget.ImageButton;
 
 import com.example.a16004118.cghversion10.Adapter.PatientRecyclerViewAdapter;
 import com.example.a16004118.cghversion10.Adapter.PatientTouchHelperCallback;
-import com.example.a16004118.cghversion10.ObjectPackage.Chit;
 import com.example.a16004118.cghversion10.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

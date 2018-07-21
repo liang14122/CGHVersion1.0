@@ -2,7 +2,6 @@ package com.example.a16004118.cghversion10.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -12,11 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.a16004118.cghversion10.ObjectPackage.AdmissionDetail;
-import com.example.a16004118.cghversion10.ObjectPackage.Chit;
-import com.example.a16004118.cghversion10.ObjectPackage.Patient;
 import com.example.a16004118.cghversion10.R;
 
 import java.util.ArrayList;
