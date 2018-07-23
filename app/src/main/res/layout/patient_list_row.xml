@@ -35,11 +35,11 @@
                     android:layout_height="24dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="@string/todo"
                     app:layout_constraintEnd_toStartOf="@id/tvPatientNameCard"
-                    android:contentDescription="@string/todo" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tvPatientNameCard"
@@ -48,11 +48,11 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/ivGender"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/tvNameStamp"
+                    app:layout_constraintStart_toEndOf="@id/ivGender"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tvGenderAgeCard"
@@ -61,20 +61,19 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@id/tvGenderAgeCard"
-                    app:layout_constraintStart_toStartOf="@id/ivGender"
+                    app:layout_constraintStart_toStartOf="@id/tvPatientNameCard"
                     app:layout_constraintTop_toBottomOf="@+id/tvPatientNameCard" />
 
                 <TextView
+                    android:id="@+id/tvNameStamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tvNameStamp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="16dp"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toEndOf="@id/tvGenderAgeCard"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvGenderAgeCard"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -85,12 +84,12 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:contentDescription="@string/todo"
                     android:src="@drawable/waiting_time"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tvWaitingTimeCard"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvGenderAgeCard"
-                    android:contentDescription="@string/todo" />
+                    app:layout_constraintTop_toBottomOf="@id/tvGenderAgeCard" />
 
                 <TextView
                     android:id="@+id/tvWaitingTimeCard"
@@ -111,12 +110,12 @@
                     android:layout_height="24dp"
                     android:layout_marginBottom="4dp"
                     android:layout_marginTop="8dp"
+                    android:contentDescription="@string/todo"
                     android:src="@drawable/last_meal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tvLastMealCard"
                     app:layout_constraintStart_toEndOf="@id/tvWaitingTimeCard"
-                    app:layout_constraintTop_toBottomOf="@id/tvGenderAgeCard"
-                    android:contentDescription="@string/todo" />
+                    app:layout_constraintTop_toBottomOf="@id/tvGenderAgeCard" />
 
                 <TextView
                     android:id="@+id/tvLastMealCard"

@@ -54,6 +54,8 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="password">Password</string>
     <string name="username_mrc">UserName/MRC</string>
+    <string name="p0148f">P0148F</string>
+    <string name="_123">123</string>
 
     <string-array name="spContact">
         <item>None</item>

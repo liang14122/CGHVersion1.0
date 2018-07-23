@@ -3,7 +3,8 @@ package com.example.a16004118.cghversion10.ObjectPackage;
 public class Doctor {
     private String idFB,surgeronId, rank, name, pager;
 
-    public Doctor(String idFB, String surgeronId, String rank, String name, String pager) {
+    public Doctor(String idFB, String surgeronId, String rank,
+                  String name, String pager) {
         this.idFB = idFB;
         this.surgeronId = surgeronId;
         this.rank = rank;
@@ -12,6 +13,12 @@ public class Doctor {
     }
     public Doctor(){
 
+    }
+
+    public Doctor(String idFB, String surgeronId, String name) {
+        this.idFB = idFB;
+        this.surgeronId = surgeronId;
+        this.name = name;
     }
 
     public String getIdFB() {

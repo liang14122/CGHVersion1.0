@@ -1,6 +1,8 @@
 package com.example.a16004118.cghversion10.Activities;
 
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
@@ -17,9 +19,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.a16004118.cghversion10.Fragment.Activity_notification_list;
 import com.example.a16004118.cghversion10.Fragment.PatientListFragment;
+import com.example.a16004118.cghversion10.ObjectPackage.Doctor;
 import com.example.a16004118.cghversion10.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +32,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.FirebaseFunctionsException;
 import com.google.firebase.functions.HttpsCallableResult;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.Objects;
 
@@ -78,6 +85,10 @@ public class HomeActivity extends AppCompatActivity
 
         //initiate navigation drawer header
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView tvDoctorName = headerView.findViewById(R.id.tvDoctorName);
+        TextView tvDoctorId = headerView.findViewById(R.id.tvDoctorEmail);
 
         Fragment fragment = new PatientListFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -90,32 +101,20 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
+
+        SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(HomeActivity.this);
+
+        Gson gson = new GsonBuilder().setLenient().create();
+        String doctorString = prefs.getString("doctorString", null);
+        Doctor currentDoctor = gson.fromJson(doctorString, Doctor.class);
+
+        tvDoctorName.setText(currentDoctor.getName());
+        tvDoctorId.setText(currentDoctor.getSurgeronId());
+
         navigationView.setNavigationItemSelectedListener(this);
 
-        //get Doctor info Demo
-        getDoctorInfo("")
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Exception e = task.getException();
-                            if (e instanceof FirebaseFunctionsException) {
-//                                FirebaseFunctionsException ffe = (FirebaseFunctionsException) e;
-//                                FirebaseFunctionsException.Code code = ffe.getCode();
-//                                Object details = ffe.getDetails();
-                            }
-
-                            // [START_EXCLUDE]
-                            Log.w(TAG, "getDoctorInfo:onFailure", e);
-                            return;
-                            // [END_EXCLUDE]
-                        }
-
-                        // [START_EXCLUDE]
-                        String result = task.getResult();
-                        Log.w(TAG, "getDoctorInfo:result" + result);                                // [END_EXCLUDE]
-                    }
-                });
     }
 
     @Override

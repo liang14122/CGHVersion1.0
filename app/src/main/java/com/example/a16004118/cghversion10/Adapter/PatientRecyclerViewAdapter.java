@@ -3,8 +3,10 @@ package com.example.a16004118.cghversion10.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,17 +17,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.a16004118.cghversion10.Activities.HomeActivity;
+import com.example.a16004118.cghversion10.Activities.MainActivity;
 import com.example.a16004118.cghversion10.Activities.PatientMedicalDetailActivity;
 import com.example.a16004118.cghversion10.Interface.PatientTouchHelperAdapter;
+import com.example.a16004118.cghversion10.ObjectPackage.Doctor;
 import com.example.a16004118.cghversion10.ObjectPackage.PatientAndMedicalDetail;
 import com.example.a16004118.cghversion10.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class PatientRecyclerViewAdapter
         extends RecyclerView.Adapter<PatientRecyclerViewAdapter.PatientViewHolder>
         implements PatientTouchHelperAdapter{
+
+    private Doctor currentDoctor;
 
     @Override
     public void onClick(View view, int position) {
@@ -47,16 +62,17 @@ public class PatientRecyclerViewAdapter
         notifyItemMoved(fromPosition, toPosition);
 
         //record user action here
-
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(view.getContext());
 
-        String doctorKey = prefs.getString("doctorKey", null);
-
-        chitList.get(toPosition).setDoctorKey(doctorKey);
+        Gson gson = new GsonBuilder().setLenient().create();
+        String doctorString = prefs.getString("doctorString", null);
+        currentDoctor = gson.fromJson(doctorString, Doctor.class);
+        chitList.get(toPosition).setDoctorKey(currentDoctor.getIdFB());
 
         notifyDataSetChanged();
     }
+
 
     public class PatientViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
@@ -118,9 +134,7 @@ public class PatientRecyclerViewAdapter
         String doctorKey = currentChit.getDoctorKey();
         if (doctorKey != null){
             //get doctor name here
-            holder.tvNameStamp.setText(currentChit.getDoctorKey());
-
-
+            holder.tvNameStamp.setText(currentDoctor.getName());
         }
 
         String currentPatientGender = currentChit.getGender();

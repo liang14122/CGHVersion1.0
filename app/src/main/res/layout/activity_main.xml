@@ -63,7 +63,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/username_mrc"
                 android:inputType="text"
-                tools:ignore="LabelFor" />
+                tools:ignore="LabelFor"
+                android:text="@string/p0148f"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -86,7 +87,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                tools:ignore="LabelFor" />
+                tools:ignore="LabelFor"
+                android:text="@string/_123"/>
 
         </android.support.design.widget.TextInputLayout>
 

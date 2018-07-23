@@ -13,8 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a16004118.cghversion10.NotificationService.Common;
+import com.example.a16004118.cghversion10.ObjectPackage.Doctor;
 import com.example.a16004118.cghversion10.ObjectPackage.PatientAndMedicalDetail;
 import com.example.a16004118.cghversion10.R;
 import com.google.firebase.database.DataSnapshot;
@@ -68,14 +70,20 @@ public class MainActivity extends Activity {
 
                             if (surgeronId.equalsIgnoreCase(username) && password.equalsIgnoreCase(pw)) {
                                 String key = Objects.requireNonNull(child.getKey());
-
+                                String doctorName = Objects.requireNonNull(child.child("name").getValue()).toString();
                                 SharedPreferences prefs =
                                         PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
 
-                                SharedPreferences.Editor editor = prefs.edit();
+                                Doctor currentDoctor = new Doctor(key, surgeronId, doctorName);
 
-                                editor.putString("doctorKey", key);
+                                SharedPreferences.Editor editor = prefs.edit();
+                                Gson gson = new Gson();
+                                String doctotString = gson.toJson(currentDoctor);
+                                editor.putString("doctorString", doctotString);
+
                                 editor.apply();
+
+
 
                                 Intent i = new Intent(MainActivity.this, HomeActivity.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -86,6 +94,11 @@ public class MainActivity extends Activity {
                                 etUserName.setEnabled(false);
 
                                 Log.i(TAG, "onDataChange: " + key);
+                            }else{
+                                Toast.makeText(MainActivity.this, "Invalid username/password!", Toast.LENGTH_LONG).show();
+                                btnLogin.setEnabled(true);
+                                etPassword.setEnabled(true);
+                                etUserName.setEnabled(true);
                             }
                         }
                     }
