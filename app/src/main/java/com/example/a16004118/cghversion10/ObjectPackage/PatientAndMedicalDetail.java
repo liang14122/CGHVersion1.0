@@ -15,10 +15,21 @@ public class PatientAndMedicalDetail implements Serializable{
     private String dept, ward, room, bed, table;
     //chitSubmission is the data for calculation;
 
+    //Manually Prioritisation - nameStamp
+    //just Added
+    private String doctorKey;
+
     public PatientAndMedicalDetail() {
     }
 
-    public PatientAndMedicalDetail(String mrin, String accountNo, String name, String age, String gender, String lastMeal, String lastClearFluid, Boolean lifeThreatening, String typeOfAnaesthesiaSedation, String preOpDiagnosis, String contactPrecautionsString, String bloodBorneInfectionString, String airbornePrecautionsString, String otherHighRiskInfectionsString, String assignDoctorId, String location, String ot, String chitSubmission, String dept, String ward, String room, String bed, String table) {
+    public PatientAndMedicalDetail(String mrin, String accountNo, String name, String age,
+                                   String gender, String lastMeal, String lastClearFluid,
+                                   Boolean lifeThreatening, String typeOfAnaesthesiaSedation,
+                                   String preOpDiagnosis, String contactPrecautionsString,
+                                   String bloodBorneInfectionString, String airbornePrecautionsString,
+                                   String otherHighRiskInfectionsString, String assignDoctorId,
+                                   String location, String ot, String chitSubmission, String dept,
+                                   String ward, String room, String bed, String table, String doctorKey) {
         this.mrin = mrin;
         this.acountNo = accountNo;
         this.name = name;
@@ -42,6 +53,15 @@ public class PatientAndMedicalDetail implements Serializable{
         this.room = room;
         this.bed = bed;
         this.table = table;
+        this.doctorKey = doctorKey;
+    }
+
+    public String getDoctorKey() {
+        return doctorKey;
+    }
+
+    public void setDoctorKey(String doctorKey) {
+        this.doctorKey = doctorKey;
     }
 
     public String getMrin() {

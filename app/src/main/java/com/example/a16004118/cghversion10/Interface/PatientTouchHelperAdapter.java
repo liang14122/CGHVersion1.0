@@ -6,7 +6,7 @@ public interface PatientTouchHelperAdapter {
 
     void onClick(View view, int position);
 
-    void onItemMove(int fromPosition, int toPosition);
+    void onItemMove(int fromPosition, int toPosition, View view);
 
 //    void onItemDismiss(int position);
 }

@@ -1,24 +1,18 @@
 package com.example.a16004118.cghversion10.Activities;
 
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.a16004118.cghversion10.Fragment.TabAssign;
 import com.example.a16004118.cghversion10.Fragment.TabMedical;
@@ -35,20 +29,6 @@ public class AddPatient extends AppCompatActivity {
     private TabMedical tabMedical;
     private TabPatient tabPatient;
     DatabaseReference databaseReferenceChit;
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +42,24 @@ public class AddPatient extends AppCompatActivity {
         //setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        /*
+      The {@link android.support.v4.view.PagerAdapter} that will provide
+      fragments for each of the sections. We use a
+      {@link FragmentPagerAdapter} derivative, which will keep every
+      loaded fragment in memory. If this becomes too memory intensive, it
+      may be best to switch to a
+      {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        /*
+      The {@link ViewPager} that will host the section contents.
+     */
+        ViewPager mViewPager =  findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout =  findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
@@ -146,10 +137,15 @@ public class AddPatient extends AppCompatActivity {
                 String table = tabAssign.tvTable.getText().toString();
 
                 //put them all into object;
-                PatientAndMedicalDetail patientAndMedicalDetail = new PatientAndMedicalDetail(mrin, account, name, age, gender, lastMeal, lastFluid, lifeThreating, typeOfAnaesthesia, preOp, contact, blood, airBorne, otherHighRisk, doctor, location, ot, "chit submission",dept, ward, room, bed, table);
+                PatientAndMedicalDetail patientAndMedicalDetail
+                        = new PatientAndMedicalDetail(mrin, account, name, age, gender,
+                        lastMeal, lastFluid, lifeThreating, typeOfAnaesthesia, preOp,
+                        contact, blood, airBorne, otherHighRisk, doctor, location, ot,
+                        "chit submission",dept, ward, room, bed, table, null);
                 //firebase part;
 
                 String idFbChit = databaseReferenceChit.push().getKey();
+                assert idFbChit != null;
                 databaseReferenceChit.child(idFbChit).setValue(patientAndMedicalDetail);
 
             }
@@ -188,7 +184,7 @@ public class AddPatient extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 

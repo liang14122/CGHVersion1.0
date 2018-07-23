@@ -2,20 +2,36 @@ package com.example.a16004118.cghversion10.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.a16004118.cghversion10.NotificationService.Common;
+import com.example.a16004118.cghversion10.ObjectPackage.PatientAndMedicalDetail;
 import com.example.a16004118.cghversion10.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+
+import java.util.Objects;
 
 public class MainActivity extends Activity {
-    DatabaseReference databaseReference;
 
+    DatabaseReference databaseReferenceDoctor;
     private Button btnLogin;
+    private EditText etPassword, etUserName;
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,47 +42,62 @@ public class MainActivity extends Activity {
         Log.d("Test Purpose", "Refreshed token: " + Common.currentToken);
 
         btnLogin = findViewById(R.id.btnLogin);
-
-        //addDataInFirebase();
+        etPassword = findViewById(R.id.etPassword);
+        etUserName = findViewById(R.id.etUserName);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(i);
+
+                final String username = etUserName.getText().toString().trim();
+                final String pw = etPassword.getText().toString().trim();
+
+                databaseReferenceDoctor = FirebaseDatabase.getInstance().getReference("cghversion20").child("Doctor");
+
+                databaseReferenceDoctor.addValueEventListener(new ValueEventListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        Log.i(TAG, String.valueOf(dataSnapshot));
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            Log.i(TAG, String.valueOf(child));
+
+                            String surgeronId = Objects.requireNonNull(child.child("surgeronId").getValue()).toString();
+                            String password = Objects.requireNonNull(child.child("password").getValue()).toString();
+
+                            if (surgeronId.equalsIgnoreCase(username) && password.equalsIgnoreCase(pw)) {
+                                String key = Objects.requireNonNull(child.getKey());
+
+                                SharedPreferences prefs =
+                                        PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+
+                                SharedPreferences.Editor editor = prefs.edit();
+
+                                editor.putString("doctorKey", key);
+                                editor.apply();
+
+                                Intent i = new Intent(MainActivity.this, HomeActivity.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(i);
+
+                                btnLogin.setEnabled(false);
+                                etPassword.setEnabled(false);
+                                etUserName.setEnabled(false);
+
+                                Log.i(TAG, "onDataChange: " + key);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.w(TAG, "loadDoctor:onCancelled", databaseError.toException());
+                    }
+                });
             }
         });
 
     }
-
-
-
-
-//
-//    public void addDataInFirebase(){
-//        databaseReference = FirebaseDatabase.getInstance().getReference("chit");
-//        //get the key of the column
-//        String idFB = databaseReference.push().getKey();
-//        AdmissionDetail admissionDetail;
-//        Chit chit;
-//        Consent consent;
-//        Doctor doctor;
-//        Investigations investigations;
-//        Issues issues;
-//        Patient patient;
-//        SurgeryDetails surgeryDetails;
-//        SurgicalTable surgicalTable;
-//        admissionDetail = new AdmissionDetail("03/02/2018","100","1500","1300");
-//        consent = new Consent("a","b","c");
-//        doctor = new Doctor("Bob","G1234567A","08/08/2000","123465678","12345678","5","Nice doc","woodlands",true,false);
-//        investigations = new Investigations("1.0","1","1","2","3","4");
-//        issues = new Issues("ok","nice","idk");
-//        patient = new Patient("Mary","A1234657A","08/08/1999","13","female","chinese","English","idk","abc","12344567","no");
-//        surgeryDetails = new SurgeryDetails("a","b","c","1234","d","true","no","1","asd","es","q","d","c","a","123");
-//        surgicalTable = new SurgicalTable("c123","for patient",false);
-//        chit = new Chit(patient,issues,admissionDetail,investigations,consent,surgeryDetails,false);
-//        //add data.
-//        databaseReference.child(idFB).setValue(chit);
-//    }
 }
 

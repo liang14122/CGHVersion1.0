@@ -70,8 +70,6 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
-
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -164,16 +162,11 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_patient) {
             fragment = new PatientListFragment();
             Log.i("HomeActivity", "select Patient List button");
-        } else if (id == R.id.nav_roster) {
-            Log.i("HomeActivity", "select nav_roster button");
-
         } else if (id == R.id.nav_notification) {
-
             fragment = new Activity_notification_list();
             Log.i("HomeActivity", "select notification button");
         } else if (id == R.id.nav_profile) {
             Log.i("HomeActivity", "select nav_profile button");
-
         } else if (id == R.id.nav_about_us) {
             Log.i("HomeActivity", "select nav_aboutUs button");
 

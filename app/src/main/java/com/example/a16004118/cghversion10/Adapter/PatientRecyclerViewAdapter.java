@@ -2,6 +2,8 @@ package com.example.a16004118.cghversion10.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -21,9 +23,9 @@ import com.example.a16004118.cghversion10.R;
 import java.util.Collections;
 import java.util.List;
 
-
-
-public class PatientRecyclerViewAdapter extends RecyclerView.Adapter<PatientRecyclerViewAdapter.PatientViewHolder> implements PatientTouchHelperAdapter{
+public class PatientRecyclerViewAdapter
+        extends RecyclerView.Adapter<PatientRecyclerViewAdapter.PatientViewHolder>
+        implements PatientTouchHelperAdapter{
 
     @Override
     public void onClick(View view, int position) {
@@ -31,7 +33,7 @@ public class PatientRecyclerViewAdapter extends RecyclerView.Adapter<PatientRecy
     }
 
     @Override
-    public void onItemMove(int fromPosition, int toPosition) {
+    public void onItemMove(int fromPosition, int toPosition, View view) {
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
                 Collections.swap(chitList, i, i + 1);
@@ -45,15 +47,24 @@ public class PatientRecyclerViewAdapter extends RecyclerView.Adapter<PatientRecy
         notifyItemMoved(fromPosition, toPosition);
 
         //record user action here
+
+        SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(view.getContext());
+
+        String doctorKey = prefs.getString("doctorKey", null);
+
+        chitList.get(toPosition).setDoctorKey(doctorKey);
+
+        notifyDataSetChanged();
     }
 
     public class PatientViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        public TextView tvPatientNameCard, tvGenderAgeCard, tvWaitingTimeCard, tvLastMealCard;
+        public TextView tvPatientNameCard, tvGenderAgeCard, tvWaitingTimeCard, tvLastMealCard, tvNameStamp;
         public CardView cvPatientList;
         public ImageView ivGender;
-        private PatientTouchHelperAdapter itemClickLinstener;
+        private PatientTouchHelperAdapter itemClickListener;
 
         PatientViewHolder(View itemView) {
             super(itemView);
@@ -62,18 +73,19 @@ public class PatientRecyclerViewAdapter extends RecyclerView.Adapter<PatientRecy
             tvGenderAgeCard = itemView.findViewById(R.id.tvGenderAgeCard);
             tvWaitingTimeCard = itemView.findViewById(R.id.tvWaitingTimeCard);
             tvLastMealCard = itemView.findViewById(R.id.tvLastMealCard);
+            tvNameStamp = itemView.findViewById(R.id.tvNameStamp);
             cvPatientList = itemView.findViewById(R.id.cvPatientList);
             ivGender = itemView.findViewById(R.id.ivGender);
             itemView.setOnClickListener(this);
         }
 
-        void setItemClickLinstener(PatientTouchHelperAdapter itemClickLinstener) {
-            this.itemClickLinstener = itemClickLinstener;
+        void setItemClickListener(PatientTouchHelperAdapter itemClickListener) {
+            this.itemClickListener = itemClickListener;
         }
 
         @Override
         public void onClick(View v) {
-            itemClickLinstener.onClick(v, getAdapterPosition());
+            itemClickListener.onClick(v, getAdapterPosition());
         }
     }
     
@@ -102,6 +114,14 @@ public class PatientRecyclerViewAdapter extends RecyclerView.Adapter<PatientRecy
         holder.tvPatientNameCard.setText(currentChit.getName());
         holder.tvWaitingTimeCard.setText(currentChit.getChitSubmission() + " Mins");
         holder.tvLastMealCard.setText(currentChit.getLastMeal());
+        //Temp
+        String doctorKey = currentChit.getDoctorKey();
+        if (doctorKey != null){
+            //get doctor name here
+            holder.tvNameStamp.setText(currentChit.getDoctorKey());
+
+
+        }
 
         String currentPatientGender = currentChit.getGender();
         if (currentPatientGender.equalsIgnoreCase("male")) {
@@ -123,7 +143,7 @@ public class PatientRecyclerViewAdapter extends RecyclerView.Adapter<PatientRecy
 //            }
             holder.cvPatientList.setBackgroundResource(R.color.NotReadyPatientList);
         }
-        holder.setItemClickLinstener(new PatientTouchHelperAdapter() {
+        holder.setItemClickListener(new PatientTouchHelperAdapter() {
             @Override
             public void onClick(View view, int position) {
                     Intent intent = new Intent(view.getContext(), PatientMedicalDetailActivity.class);
@@ -133,8 +153,7 @@ public class PatientRecyclerViewAdapter extends RecyclerView.Adapter<PatientRecy
             }
 
             @Override
-            public void onItemMove(int fromPosition, int toPosition) {
-
+            public void onItemMove(int fromPosition, int toPosition, View view) {
 
             }
         });

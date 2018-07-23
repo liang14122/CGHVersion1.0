@@ -9,10 +9,6 @@
             android:icon="@drawable/patient_icon"
             android:title="@string/nav_patient" />
         <item
-            android:id="@+id/nav_roster"
-            android:icon="@drawable/roster_icon"
-            android:title="@string/nav_roster" />
-        <item
             android:id="@+id/nav_notification"
             android:icon="@drawable/notification_icon"
             android:title="@string/nav_notification" />
