@@ -1,14 +1,16 @@
-package com.example.a16004118.cghversion10.ObjectPackage;
+package com.example.a16004118.cghversion10.Alogrithm;
+
+import com.example.a16004118.cghversion10.ObjectPackage.PatientAndMedicalDetail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Alogrithem {
+public class Alogrithm {
     ArrayList<PatientAndMedicalDetail> patientAndMedicalDetailArrayList;
     ArrayList<String> patientIdArr;
     Map<String, Double> map = new HashMap<String, Double>();
-    public Alogrithem() {
+    public Alogrithm() {
     }
     public void getMap(){
         for(int i= 0; i<patientIdArr.size(); i++){
