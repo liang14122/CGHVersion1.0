@@ -67,9 +67,20 @@ public class TabMedical extends Fragment {
                         TimePickerDialog.OnTimeSetListener myTimeListener = new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                String minuteString = "";
+                                String hour = "";
+                                if(minute < 10){
+                                    minuteString = "0" + minute + "";
+                                }else{
+                                    minuteString = "0" + minute + "";
+                                }
 
-                                String hour = hourOfDay + "";
-                                String minuteString = minute + "";
+                                if(hourOfDay < 10){
+                                    hour = "0" + hourOfDay + "";
+                                }else{
+                                    hour = hourOfDay + "";
+                                }
+
                                 etLastMeal.setText(day + "/" + month + "/" + yearString  + " " + hour + ":" + minuteString);
                             }
                         };

@@ -16,6 +16,7 @@ import com.example.a16004118.cghversion10.ObjectPackage.PatientAndMedicalDetail;
 import com.example.a16004118.cghversion10.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class PatientListAdapter extends ArrayAdapter {
 
@@ -61,7 +62,7 @@ public class PatientListAdapter extends ArrayAdapter {
         ImageView ivGender = rowView.findViewById(R.id.ivGender);
 
         tvPatientNameCard.setText(currentChit.getName());
-        tvWaitingTimeCard.setText(currentChit.getChitSubmission()+" Mins");
+        tvWaitingTimeCard.setText(currentChit.getChitSubmission() + "Mins");
         tvLastMealCard.setText(currentChit.getLastMeal());
 
         String currentPatientGender = currentChit.getGender();

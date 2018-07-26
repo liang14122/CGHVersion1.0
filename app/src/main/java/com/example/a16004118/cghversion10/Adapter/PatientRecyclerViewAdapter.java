@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -127,9 +128,37 @@ public class PatientRecyclerViewAdapter
 
         final PatientAndMedicalDetail currentChit = chitList.get(position);
 
+        Calendar c = Calendar.getInstance();
+        int hours = c.get(Calendar.HOUR_OF_DAY);
+        int minutes = c.get(Calendar.MINUTE);
+        int chitHours = Integer.parseInt(currentChit.getChitSubmission().substring(0, 2));
+        int chitMins= Integer.parseInt(currentChit.getChitSubmission().substring(2));
+        int waitHrs = hours - chitHours;
+        int waitMins = minutes - chitMins;
+        if (waitMins < 0){
+            waitHrs = waitHrs - 1;
+            waitMins = waitMins + 60;
+        }
+        if (waitHrs < 0){
+            waitHrs = waitHrs + 24;
+        }
+
         holder.tvPatientNameCard.setText(currentChit.getName());
-        holder.tvWaitingTimeCard.setText(currentChit.getChitSubmission() + " Mins");
-        holder.tvLastMealCard.setText(currentChit.getLastMeal());
+        holder.tvWaitingTimeCard.setText(waitHrs + "hrs " + waitMins +" Mins");
+
+        int eatHours = Integer.parseInt(currentChit.getLastMeal().substring(0, 2));
+        int eatMins= Integer.parseInt(currentChit.getLastMeal().substring(2));
+        int lastEatHrs = hours - eatHours;
+        int lastEatMins = minutes - eatMins;
+        if (lastEatMins < 0){
+            lastEatHrs = lastEatHrs - 1;
+            lastEatMins = lastEatMins + 60;
+        }
+        if (lastEatHrs < 0){
+            lastEatHrs = lastEatHrs + 24;
+        }
+
+        holder.tvLastMealCard.setText(lastEatHrs + "hrs " + lastEatMins + "mins");
         //Temp
         String doctorKey = currentChit.getDoctorKey();
         if (doctorKey != null){

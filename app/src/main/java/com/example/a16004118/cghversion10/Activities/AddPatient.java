@@ -22,6 +22,8 @@ import com.example.a16004118.cghversion10.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
+
 public class AddPatient extends AppCompatActivity {
     Button btnUpload;
 
@@ -34,7 +36,7 @@ public class AddPatient extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_patient);
-        databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion20").child("chit");
+        databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion20").child("Chit");
 
 
 
@@ -98,6 +100,10 @@ public class AddPatient extends AppCompatActivity {
 
                 //medical tab
                 String lastMeal = tabMedical.etLastMeal.getText().toString();
+                if((lastMeal.charAt(0)) == '0'){
+                    lastMeal = "0" + 0 + lastMeal.substring(2,3);
+                }
+
                 String lastFluid = tabMedical.etLastFluid.getText().toString();
                 String typeOfAnaesthesia = "";
                 if(tabMedical.cbGA.isChecked()){
@@ -136,12 +142,22 @@ public class AddPatient extends AppCompatActivity {
                 String doctor = tabAssign.tvDoctor.getText().toString();
                 String table = tabAssign.tvTable.getText().toString();
 
+                //Time
+                int hour = Calendar.getInstance().get(Calendar.HOUR);
+                int min = Calendar.getInstance().get(Calendar.MINUTE);
+                String time = "";
+                if(hour < 10){
+                    time = 0 + "" + hour + min;
+                }else{
+                    time = hour + min + "";
+                }
+
                 //put them all into object;
                 PatientAndMedicalDetail patientAndMedicalDetail
                         = new PatientAndMedicalDetail(mrin, account, name, age, gender,
                         lastMeal, lastFluid, lifeThreating, typeOfAnaesthesia, preOp,
                         contact, blood, airBorne, otherHighRisk, doctor, location, ot,
-                        "chit submission",dept, ward, room, bed, table, null);
+                        time,dept, ward, room, bed, table, null);
                 //firebase part;
 
                 String idFbChit = databaseReferenceChit.push().getKey();
