@@ -83,8 +83,9 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
 
                     assert current != null;
                     current.setIdFB(child.getKey());
-                    alRawPatient.add(current);
-                    alPatient = sort(alRawPatient);
+//                    alRawPatient.add(current);
+//                    alPatient = sort(alRawPatient);
+                    alPatient.add(current);
                 }
                 pla.notifyDataSetChanged();
                 //listView.setAdapter(notificationAdapter);
@@ -185,11 +186,11 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
 
     private ArrayList<PatientAndMedicalDetail> sort(ArrayList<PatientAndMedicalDetail> alPatient) {
 
-        Alogrithm alogrithm = new Alogrithm(alPatient);
-
-
-        Map<String, Double> alUnsort = alogrithm.getMap();
-        Sort sort = new Sort();
+//        Alogrithm alogrithm = new Alogrithm(alPatient);
+//
+//
+//        Map<String, Double> alUnsort = alogrithm.getMap();
+//        Sort sort = new Sort();
 
 //        Map<String, Double> alSort = sort.sortByValue(alUnsort);
         return null;

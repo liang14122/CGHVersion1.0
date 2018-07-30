@@ -1,6 +1,8 @@
 package com.example.a16004118.cghversion10.Adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.a16004118.cghversion10.Activities.PatientMedicalDetailActivity;
 import com.example.a16004118.cghversion10.Interface.ItemTouchHelper;
 import com.example.a16004118.cghversion10.ObjectPackage.PatientAndMedicalDetail;
 import com.example.a16004118.cghversion10.R;
@@ -32,6 +35,7 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.MyViewHo
     public PatientAdapter(List<PatientAndMedicalDetail> chitList) {
         this.chitList = chitList;
     }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -67,7 +71,7 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
 
-        PatientAndMedicalDetail currentChit = chitList.get(position);
+        final PatientAndMedicalDetail currentChit = chitList.get(position);
 
         holder.tvPatientNameCard.setText(currentChit.getName());
         holder.tvWaitingTimeCard.setText(currentChit.getChitSubmission() + " Mins");
@@ -75,7 +79,7 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.MyViewHo
         //Temp
         String nameStamp = currentChit.getNameStamp();
         if (nameStamp != null) {
-            Log.e("TAG", "onBindViewHolder: " + currentChit.getName() + "   " + currentChit.getNameStamp() );
+            Log.e("TAG", "onBindViewHolder: " + currentChit.getName() + "   " + currentChit.getNameStamp());
 
             //get doctor name here
             holder.tvNameStamp.setText(currentChit.getNameStamp());
@@ -106,7 +110,7 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.MyViewHo
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     dragListener.startDragItem(holder);
                 }
 
@@ -114,8 +118,18 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.MyViewHo
             }
         });
 
-    }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Context context = v.getContext();
+                Intent intent = new Intent(context, PatientMedicalDetailActivity.class);
+                intent.putExtra("patientDetail", currentChit);
+                context.startActivity(intent);
+
+            }
+        });
+    }
 
 
     @Override
