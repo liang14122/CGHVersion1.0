@@ -1,8 +1,6 @@
 package com.example.a16004118.cghversion10.Adapter;
 
 import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -14,22 +12,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.a16004118.cghversion10.ObjectPackage.Doctor;
+import com.example.a16004118.cghversion10.Interface.ItemTouchHelper;
 import com.example.a16004118.cghversion10.ObjectPackage.PatientAndMedicalDetail;
 import com.example.a16004118.cghversion10.R;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
 public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.MyViewHolder> {
 
 
-    private ItemTouchHelperAdapter dragListener;
+    private ItemTouchHelper dragListener;
 
     private List<PatientAndMedicalDetail> chitList;
 
-    public void setDragListener(ItemTouchHelperAdapter dragListener) {
+    public void setDragListener(ItemTouchHelper dragListener) {
         this.dragListener = dragListener;
     }
 
