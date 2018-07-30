@@ -78,12 +78,10 @@ public class MainActivity extends Activity {
 
                                 SharedPreferences.Editor editor = prefs.edit();
                                 Gson gson = new Gson();
-                                String doctotString = gson.toJson(currentDoctor);
-                                editor.putString("doctorString", doctotString);
+                                String doctorString = gson.toJson(currentDoctor);
+                                editor.putString("doctorString", doctorString);
 
                                 editor.apply();
-
-
 
                                 Intent i = new Intent(MainActivity.this, HomeActivity.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -94,11 +92,13 @@ public class MainActivity extends Activity {
                                 etUserName.setEnabled(false);
 
                                 Log.i(TAG, "onDataChange: " + key);
+                                break;
                             }else{
                                 Toast.makeText(MainActivity.this, "Invalid username/password!", Toast.LENGTH_LONG).show();
                                 btnLogin.setEnabled(true);
                                 etPassword.setEnabled(true);
                                 etUserName.setEnabled(true);
+                                break;
                             }
                         }
                     }

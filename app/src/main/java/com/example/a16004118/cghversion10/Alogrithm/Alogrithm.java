@@ -12,6 +12,8 @@ public class Alogrithm {
     Map<String, Double> map = new HashMap<String, Double>();
     public Alogrithm() {
     }
+
+    //return Map<String, Double>
     public void getMap(){
         for(int i= 0; i<patientIdArr.size(); i++){
             String idFB = patientIdArr.get(i);
@@ -19,6 +21,8 @@ public class Alogrithm {
             findtheScore(idFB, current);
         }
     }
+
+    //return int score
     public void findtheScore(String idFB, PatientAndMedicalDetail patient){
         int lastMeal= -1;
         int chitSubmission = -1;

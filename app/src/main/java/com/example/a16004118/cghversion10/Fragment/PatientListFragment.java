@@ -16,8 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.example.a16004118.cghversion10.Adapter.PatientRecyclerViewAdapter;
-import com.example.a16004118.cghversion10.Adapter.PatientTouchHelperCallback;
+import com.example.a16004118.cghversion10.Adapter.ItemTouchHelperAdapter;
+import com.example.a16004118.cghversion10.Adapter.PatientAdapter;
+import com.example.a16004118.cghversion10.Adapter.RecyclerViewTouchHelperCallback;
 import com.example.a16004118.cghversion10.ObjectPackage.PatientAndMedicalDetail;
 import com.example.a16004118.cghversion10.R;
 import com.google.firebase.database.DataSnapshot;
@@ -29,12 +30,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class PatientListFragment extends Fragment {
+public class PatientListFragment extends Fragment implements ItemTouchHelperAdapter{
     ImageButton emergency,nonEmergency,viewAll;
     ArrayList<PatientAndMedicalDetail> alPatient = new ArrayList<>();
     DatabaseReference databaseReferenceChit;
     RecyclerView rvPatientList;
-    PatientRecyclerViewAdapter pla;
+    PatientAdapter pla;
+    private ItemTouchHelper touchHelper;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -52,16 +54,16 @@ public class PatientListFragment extends Fragment {
 
         viewAll.performClick();
 
-        pla = new PatientRecyclerViewAdapter(alPatient);
+        pla = new PatientAdapter(alPatient);
+        pla.setDragListener(this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         rvPatientList.setLayoutManager(layoutManager);
         rvPatientList.setItemAnimator(new DefaultItemAnimator());
         rvPatientList.setAdapter(pla);
 
-        ItemTouchHelper.Callback callback = new PatientTouchHelperCallback(pla);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        ItemTouchHelper.Callback callback = new RecyclerViewTouchHelperCallback(pla, alPatient);
+        touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(rvPatientList);
-        rvPatientList.setAdapter(pla);
 
         databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion20").child("Chit");
 
@@ -75,6 +77,9 @@ public class PatientListFragment extends Fragment {
                     Log.i("Menu page", String.valueOf(child));
 
                     PatientAndMedicalDetail current = child.getValue(PatientAndMedicalDetail.class);
+
+                    assert current != null;
+                    current.setIdFB(child.getKey());
                     alPatient.add(current);
 
                 }
@@ -174,4 +179,8 @@ public class PatientListFragment extends Fragment {
 
     }
 
+    @Override
+    public void startDragItem(RecyclerView.ViewHolder holder) {
+        touchHelper.startDrag(holder);
+    }
 }

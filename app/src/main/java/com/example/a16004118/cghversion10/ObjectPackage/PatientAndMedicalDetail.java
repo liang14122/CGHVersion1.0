@@ -17,7 +17,9 @@ public class PatientAndMedicalDetail implements Serializable{
 
     //Manually Prioritisation - nameStamp
     //just Added
-    private String doctorKey;
+    private String nameStamp;
+
+    private String idFB;
 
     public PatientAndMedicalDetail() {
     }
@@ -29,7 +31,8 @@ public class PatientAndMedicalDetail implements Serializable{
                                    String bloodBorneInfectionString, String airbornePrecautionsString,
                                    String otherHighRiskInfectionsString, String assignDoctorId,
                                    String location, String ot, String chitSubmission, String dept,
-                                   String ward, String room, String bed, String table, String doctorKey) {
+                                   String ward, String room, String bed, String table, String nameStamp,
+                                   String idFB) {
         this.mrin = mrin;
         this.acountNo = accountNo;
         this.name = name;
@@ -53,15 +56,24 @@ public class PatientAndMedicalDetail implements Serializable{
         this.room = room;
         this.bed = bed;
         this.table = table;
-        this.doctorKey = doctorKey;
+        this.nameStamp = nameStamp;
+        this.idFB = idFB;
     }
 
-    public String getDoctorKey() {
-        return doctorKey;
+    public String getIdFB() {
+        return idFB;
     }
 
-    public void setDoctorKey(String doctorKey) {
-        this.doctorKey = doctorKey;
+    public void setIdFB(String idFB) {
+        this.idFB = idFB;
+    }
+
+    public String getNameStamp() {
+        return nameStamp;
+    }
+
+    public void setNameStamp(String nameStamp) {
+        this.nameStamp = nameStamp;
     }
 
     public String getMrin() {
