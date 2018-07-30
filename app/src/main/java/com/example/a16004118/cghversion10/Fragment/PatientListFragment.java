@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.example.a16004118.cghversion10.Alogrithm.Alogrithm;
+import com.example.a16004118.cghversion10.Alogrithm.Sort;
 import com.example.a16004118.cghversion10.Interface.ItemTouchHelper;
 import com.example.a16004118.cghversion10.Adapter.PatientAdapter;
 import com.example.a16004118.cghversion10.Adapter.RecyclerViewTouchHelperCallback;
@@ -27,11 +29,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 
 public class PatientListFragment extends Fragment implements ItemTouchHelper {
     ImageButton emergency,nonEmergency,viewAll;
     ArrayList<PatientAndMedicalDetail> alPatient = new ArrayList<>();
+    ArrayList<PatientAndMedicalDetail> alRawPatient = new ArrayList<>();
     DatabaseReference databaseReferenceChit;
     RecyclerView rvPatientList;
     PatientAdapter pla;
@@ -79,8 +83,8 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
 
                     assert current != null;
                     current.setIdFB(child.getKey());
-                    alPatient.add(current);
-
+                    alRawPatient.add(current);
+                    alPatient = sort(alRawPatient);
                 }
                 pla.notifyDataSetChanged();
                 //listView.setAdapter(notificationAdapter);
@@ -177,6 +181,18 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
         });
 
         return view;
+    }
+
+    private ArrayList<PatientAndMedicalDetail> sort(ArrayList<PatientAndMedicalDetail> alPatient) {
+
+        Alogrithm alogrithm = new Alogrithm(alPatient);
+
+
+        Map<String, Double> alUnsort = alogrithm.getMap();
+        Sort sort = new Sort();
+
+//        Map<String, Double> alSort = sort.sortByValue(alUnsort);
+        return null;
     }
 
     @Override

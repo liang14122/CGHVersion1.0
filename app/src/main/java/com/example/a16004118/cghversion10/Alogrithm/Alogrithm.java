@@ -10,7 +10,10 @@ public class Alogrithm {
     ArrayList<PatientAndMedicalDetail> patientAndMedicalDetailArrayList;
     ArrayList<String> patientIdArr;
     Map<String, Double> map = new HashMap<String, Double>();
-    public Alogrithm() {
+
+
+    public Alogrithm(ArrayList<PatientAndMedicalDetail> patientAndMedicalDetailArrayList ) {
+        this.patientAndMedicalDetailArrayList = patientAndMedicalDetailArrayList;
     }
 
     //return Map<String, Double>
