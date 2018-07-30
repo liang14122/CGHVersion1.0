@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +34,9 @@ public class TabAssign extends Fragment {
     public ArrayAdapter<Doctor> aaDoctor;
     public ArrayAdapter<SurgicalTable> aaTable;
 
+    AutoCompleteTextView actvDoctor,actvTable;
+    ArrayAdapter<String> actvaDoctor, actvaTable;
+    ArrayList<String> alStringDoctor, alSTable;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,6 +51,19 @@ public class TabAssign extends Fragment {
         databaseReferenceTable = FirebaseDatabase.getInstance().getReference("cghversion20").child("SurgicalTable");
         aaDoctor = new DoctorAdapter(getContext(), R.layout.list_adapter, doctorArrayList);
         aaTable = new TableAdapter(getContext(), R.layout.list_adapter, surgicalTableArrayList);
+
+
+        //auto complete
+        alSTable = new ArrayList<>();
+        alStringDoctor = new ArrayList<>();
+        actvDoctor = rootView.findViewById(R.id.actvDoctor);
+        actvTable = rootView.findViewById(R.id.actvTable);
+        actvaDoctor = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_dropdown_item_1line, alStringDoctor);
+        actvaTable = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_dropdown_item_1line, alSTable);
+
+
         lvTable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -55,6 +72,7 @@ public class TabAssign extends Fragment {
                 SurgicalTable current = surgicalTableArrayList.get(position);
                 String currentId = current.getSurgicalCode()+"/"+current.getTableCode();
                 tvTable.setText(currentId);
+                actvTable.setText(currentId);
             }
         });
         lvDoctor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -65,6 +83,8 @@ public class TabAssign extends Fragment {
                 Doctor current = doctorArrayList.get(position);
                 String currentId = current.getSurgeronId()+"/"+current.getName();
                 tvDoctor.setText(currentId);
+                actvDoctor.setText(currentId);
+
             }
         });
 
@@ -78,14 +98,18 @@ public class TabAssign extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //check for each one
                 doctorArrayList.clear();
+                alStringDoctor.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Log.i("Menu page", "Finding...");
 
                     Doctor current = child.getValue(Doctor.class);
                     doctorArrayList.add(current);
-
+                    String currentId = current.getSurgeronId()+"/ "+current.getName();
+                    alStringDoctor.add(currentId);
                 }
                 lvDoctor.setAdapter(aaDoctor);
+                actvDoctor.setAdapter(actvaDoctor);
+
                 //pla.notifyDataSetChanged();
                 //listView.setAdapter(notificationAdapter);
             }
@@ -100,6 +124,8 @@ public class TabAssign extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //check for each one
                 surgicalTableArrayList.clear();
+                alSTable.clear();
+
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Log.i("Menu page", "Finding...");
 
@@ -108,6 +134,7 @@ public class TabAssign extends Fragment {
 
                 }
                 lvTable.setAdapter(aaTable);
+                actvTable.setAdapter(actvaTable);
 
                 //pla.notifyDataSetChanged();
                 //listView.setAdapter(notificationAdapter);

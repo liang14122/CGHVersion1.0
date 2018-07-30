@@ -3,6 +3,7 @@ package com.example.a16004118.cghversion10.Fragment;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class PatientListFragment extends Fragment implements ItemTouchHelperAdapter{
@@ -92,6 +95,7 @@ public class PatientListFragment extends Fragment implements ItemTouchHelperAdap
                 Log.w("LogFragment", "loadLog:onCancelled", databaseError.toException());
             }
         });
+
         emergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,8 +179,8 @@ public class PatientListFragment extends Fragment implements ItemTouchHelperAdap
                 });
             }
         });
-        return view;
 
+        return view;
     }
 
     @Override
