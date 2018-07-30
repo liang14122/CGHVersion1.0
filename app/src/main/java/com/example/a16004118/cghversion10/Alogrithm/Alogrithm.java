@@ -14,12 +14,13 @@ public class Alogrithm {
     }
 
     //return Map<String, Double>
-    public void getMap(){
+    public Map<String, Double> getMap(){
         for(int i= 0; i<patientIdArr.size(); i++){
             String idFB = patientIdArr.get(i);
             PatientAndMedicalDetail current = patientAndMedicalDetailArrayList.get(i);
             findtheScore(idFB, current);
         }
+        return map;
     }
 
     //return int score
