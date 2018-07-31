@@ -98,6 +98,7 @@ public class AddPatient extends AppCompatActivity {
                 String bed = tabPatient.etBed.getText().toString();
 
 
+
                 //medical tab
                 String lastMeal = tabMedical.etLastMeal.getText().toString();
                 if((lastMeal.charAt(0)) == '0'){
@@ -137,6 +138,9 @@ public class AddPatient extends AppCompatActivity {
                 String location = tabMedical.spLocation.getSelectedItem().toString();
                 String ot = tabMedical.spOT.getSelectedItem().toString();
 
+
+
+
                 //assign part;
                 String doctor = tabAssign.tvDoctor.getText().toString();
                 String table = tabAssign.tvTable.getText().toString();
@@ -157,7 +161,7 @@ public class AddPatient extends AppCompatActivity {
                         = new PatientAndMedicalDetail(mrin, account, name, age, gender,
                         lastMeal, lastFluid, lifeThreating, typeOfAnaesthesia, preOp,
                         contact, blood, airBorne, otherHighRisk, doctor, location, ot,
-                        "chit submission",dept, ward, room, bed, table, null, null, -1);
+                        time,dept, ward, room, bed, table, null, null, -1);
                 //firebase part;
 
                 String idFbChit = databaseReferenceChit.push().getKey();
