@@ -9,12 +9,12 @@ import java.util.Map;
 public class Alogrithm {
     ArrayList<PatientAndMedicalDetail> patientAndMedicalDetailArrayList;
     ArrayList<String> patientIdArr;
-    Map<String, Integer> map = new HashMap<String, Integer>();
+    Map<String, Double> map = new HashMap<String, Double>();
     public Alogrithm() {
     }
 
-    //return Map<String, Integer>
-    public Map<String, Integer> getMap(){
+    //return Map<String, Double>
+    public Map<String, Double> getMap(){
         for(int i= 0; i<patientIdArr.size(); i++){
             String idFB = patientIdArr.get(i);
             PatientAndMedicalDetail current = patientAndMedicalDetailArrayList.get(i);
@@ -35,12 +35,7 @@ public class Alogrithm {
             if (life == true) {
                 score += 50;
             }
-            String a = String.format("%.2f", score);
-            Double b = Double.parseDouble(a) * 100;
-
-            int finalScore = Integer.parseInt(String.valueOf(b));
-
-            map.put(idFB, finalScore);
+            map.put(idFB, score);
         }
     }
 }

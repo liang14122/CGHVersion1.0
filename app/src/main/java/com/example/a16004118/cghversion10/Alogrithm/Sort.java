@@ -9,11 +9,11 @@ import java.util.Map;
 
 public class Sort {
 
-    private static Map<String, Integer> sortByValue(Map<String, Integer> unsortMap) {
+    public Map<String, Integer> sortByValue(Map<String, Integer> alUnsort) {
 
         // 1. Convert Map to List of Map
         List<Map.Entry<String, Integer>> list =
-                new LinkedList<Map.Entry<String, Integer>>(unsortMap.entrySet());
+                new LinkedList<Map.Entry<String, Integer>>(alUnsort.entrySet());
 
         // 2. Sort list with Collections.sort(), provide a custom Comparator
         //    Try switch the o1 o2 position for a different order

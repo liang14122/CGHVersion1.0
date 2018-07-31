@@ -21,6 +21,8 @@ public class PatientAndMedicalDetail implements Serializable{
 
     private String idFB;
 
+    private int index;
+
     public PatientAndMedicalDetail() {
     }
 
@@ -32,7 +34,7 @@ public class PatientAndMedicalDetail implements Serializable{
                                    String otherHighRiskInfectionsString, String assignDoctorId,
                                    String location, String ot, String chitSubmission, String dept,
                                    String ward, String room, String bed, String table, String nameStamp,
-                                   String idFB) {
+                                   String idFB, int index) {
         this.mrin = mrin;
         this.acountNo = accountNo;
         this.name = name;
@@ -58,6 +60,15 @@ public class PatientAndMedicalDetail implements Serializable{
         this.table = table;
         this.nameStamp = nameStamp;
         this.idFB = idFB;
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public String getIdFB() {

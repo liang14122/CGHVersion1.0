@@ -157,7 +157,7 @@ public class AddPatient extends AppCompatActivity {
                         = new PatientAndMedicalDetail(mrin, account, name, age, gender,
                         lastMeal, lastFluid, lifeThreating, typeOfAnaesthesia, preOp,
                         contact, blood, airBorne, otherHighRisk, doctor, location, ot,
-                        "chit submission",dept, ward, room, bed, table, null, null);
+                        "chit submission",dept, ward, room, bed, table, null, null, -1);
                 //firebase part;
 
                 String idFbChit = databaseReferenceChit.push().getKey();
