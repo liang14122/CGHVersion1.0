@@ -95,6 +95,7 @@ public class HomeActivity extends AppCompatActivity
         ft.replace(R.id.drawer_fragment_container, fragment);
         ft.commit();
 
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

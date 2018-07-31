@@ -57,6 +57,8 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
 
         viewAll.performClick();
 
+
+
         pla = new PatientAdapter(alPatient);
         pla.setDragListener(this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
