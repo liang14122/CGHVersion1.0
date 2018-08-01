@@ -188,13 +188,13 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
 
     private ArrayList<PatientAndMedicalDetail> sort(ArrayList<PatientAndMedicalDetail> alPatient) {
 
-//        Alogrithm alogrithm = new Alogrithm(alPatient);
-//
-//
-//        Map<String, Double> alUnsort = alogrithm.getMap();
-//        Sort sort = new Sort();
+        Alogrithm alogrithm = new Alogrithm(alPatient);
 
-//        Map<String, Double> alSort = sort.sortByValue(alUnsort);
+
+        Map<String, Integer> alUnsort = alogrithm.getMap();
+        Sort sort = new Sort();
+
+        Map<String, Integer> alSort = sort.sortByValue(alUnsort);
         return null;
     }
 

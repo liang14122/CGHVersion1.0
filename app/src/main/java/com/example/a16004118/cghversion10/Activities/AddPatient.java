@@ -195,9 +195,6 @@ public class AddPatient extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
