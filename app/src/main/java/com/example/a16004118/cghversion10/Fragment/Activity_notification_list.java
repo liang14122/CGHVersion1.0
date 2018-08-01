@@ -59,6 +59,7 @@ public class Activity_notification_list extends Fragment {
                     Log.i("Menu page", "Finding...");
 
                     Notification current = child.getValue(Notification.class);
+
                     notificationArrayList.add(current);
                 }
                 listView.setAdapter(notificationAdapter);

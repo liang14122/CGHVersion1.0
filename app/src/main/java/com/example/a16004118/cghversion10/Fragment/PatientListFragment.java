@@ -88,7 +88,16 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
 //                    alRawPatient.add(current);
 //                    alPatient = sort(alRawPatient);
                     alPatient.add(current);
+
                 }
+                //after using the scoring system, use this
+//                for(int i = 0; i<alPatient.size(); i++){
+//                    PatientAndMedicalDetail current = alPatient.get(i);
+//                    if(current.getIndex()!=-1){
+//                        alPatient.remove(i);
+//                        alPatient.add(current.getIndex(),current);
+//                    }
+//                }
                 pla.notifyDataSetChanged();
                 //listView.setAdapter(notificationAdapter);
             }
