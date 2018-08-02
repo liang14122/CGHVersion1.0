@@ -80,7 +80,7 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.MyViewHo
         Calendar c = Calendar.getInstance();
         int hours = c.get(Calendar.HOUR_OF_DAY);
         int minutes = c.get(Calendar.MINUTE);
-        int chitHours = Integer.parseInt(currentChit.getChitSubmission().substring(0, 2));
+        int chitHours = Integer.parseInt(currentChit.getChitSubmission().substring(0, 1));
         int chitMins= Integer.parseInt(currentChit.getChitSubmission().substring(2));
         int waitHrs = hours - chitHours;
         int waitMins = minutes - chitMins;
@@ -104,6 +104,7 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.MyViewHo
         if (lastEatHrs < 0){
             lastEatHrs = lastEatHrs + 24;
         }
+
         holder.tvLastMealCard.setText(lastEatHrs + "hrs " + lastEatMins + "mins");
 
 

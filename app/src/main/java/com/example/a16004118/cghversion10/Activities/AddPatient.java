@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -101,10 +102,24 @@ public class AddPatient extends AppCompatActivity {
 
                 //medical tab
                 String lastMeal = tabMedical.etLastMeal.getText().toString();
-                if((lastMeal.charAt(0)) == '0'){
-                    lastMeal = "0" + 0 + lastMeal.substring(2,3);
-                }
+//                if((lastMeal.charAt(10)) == '0'){
+//                    lastMeal = "0" + 0 + lastMeal.substring(11,1);
+//                    Log.i("last meal time format:",lastMeal);
+//
+//                }else{
+//                    lastMeal = lastMeal.substring(10,2)+lastMeal.substring(13,2);
+//                    Log.i("last meal time format:",lastMeal);
+//                }
+
                 String lastFluid = tabMedical.etLastFluid.getText().toString();
+//                if((lastFluid.charAt(10)) == '0'){
+//                    lastFluid = "0" + lastFluid.charAt(10) + lastFluid.substring(11,12);
+//                    Log.i("last fluid time format",lastFluid);
+//
+//                }else{
+//                    lastFluid = lastFluid.substring(9,10)+lastFluid.substring(12,13);
+//                    Log.i("last fluid time format",lastFluid);
+//                }
                 String typeOfAnaesthesia = "";
                 if(tabMedical.cbGA.isChecked()){
                     typeOfAnaesthesia += "GA ";
@@ -146,14 +161,25 @@ public class AddPatient extends AppCompatActivity {
                 String table = tabAssign.tvTable.getText().toString();
 
                 //Time
-                int hour = Calendar.getInstance().get(Calendar.HOUR);
-                int min = Calendar.getInstance().get(Calendar.MINUTE);
+                Calendar c = Calendar.getInstance();
+
+                int hours = c.get(Calendar.HOUR_OF_DAY);
+                int minutes = c.get(Calendar.MINUTE);
                 String time = "";
-                if(hour < 10){
-                    time = 0 + "" + hour + min;
+
+                if(hours<10){
+                    time+= "0"+String.valueOf(hours);
                 }else{
-                    time = hour + min + "";
+                    time += String.valueOf(hours);
                 }
+                if(minutes<10){
+                    time+= "0"+String.valueOf(minutes);
+                }else{
+                    time+= String.valueOf(minutes);
+
+                }
+
+                Log.i("chit submission", time);
 
 
                 //put them all into object;

@@ -36,20 +36,24 @@ public class Alogrithm {
         Calendar c = Calendar.getInstance();
         int hours = c.get(Calendar.HOUR_OF_DAY);
         int minutes = c.get(Calendar.MINUTE);
+
         int chitHours = Integer.parseInt(patient.getChitSubmission().substring(0, 2));
-        int chitMins= Integer.parseInt(patient.getChitSubmission().substring(2));
+        int chitMins= Integer.parseInt(patient.getChitSubmission().substring(2,2));
         int waitHrs = hours - chitHours;
         int waitMins = minutes - chitMins;
+
+        if (waitHrs < 0){
+            waitHrs = waitHrs + 24;
+        }
         if (waitMins < 0){
             waitHrs = waitHrs - 1;
             waitMins = waitMins + 60;
         }
-        if (waitHrs < 0){
-            waitHrs = waitHrs + 24;
-        }
+
+
 
         int eatHours = Integer.parseInt(patient.getLastMeal().substring(0, 2));
-        int eatMins= Integer.parseInt(patient.getLastMeal().substring(2));
+        int eatMins= Integer.parseInt(patient.getLastMeal().substring(2,2));
         int lastEatHrs = hours - eatHours;
         int lastEatMins = minutes - eatMins;
         if (lastEatMins < 0){

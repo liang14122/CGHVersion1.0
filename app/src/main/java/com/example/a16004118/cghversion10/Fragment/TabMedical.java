@@ -50,110 +50,112 @@ public class TabMedical extends Fragment {
         spOthers = rootView.findViewById(R.id.spOthers);
         spLocation = rootView.findViewById(R.id.spLocation);
         spOT = rootView.findViewById(R.id.spOT);
+        //TODO
+//
+//        etLastMeal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//                final Calendar now = Calendar.getInstance();
+//                DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                        day = dayOfMonth + "";
+//                        month = monthOfYear + "";
+//                        yearString = year + "";
+//                        //set time
+//                        TimePickerDialog.OnTimeSetListener myTimeListener = new TimePickerDialog.OnTimeSetListener() {
+//                            @Override
+//                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//                                String minuteString = "";
+//                                String hour = "";
+//                                if(minute < 10){
+//                                    minuteString = "0" + minute + "";
+//                                }else{
+//                                    minuteString = "0" + minute + "";
+//                                }
+//
+//                                if(hourOfDay < 10){
+//                                    hour = "0" + hourOfDay + "";
+//                                }else{
+//                                    hour = hourOfDay + "";
+//                                }
+//
+//                                etLastMeal.setText(day + "/" + month + "/" + yearString  + " " + hour + ":" + minuteString);
+//                            }
+//                        };
+//
+//                        // Create the Time Picker Dialog
+//                        /*TimePickerDialog myTimeDialog = new TimePickerDialog(MainActivity.this,
+//                        myTimeListener, 20, 00, true);*/
+//                        ;
+//                        int hour = now.get(Calendar.HOUR_OF_DAY);
+//                        int min = now.get(Calendar.MINUTE);
+//                        TimePickerDialog myTimeDialog = new TimePickerDialog(getContext(), myTimeListener , hour,min,true);
+//                        myTimeDialog.show();
+//
+//                    }
+//                };
+//                int Year = now.get(Calendar.YEAR);
+//                int Month = now.get(Calendar.MONTH);
+//                int Day = now.get(Calendar.DAY_OF_MONTH);
+//
+//                // Create the Date Picker Dialog
+//                DatePickerDialog myDateDialog = new DatePickerDialog(getContext(),
+//                        myDateListener, Year, Month, Day);
+//
+//                myDateDialog.show();
+//
+//            }
+//        });
+//        etLastFluid.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//                final Calendar now = Calendar.getInstance();
+//                DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                        day = dayOfMonth + "";
+//                        month = monthOfYear + "";
+//                        yearString = year + "";
+//                        //set time
+//                        TimePickerDialog.OnTimeSetListener myTimeListener = new TimePickerDialog.OnTimeSetListener() {
+//                            @Override
+//                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//
+//                                String hour = hourOfDay + "";
+//                                String minuteString = minute + "";
+//                                etLastFluid.setText(day + "/" + month + "/" + yearString  + " " + hour + ":" + minuteString);
+//                            }
+//                        };
+//
+//                        // Create the Time Picker Dialog
+//                        /*TimePickerDialog myTimeDialog = new TimePickerDialog(MainActivity.this,
+//                        myTimeListener, 20, 00, true);*/
+//                        ;
+//                        int hour = now.get(Calendar.HOUR_OF_DAY);
+//                        int min = now.get(Calendar.MINUTE);
+//                        TimePickerDialog myTimeDialog = new TimePickerDialog(getContext(), myTimeListener , hour,min,true);
+//                        myTimeDialog.show();
+//
+//                    }
+//                };
+//                int Year = now.get(Calendar.YEAR);
+//                int Month = now.get(Calendar.MONTH);
+//                int Day = now.get(Calendar.DAY_OF_MONTH);
+//
+//                // Create the Date Picker Dialog
+//                DatePickerDialog myDateDialog = new DatePickerDialog(getContext(),
+//                        myDateListener, Year, Month, Day);
+//
+//                myDateDialog.show();
+//
+//            }
+//        });
 
-        etLastMeal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                final Calendar now = Calendar.getInstance();
-                DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        day = dayOfMonth + "";
-                        month = monthOfYear + "";
-                        yearString = year + "";
-                        //set time
-                        TimePickerDialog.OnTimeSetListener myTimeListener = new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                String minuteString = "";
-                                String hour = "";
-                                if(minute < 10){
-                                    minuteString = "0" + minute + "";
-                                }else{
-                                    minuteString = "0" + minute + "";
-                                }
-
-                                if(hourOfDay < 10){
-                                    hour = "0" + hourOfDay + "";
-                                }else{
-                                    hour = hourOfDay + "";
-                                }
-
-                                etLastMeal.setText(day + "/" + month + "/" + yearString  + " " + hour + ":" + minuteString);
-                            }
-                        };
-
-                        // Create the Time Picker Dialog
-                        /*TimePickerDialog myTimeDialog = new TimePickerDialog(MainActivity.this,
-                        myTimeListener, 20, 00, true);*/
-                        ;
-                        int hour = now.get(Calendar.HOUR_OF_DAY);
-                        int min = now.get(Calendar.MINUTE);
-                        TimePickerDialog myTimeDialog = new TimePickerDialog(getContext(), myTimeListener , hour,min,true);
-                        myTimeDialog.show();
-
-                    }
-                };
-                int Year = now.get(Calendar.YEAR);
-                int Month = now.get(Calendar.MONTH);
-                int Day = now.get(Calendar.DAY_OF_MONTH);
-
-                // Create the Date Picker Dialog
-                DatePickerDialog myDateDialog = new DatePickerDialog(getContext(),
-                        myDateListener, Year, Month, Day);
-
-                myDateDialog.show();
-
-            }
-        });
-        etLastFluid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                final Calendar now = Calendar.getInstance();
-                DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        day = dayOfMonth + "";
-                        month = monthOfYear + "";
-                        yearString = year + "";
-                        //set time
-                        TimePickerDialog.OnTimeSetListener myTimeListener = new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-                                String hour = hourOfDay + "";
-                                String minuteString = minute + "";
-                                etLastFluid.setText(day + "/" + month + "/" + yearString  + " " + hour + ":" + minuteString);
-                            }
-                        };
-
-                        // Create the Time Picker Dialog
-                        /*TimePickerDialog myTimeDialog = new TimePickerDialog(MainActivity.this,
-                        myTimeListener, 20, 00, true);*/
-                        ;
-                        int hour = now.get(Calendar.HOUR_OF_DAY);
-                        int min = now.get(Calendar.MINUTE);
-                        TimePickerDialog myTimeDialog = new TimePickerDialog(getContext(), myTimeListener , hour,min,true);
-                        myTimeDialog.show();
-
-                    }
-                };
-                int Year = now.get(Calendar.YEAR);
-                int Month = now.get(Calendar.MONTH);
-                int Day = now.get(Calendar.DAY_OF_MONTH);
-
-                // Create the Date Picker Dialog
-                DatePickerDialog myDateDialog = new DatePickerDialog(getContext(),
-                        myDateListener, Year, Month, Day);
-
-                myDateDialog.show();
-
-            }
-        });
         return rootView;
     }
 
