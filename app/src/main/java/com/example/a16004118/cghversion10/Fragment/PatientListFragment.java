@@ -98,6 +98,7 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
 //                        alPatient.add(current.getIndex(),current);
 //                    }
 //                }
+                sort(alPatient);
                 pla.notifyDataSetChanged();
                 //listView.setAdapter(notificationAdapter);
             }
@@ -200,10 +201,18 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
         Alogrithm alogrithm = new Alogrithm(alPatient);
 
 
-        Map<String, Integer> alUnsort = alogrithm.getMap();
+        Map<String, Integer> mapUnsort = alogrithm.getMap();
         Sort sort = new Sort();
 
-        Map<String, Integer> alSort = sort.sortByValue(alUnsort);
+        Map<String, Integer> mapSort = sort.sortByValue(mapUnsort);
+
+        for (Map.Entry<String, Integer> entry : mapSort.entrySet()) {
+            System.out.println("Key : " + entry.getKey()
+                    + " Value : " + entry.getValue());
+
+            Log.e("TAG", "Key : " + entry.getKey()
+                    + " Value : " + entry.getValue());
+        }
         return null;
     }
 

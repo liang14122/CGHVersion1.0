@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Alogrithm {
     ArrayList<PatientAndMedicalDetail> patientAndMedicalDetailArrayList;
-    ArrayList<String> patientIdArr;
+    ArrayList<String> patientIdArr = new ArrayList<>();
     Map<String, Integer> map = new HashMap<String, Integer>();
     public Alogrithm(ArrayList<PatientAndMedicalDetail> patientAndMedicalDetailArrayList) {
         this.patientAndMedicalDetailArrayList = patientAndMedicalDetailArrayList;
