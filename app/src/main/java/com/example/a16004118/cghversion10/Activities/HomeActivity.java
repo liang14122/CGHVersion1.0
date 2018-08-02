@@ -22,8 +22,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.a16004118.cghversion10.Fragment.AboutUsFragment;
 import com.example.a16004118.cghversion10.Fragment.Activity_notification_list;
 import com.example.a16004118.cghversion10.Fragment.PatientListFragment;
+import com.example.a16004118.cghversion10.Fragment.ProfileFragment;
 import com.example.a16004118.cghversion10.ObjectPackage.Doctor;
 import com.example.a16004118.cghversion10.R;
 import com.google.android.gms.tasks.Continuation;
@@ -166,8 +168,10 @@ public class HomeActivity extends AppCompatActivity
             fragment = new Activity_notification_list();
             Log.i("HomeActivity", "select notification button");
         } else if (id == R.id.nav_profile) {
+            fragment = new ProfileFragment();
             Log.i("HomeActivity", "select nav_profile button");
         } else if (id == R.id.nav_about_us) {
+            fragment = new AboutUsFragment();
             Log.i("HomeActivity", "select nav_aboutUs button");
 
         }
