@@ -77,6 +77,8 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //check for each one
                 alPatient.clear();
+                alRawPatient.clear();
+                ArrayList<String> patientIdArr = new ArrayList<>();
                 Log.i("Menu page", String.valueOf(dataSnapshot));
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Log.i("Menu page", String.valueOf(child));
@@ -87,7 +89,8 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
                     current.setIdFB(child.getKey());
 //                    alRawPatient.add(current);
 //                    alPatient = sort(alRawPatient);
-                    alPatient.add(current);
+                    alRawPatient.add(current);
+                    patientIdArr.add(child.getKey());
 
                 }
                 //after using the scoring system, use this
@@ -98,7 +101,9 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
 //                        alPatient.add(current.getIndex(),current);
 //                    }
 //                }
-                sort(alPatient);
+
+                alPatient = sort(alRawPatient, patientIdArr);
+                Log.i("PatientList size",""+alPatient.get(0).getName());
                 pla.notifyDataSetChanged();
                 //listView.setAdapter(notificationAdapter);
             }
@@ -120,7 +125,7 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
-                            Log.i("Menu page", "Finding...");
+                            Log.i("emergency", "Finding...");
 
                             PatientAndMedicalDetail current = child.getValue(PatientAndMedicalDetail.class);
                             assert current != null;
@@ -148,7 +153,7 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
-                            Log.i("Menu page", "Finding...");
+                            Log.i("Non-emer", "Finding...");
 
                             PatientAndMedicalDetail current = child.getValue(PatientAndMedicalDetail.class);
                             assert current != null;
@@ -196,24 +201,42 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
         return view;
     }
 
-    private ArrayList<PatientAndMedicalDetail> sort(ArrayList<PatientAndMedicalDetail> alPatient) {
+    private ArrayList<PatientAndMedicalDetail> sort(ArrayList<PatientAndMedicalDetail> alPatient, ArrayList<String> patientIdArr) {
 
-        Alogrithm alogrithm = new Alogrithm(alPatient);
+        Alogrithm alogrithm = new Alogrithm(alPatient,patientIdArr);
 
+        ArrayList<String> arrayList = alogrithm.getMap();
 
-        Map<String, Integer> mapUnsort = alogrithm.getMap();
-        Sort sort = new Sort();
+        ArrayList<PatientAndMedicalDetail> alSorted = new ArrayList<PatientAndMedicalDetail>();
 
-        Map<String, Integer> mapSort = sort.sortByValue(mapUnsort);
-
-        for (Map.Entry<String, Integer> entry : mapSort.entrySet()) {
-            System.out.println("Key : " + entry.getKey()
-                    + " Value : " + entry.getValue());
-
-            Log.e("TAG", "Key : " + entry.getKey()
-                    + " Value : " + entry.getValue());
+        for(int i = 0; i< arrayList.size(); i++){
+            String idFB = arrayList.get(i);
+            for(int a = 0; a<alPatient.size(); a++){
+                PatientAndMedicalDetail current = alPatient.get(i);
+                if(idFB.equals(patientIdArr.get(i))){
+                    alSorted.add(current);
+                }
+            }
         }
-        return null;
+//        Map<String, Integer> mapUnsort = alogrithm.getMap();
+//        Sort sort = new Sort();
+//
+//        Map<String, Integer> mapSort = sort.sortByValue(mapUnsort);
+//
+//        for (Map.Entry<String, Integer> entry : mapSort.entrySet()) {
+//
+//
+//            Log.e("TAG", "Key : " + entry.getKey()
+//                    + " Value : " + entry.getValue());
+//
+//            for (int i = 0; i< alPatient.size(); i++){
+//                PatientAndMedicalDetail currentPatient = alPatient.get(i);
+//                if (currentPatient.getIdFB().equals(entry.getValue())){
+//                    alSorted.add(currentPatient);
+//                }
+//            }
+//        }
+        return alSorted;
     }
 
     @Override

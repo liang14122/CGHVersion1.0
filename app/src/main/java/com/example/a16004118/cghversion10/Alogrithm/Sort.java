@@ -1,5 +1,7 @@
 package com.example.a16004118.cghversion10.Alogrithm;
 
+import android.util.Log;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -42,8 +44,8 @@ public class Sort {
     }
     public static <K, V> void printMap(Map<K, V> map) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
-            System.out.println("Key : " + entry.getKey()
-                    + " Value : " + entry.getValue());
+            Log.i("Sort func: ","Key : " + entry.getKey()
+                    + " Value1 : " + entry.getValue());
         }
     }
 
