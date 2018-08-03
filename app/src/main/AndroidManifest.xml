@@ -22,7 +22,7 @@
         </activity>
         <activity
             android:name=".Activities.HomeActivity"
-            android:label="@string/title_activity_home"></activity>
+            android:label="@string/title_activity_home" />
 
         <service android:name=".NotificationService.MyFirebaseMessaging">
             <intent-filter>
@@ -68,8 +68,8 @@
         <activity
             android:name=".Activities.AddPatient"
             android:label="@string/title_activity_add_patient"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Activities.EditPatient"></activity>
     </application>
 
 </manifest>
