@@ -105,7 +105,7 @@ public class RecyclerViewTouchHelperCallback extends ItemTouchHelper.Callback {
 
             Log.e("TAG", "clearView: " + String.valueOf(patientList));
 
-            Toast.makeText(recyclerView.getContext(), "FinalPosition" + finalPosition, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(recyclerView.getContext(), "FinalPosition" + finalPosition, Toast.LENGTH_SHORT).show();
 
             finalPosition = 0;
             startPosition = 0;

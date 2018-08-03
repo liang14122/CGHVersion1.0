@@ -17,7 +17,8 @@ public class Alogrithm {
         this.patientAndMedicalDetailArrayList = patientAndMedicalDetailArrayList;
         this.patientIdArr = patientIdArr;
     }
-
+    ArrayList<String> currentIDFBList = new ArrayList<>();
+    ArrayList<Integer> currentScoreList = new ArrayList<>();
     //return Map<String, Double>
     public ArrayList<String> getMap(){
         ArrayList<String> sortedIdFbArr = new ArrayList<>();
@@ -26,20 +27,27 @@ public class Alogrithm {
             PatientAndMedicalDetail current = patientAndMedicalDetailArrayList.get(i);
             findtheScore(idFB, current);
         }
+
         Log.i("Alogrithem map size",map.size()+"");
         for(int i = 0; i<map.size(); i++){
+            int biggestPosition = i;
             String biggestIdFb = patientIdArr.get(i);
             int biggestInt = map.get(biggestIdFb);
-            for (int a=i+1; a<map.size(); a++){
+            for (int a=i; a<map.size(); a++){
                 String currentIdFb = patientIdArr.get(a);
-                int currentInt = map.get(currentIdFb);
+                int currentInt = currentScoreList.get(a);
                 if(currentInt>biggestInt){
-                    biggestIdFb = currentIdFb;
-                    biggestInt = currentInt;
+                    biggestPosition = a;
                 }
             }
             sortedIdFbArr.add(biggestIdFb);
+            int tempScore = currentScoreList.get(i);
+            currentScoreList.set(i,currentScoreList.get(biggestPosition)) ;
+            currentScoreList.set(biggestPosition,tempScore);
 
+            String tempString = currentIDFBList.get(i);
+            currentIDFBList.set(i,currentIDFBList.get(biggestPosition)) ;
+            currentIDFBList.set(biggestPosition,tempString);
         }
         Log.i("Algorithem sorted size",""+sortedIdFbArr.size());
         return sortedIdFbArr;
@@ -84,15 +92,17 @@ public class Alogrithm {
             lastEatHrs = lastEatHrs + 24;
         }
 
-            int score = (lastEatHrs*60 + lastEatMins) * 2 + (waitHrs*60+waitMins);
-            if (life == true) {
-                score += 10000;
-            }
+        int score = (lastEatHrs*60 + lastEatMins) * 2 + (waitHrs*60+waitMins);
+        if (life == true) {
+            score += 10000;
+        }
         Log.i("Score for "+idFB, ""+score);
 //            String a = String.format(".%2f", score);
 //            Double b = Double.parseDouble(a) *100;
 //            int d = Integer.valueOf(String.valueOf(b));
-            map.put(idFB, score);
+        currentIDFBList.add(idFB);
+        currentScoreList.add(score);
+        map.put(idFB, score);
 
     }
 }

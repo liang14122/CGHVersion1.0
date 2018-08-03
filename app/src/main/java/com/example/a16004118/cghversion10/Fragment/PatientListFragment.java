@@ -33,9 +33,10 @@ import java.util.Map;
 import java.util.Objects;
 
 public class PatientListFragment extends Fragment implements ItemTouchHelper {
-    ImageButton emergency,nonEmergency,viewAll;
-    ArrayList<PatientAndMedicalDetail> alPatient = new ArrayList<>();
-    ArrayList<PatientAndMedicalDetail> alRawPatient = new ArrayList<>();
+    ImageButton emergency, nonEmergency, viewAll;
+    ArrayList<PatientAndMedicalDetail> alPatient;
+    ArrayList<PatientAndMedicalDetail> alRawPatient;
+    ArrayList<String> patientIdArr;
     DatabaseReference databaseReferenceChit;
     RecyclerView rvPatientList;
     PatientAdapter pla;
@@ -49,6 +50,9 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
         View view = inflater.inflate(R.layout.fragment_patient_list, container, false);
 
         Objects.requireNonNull(getActivity()).setTitle("Patient List");
+        alPatient = new ArrayList<>();
+        alRawPatient = new ArrayList<>();
+        patientIdArr = new ArrayList<>();
 
         emergency = view.findViewById(R.id.imageButton2);
         nonEmergency = view.findViewById(R.id.imageButton3);
@@ -56,7 +60,6 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
         rvPatientList = view.findViewById(R.id.rvPatientList);
 
         viewAll.performClick();
-
 
 
         pla = new PatientAdapter(alPatient);
@@ -76,36 +79,21 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //check for each one
+//                alRawPatient.clear();
                 alPatient.clear();
-                alRawPatient.clear();
-                ArrayList<String> patientIdArr = new ArrayList<>();
                 Log.i("Menu page", String.valueOf(dataSnapshot));
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Log.i("Menu page", String.valueOf(child));
 
                     PatientAndMedicalDetail current = child.getValue(PatientAndMedicalDetail.class);
-
                     assert current != null;
                     current.setIdFB(child.getKey());
 //                    alRawPatient.add(current);
-//                    alPatient = sort(alRawPatient);
-                    alRawPatient.add(current);
-                    patientIdArr.add(child.getKey());
-
+//                    patientIdArr.add(child.getKey());
+                    alPatient.add(current);
                 }
-                //after using the scoring system, use this
-//                for(int i = 0; i<alPatient.size(); i++){
-//                    PatientAndMedicalDetail current = alPatient.get(i);
-//                    if(current.getIndex()!=-1){
-//                        alPatient.remove(i);
-//                        alPatient.add(current.getIndex(),current);
-//                    }
-//                }
-
-                alPatient = sort(alRawPatient, patientIdArr);
-                Log.i("PatientList size",""+alPatient.get(0).getName());
+//                alPatient.addAll(sort(alRawPatient, patientIdArr));
                 pla.notifyDataSetChanged();
-                //listView.setAdapter(notificationAdapter);
             }
 
             @Override
@@ -117,63 +105,40 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
         emergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                currentArrayList = getCurrentArrayList(false, true);
-                //setAdapterTry(currentArrayList);
                 alPatient.clear();
-
-                databaseReferenceChit.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot child : dataSnapshot.getChildren()) {
-                            Log.i("emergency", "Finding...");
-
-                            PatientAndMedicalDetail current = child.getValue(PatientAndMedicalDetail.class);
-                            assert current != null;
-                            if(current.getLifeThreating())
-                            alPatient.add(current);
-                        }
-                        pla.notifyDataSetChanged();
-
+                for (int i = 0; i < alRawPatient.size(); i++) {
+                    PatientAndMedicalDetail current = alRawPatient.get(i);
+                    if (current.getLifeThreating()) {
+                        alPatient.add(current);
                     }
+                }
+                pla.notifyDataSetChanged();
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
             }
         });
         nonEmergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 alPatient.clear();
-
-                databaseReferenceChit.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot child : dataSnapshot.getChildren()) {
-                            Log.i("Non-emer", "Finding...");
-
-                            PatientAndMedicalDetail current = child.getValue(PatientAndMedicalDetail.class);
-                            assert current != null;
-                            if(!current.getLifeThreating())
-                                alPatient.add(current);
-                        }
-                        pla.notifyDataSetChanged();
-
+                for (int i = 0; i < alRawPatient.size(); i++) {
+                    PatientAndMedicalDetail current = alRawPatient.get(i);
+                    if (!current.getLifeThreating()) {
+                        alPatient.add(current);
                     }
+                }
+                pla.notifyDataSetChanged();
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
             }
         });
         viewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                alPatient.addAll(sort(alRawPatient, patientIdArr));
+//                Log.i("PatientList", "name: " + alPatient.get(0).getName());
+//                Log.i("Patient list", "Size of alPatient " + alPatient.size());
+//                pla.notifyDataSetChanged();
+
                 alPatient.clear();
 
                 databaseReferenceChit.addValueEventListener(new ValueEventListener() {
@@ -201,20 +166,23 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
         return view;
     }
 
-    private ArrayList<PatientAndMedicalDetail> sort(ArrayList<PatientAndMedicalDetail> alPatient, ArrayList<String> patientIdArr) {
+    private ArrayList<PatientAndMedicalDetail> sort(ArrayList<PatientAndMedicalDetail> alrPatient, ArrayList<String> patientIdArr) {
 
-        Alogrithm alogrithm = new Alogrithm(alPatient,patientIdArr);
+        Alogrithm alogrithm = new Alogrithm(alrPatient, patientIdArr);
 
         ArrayList<String> arrayList = alogrithm.getMap();
+        Log.i("soutFunction", "size of arr " + arrayList.toString());
+        Log.i("soutFunction", "size of patientIdArr " + patientIdArr.toString());
 
-        ArrayList<PatientAndMedicalDetail> alSorted = new ArrayList<PatientAndMedicalDetail>();
+        ArrayList<PatientAndMedicalDetail> alSorted = new ArrayList<>();
 
-        for(int i = 0; i< arrayList.size(); i++){
+        for (int i = 0; i < arrayList.size(); i++) {
             String idFB = arrayList.get(i);
-            for(int a = 0; a<alPatient.size(); a++){
-                PatientAndMedicalDetail current = alPatient.get(i);
-                if(idFB.equals(patientIdArr.get(i))){
+            for (int a = 0; a < alRawPatient.size(); a++) {
+                PatientAndMedicalDetail current = alRawPatient.get(a);
+                if (idFB.equals(patientIdArr.get(a))) {
                     alSorted.add(current);
+                    Log.i("alSorted", "add one " + idFB);
                 }
             }
         }
@@ -236,6 +204,7 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
 //                }
 //            }
 //        }
+        Log.i("sort function", "size of sorted " + alSorted.size());
         return alSorted;
     }
 
