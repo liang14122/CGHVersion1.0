@@ -98,7 +98,7 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
             case R.id.action_personal_detail:
                 // User chose the "Settings" item, show the app settings UI...
                 Intent i = new Intent(PatientMedicalDetailActivity.this, PatientPersonalDetailsActivity.class);
-                i.putExtra("idFB",  getIntent().getStringExtra("idFB"));
+                i.putExtra("patientDetail",  getIntent().getSerializableExtra("patientDetail"));
                 startActivity(i);
                 return true;
             case R.id.home:

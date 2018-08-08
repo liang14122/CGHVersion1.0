@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class PatientPersonalDetailsActivity extends AppCompatActivity {
 
-    TextView tvName, tvId, tvAge, tvJob, tvOccupation, tvLanguage;
+    TextView tvName, tvId, tvAge, tvDoctor, tvTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,38 +32,18 @@ public class PatientPersonalDetailsActivity extends AppCompatActivity {
         tvName = findViewById(R.id.tvName);
         tvId = findViewById(R.id.tvId);
         tvAge = findViewById(R.id.tvAge);
-        tvJob = findViewById(R.id.tvJob);
-        String idFB = getIntent().getStringExtra("idFB");
-        Toast.makeText(getApplicationContext(), idFB, Toast.LENGTH_LONG).show();
+        tvDoctor = findViewById(R.id.tvDoctor);
+        tvTable = findViewById(R.id.tvTable);
+        PatientAndMedicalDetail patientDetail = (PatientAndMedicalDetail) getIntent().getSerializableExtra("patientDetail");
+//        Toast.makeText(getApplicationContext(), patientDetail+"", Toast.LENGTH_LONG).show();
 
-        DatabaseReference databaseReferenceChit = FirebaseDatabase.getInstance().getReference("cghversion01").child("chit/" + idFB);
+        getSupportActionBar().setTitle(patientDetail.getName());
+        tvName.setText("Name: " + patientDetail.getName());
+        tvId.setText("Account No.: " + patientDetail.getAccountNo());
+        tvAge.setText("Age: " + patientDetail.getAge());
+        tvDoctor.setText("Doctor: " + patientDetail.getAssignDoctorId());
+        tvTable.setText("Table: " + patientDetail.getTable());
 
-        databaseReferenceChit.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("SetTextI18n")
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //check for each one
-
-                PatientAndMedicalDetail currentChit = dataSnapshot.getValue(PatientAndMedicalDetail.class);
-
-                if (currentChit != null) {
-
-
-                    Objects.requireNonNull(getSupportActionBar()).setTitle( currentChit.getName());
-                    tvName.setText("Name: " + currentChit.getName());
-                    tvId.setText("MRIN: " + currentChit.getMrin());
-                    tvAge.setText("Age: " + currentChit.getAge());
-                    tvJob.setText("Office/School: " + currentChit.getLocation());
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("LogFragment", "loadLog:onCancelled", databaseError.toException());
-            }
-        });
     }
 
     @Override

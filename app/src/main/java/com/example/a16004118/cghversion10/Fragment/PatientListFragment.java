@@ -106,13 +106,28 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
             @Override
             public void onClick(View v) {
                 alPatient.clear();
-                for (int i = 0; i < alRawPatient.size(); i++) {
-                    PatientAndMedicalDetail current = alRawPatient.get(i);
-                    if (current.getLifeThreating()) {
-                        alPatient.add(current);
+                databaseReferenceChit.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Log.i("Menu page", String.valueOf(dataSnapshot));
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            Log.i("Menu page", String.valueOf(child));
+                            PatientAndMedicalDetail current = child.getValue(PatientAndMedicalDetail.class);
+                            assert current != null;
+                            if (current.getLifeThreating()) {
+                                alPatient.add(current);
+                            }
+                        }
+                        pla.notifyDataSetChanged();
+
+
                     }
-                }
-                pla.notifyDataSetChanged();
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
             }
         });
@@ -120,15 +135,28 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
             @Override
             public void onClick(View v) {
                 alPatient.clear();
-                for (int i = 0; i < alRawPatient.size(); i++) {
-                    PatientAndMedicalDetail current = alRawPatient.get(i);
-                    if (!current.getLifeThreating()) {
-                        alPatient.add(current);
+                databaseReferenceChit.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Log.i("Menu page", String.valueOf(dataSnapshot));
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            Log.i("Menu page", String.valueOf(child));
+                            PatientAndMedicalDetail current = child.getValue(PatientAndMedicalDetail.class);
+                            assert current != null;
+                            if (!current.getLifeThreating()) {
+                                alPatient.add(current);
+                            }
+                        }
+                        pla.notifyDataSetChanged();
+
+
                     }
-                }
-                pla.notifyDataSetChanged();
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                    }
+                });
             }
         });
         viewAll.setOnClickListener(new View.OnClickListener() {
