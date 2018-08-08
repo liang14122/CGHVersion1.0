@@ -31,7 +31,7 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
     private HashMap<String, List<String>> listMDDetail;
     private PatientAndMedicalDetail patientDetail;
     private String patientDetailString;
-    private TextView tvWaitingTime, tvLastMeal, tvBedLocation, tvWarningMsg;
+    private TextView tvWaitingTime, tvLastMeal, tvBedLocation, tvWarningMsg,tvEdit;
     private GridLayout glEmergency;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -51,8 +51,17 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
         tvBedLocation = findViewById(R.id.tvBedLocation);
         tvWarningMsg = findViewById(R.id.tvWarningMsg);
         glEmergency = findViewById(R.id.glEmergency);
+        tvEdit = findViewById(R.id.textViewEdit);
 
         prepareMD();
+
+        tvEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), EditPatient.class);
+                startActivity(i);
+            }
+        });
 
         MedicalDetailExpandableListAdapter listAdapter = new MedicalDetailExpandableListAdapter(this, listMDHeader, listMDDetail);
 
