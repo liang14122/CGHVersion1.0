@@ -130,6 +130,7 @@ public class EditPatient extends AppCompatActivity {
                     if (doctor != null) {
                         tabAssign.tvDoctor.setText(doctor.getName());
                         tabAssign.tvTable.setText(table);
+                        //l
                     }
                 }
 
