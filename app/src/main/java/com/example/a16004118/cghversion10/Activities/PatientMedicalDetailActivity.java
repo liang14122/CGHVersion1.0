@@ -54,23 +54,23 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
         tvBedLocation = findViewById(R.id.tvBedLocation);
         tvWarningMsg = findViewById(R.id.tvWarningMsg);
         glEmergency = findViewById(R.id.glEmergency);
-        tvEdit = findViewById(R.id.textViewEdit);
+//        tvEdit = findViewById(R.id.textViewEdit);
 
         prepareMD();
 
-        tvEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if (patientDetail != null) {
-                    Intent i = new Intent(PatientMedicalDetailActivity.this, EditPatient.class);
-                    //Toast.makeText(getApplicationContext(), patientDetail.getName(), Toast.LENGTH_LONG).show();
-                    i.putExtra("patientDetail", patientDetail);
-                    //i.putExtra("idFB", getIntent().getStringExtra("idFB"));
-                    //Log.v("PASSING TO EDIT", patientDetail.getName());
-                    startActivity(i);
-                //}
-            }
-        });
+//        tvEdit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //if (patientDetail != null) {
+//                    Intent i = new Intent(PatientMedicalDetailActivity.this, EditPatient.class);
+//                    //Toast.makeText(getApplicationContext(), patientDetail.getName(), Toast.LENGTH_LONG).show();
+//                    i.putExtra("patientDetail", patientDetail);
+//                    //i.putExtra("idFB", getIntent().getStringExtra("idFB"));
+//                    //Log.v("PASSING TO EDIT", patientDetail.getName());
+//                    startActivity(i);
+//                //}
+//            }
+//        });
 
         MedicalDetailExpandableListAdapter listAdapter = new MedicalDetailExpandableListAdapter(this, listMDHeader, listMDDetail);
 
@@ -116,9 +116,14 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
             case R.id.action_personal_detail:
                 // User chose the "Settings" item, show the app settings UI...
                 Intent i = new Intent(PatientMedicalDetailActivity.this, PatientPersonalDetailsActivity.class);
-                i.putExtra("idFB", getIntent().getStringExtra("idFB"));
                 i.putExtra("patientDetail",  getIntent().getSerializableExtra("patientDetail"));
                 startActivity(i);
+                return true;
+            case R.id.action_edit_patient:
+                // User chose the "Settings" item, show the app settings UI...
+                Intent i2 = new Intent(PatientMedicalDetailActivity.this, EditPatient.class);
+                i2.putExtra("patientDetail",  getIntent().getSerializableExtra("patientDetail"));
+                startActivity(i2);
                 return true;
             case R.id.home:
                 this.finish();

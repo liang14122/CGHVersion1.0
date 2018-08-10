@@ -47,7 +47,7 @@ public class Activity_notification_list extends Fragment {
         notificationArrayList = new ArrayList<>();
         notificationAdapter = new NotificationAdapter(getContext(), R.layout.notification_list_adapter, notificationArrayList);
         Log.i("Notification_activity","set notification adapter");
-        databaseReferenceNotification = FirebaseDatabase.getInstance().getReference("cghversion01").child("notification");
+        databaseReferenceNotification = FirebaseDatabase.getInstance().getReference("cghversion20").child("notification");
         Log.i("Notification_activity","set notification adapter and firebase");
 
         databaseReferenceNotification.addValueEventListener(new ValueEventListener() {

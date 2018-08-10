@@ -24,6 +24,7 @@
             android:name=".Activities.HomeActivity"
             android:label="@string/title_activity_home" />
 
+
         <service android:name=".NotificationService.MyFirebaseMessaging">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

@@ -41,18 +41,22 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         //find the table name and start to add
 
+
         Log.d("Test Purpose", "Refreshed token: " + Common.currentToken);
 
         btnLogin = findViewById(R.id.btnLogin);
         etPassword = findViewById(R.id.etPassword);
         etUserName = findViewById(R.id.etUserName);
-
+//
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 final String username = etUserName.getText().toString().trim();
                 final String pw = etPassword.getText().toString().trim();
+
+//                final String username = "P0148F";
+//                final String pw = "123";
 
                 databaseReferenceDoctor = FirebaseDatabase.getInstance().getReference("cghversion20").child("Doctor");
 

@@ -8,4 +8,10 @@
         android:title="Personal Detail"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/action_edit_patient"
+        android:icon="@drawable/edit"
+        android:title="Edit Patient"
+        app:showAsAction="ifRoom" />
+
 </menu>

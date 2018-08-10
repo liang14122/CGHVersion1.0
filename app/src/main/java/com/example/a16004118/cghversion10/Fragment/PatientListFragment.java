@@ -59,7 +59,7 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
         viewAll = view.findViewById(R.id.imageButton4);
         rvPatientList = view.findViewById(R.id.rvPatientList);
 
-        viewAll.performClick();
+//        viewAll.performClick();
 
 
         pla = new PatientAdapter(alPatient);
@@ -162,10 +162,10 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
         viewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                alPatient.addAll(sort(alRawPatient, patientIdArr));
-//                Log.i("PatientList", "name: " + alPatient.get(0).getName());
-//                Log.i("Patient list", "Size of alPatient " + alPatient.size());
-//                pla.notifyDataSetChanged();
+                alPatient.addAll(sort(alRawPatient, patientIdArr));
+                Log.i("PatientList", "name: " + alPatient.get(0).getName());
+                Log.i("Patient list", "Size of alPatient " + alPatient.size());
+                pla.notifyDataSetChanged();
 
                 alPatient.clear();
 

@@ -58,6 +58,7 @@ public class EditPatient extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_patient);
 
+        //init tabs layout ask leo
 
         //======================================================================================================
         //here
@@ -120,6 +121,7 @@ public class EditPatient extends AppCompatActivity {
                 tabPatient.rbNonEmergency.setChecked(true);
             }
             tabMedical.etPreOp.setText(preOpDiagnosis);
+            //this part will not work
             DatabaseReference docRef = FirebaseDatabase.getInstance().getReference("cghversion20/Doctor");
             docRef.addValueEventListener(new ValueEventListener() {
                 @Override
