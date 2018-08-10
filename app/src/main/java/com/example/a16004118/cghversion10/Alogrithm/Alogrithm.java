@@ -8,17 +8,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Alogrithm {
     ArrayList<PatientAndMedicalDetail> patientAndMedicalDetailArrayList = new ArrayList<>();
     ArrayList<String> patientIdArr = new ArrayList<>();
+    ArrayList<Integer> patientScore = new ArrayList<>();
+
     Map<String, Integer> map = new HashMap<String, Integer>();
     public Alogrithm(ArrayList<PatientAndMedicalDetail> patientAndMedicalDetailArrayList, ArrayList<String> patientIdArr) {
         this.patientAndMedicalDetailArrayList = patientAndMedicalDetailArrayList;
         this.patientIdArr = patientIdArr;
     }
-    ArrayList<String> currentIDFBList = new ArrayList<>();
-    ArrayList<Integer> currentScoreList = new ArrayList<>();
+
     //return Map<String, Double>
     public ArrayList<String> getMap(){
         ArrayList<String> sortedIdFbArr = new ArrayList<>();
@@ -28,28 +30,34 @@ public class Alogrithm {
             findtheScore(idFB, current);
         }
 
-        Log.i("Alogrithem map size",map.size()+"");
-        for(int i = 0; i<map.size(); i++){
-            int biggestPosition = i;
-            String biggestIdFb = patientIdArr.get(i);
-            int biggestInt = map.get(biggestIdFb);
-            for (int a=i; a<map.size(); a++){
-                String currentIdFb = patientIdArr.get(a);
-                int currentInt = currentScoreList.get(a);
-                if(currentInt>biggestInt){
-                    biggestPosition = a;
-                }
-            }
-            sortedIdFbArr.add(biggestIdFb);
-            int tempScore = currentScoreList.get(i);
-            currentScoreList.set(i,currentScoreList.get(biggestPosition)) ;
-            currentScoreList.set(biggestPosition,tempScore);
 
-            String tempString = currentIDFBList.get(i);
-            currentIDFBList.set(i,currentIDFBList.get(biggestPosition)) ;
-            currentIDFBList.set(biggestPosition,tempString);
-        }
-        Log.i("Algorithem sorted size",""+sortedIdFbArr.size());
+            for (int i = 0; i < patientIdArr.size(); i++) {
+                int currentIndex = i;
+                String biggestIdFb = patientIdArr.get(i);
+                int biggestScore = patientScore.get(i);
+                Log.i("Alogrithem score", biggestScore + "= current biggest" + "idfb: " + biggestIdFb);
+
+                for (int a = i + 1; a < map.size(); a++) {
+                    String currentIdFb = patientIdArr.get(a);
+                    int currentScore = patientScore.get(a);
+                    Log.i("Alogrithem score", currentScore + "= current biggest" + "idfb: " + currentIdFb);
+
+                    if (currentScore > biggestScore) {
+                        biggestIdFb = currentIdFb;
+                        biggestScore = currentScore;
+                        currentIndex = a;
+                    }
+                }
+                patientIdArr.remove(currentIndex);
+                patientScore.remove(currentIndex);
+                patientIdArr.add(i,biggestIdFb);
+                patientScore.add(i,biggestScore);
+                Log.i("The " + i + " score", "" + biggestScore + " id=" + biggestIdFb);
+                sortedIdFbArr.add(biggestIdFb);
+
+            }
+
+        Log.i("Algorithem sorted size",""+sortedIdFbArr.toString());
         return sortedIdFbArr;
     }
 
@@ -92,17 +100,17 @@ public class Alogrithm {
             lastEatHrs = lastEatHrs + 24;
         }
 
-        int score = (lastEatHrs*60 + lastEatMins) * 2 + (waitHrs*60+waitMins);
-        if (life == true) {
-            score += 10000;
-        }
+            int score = (lastEatHrs*60 + lastEatMins) * 2 + (waitHrs*60+waitMins);
+            if (life == true) {
+                score += 10000;
+            }
         Log.i("Score for "+idFB, ""+score);
 //            String a = String.format(".%2f", score);
 //            Double b = Double.parseDouble(a) *100;
 //            int d = Integer.valueOf(String.valueOf(b));
-        currentIDFBList.add(idFB);
-        currentScoreList.add(score);
-        map.put(idFB, score);
+            map.put(idFB, score);
+            patientScore.add(score);
+            Log.i("map value",String.valueOf(map));
 
     }
 }

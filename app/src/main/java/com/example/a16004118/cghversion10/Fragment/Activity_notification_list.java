@@ -1,9 +1,11 @@
 package com.example.a16004118.cghversion10.Fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.a16004118.cghversion10.Adapter.NotificationAdapter;
+import com.example.a16004118.cghversion10.ObjectPackage.Doctor;
 import com.example.a16004118.cghversion10.ObjectPackage.Notification;
 import com.example.a16004118.cghversion10.R;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -42,7 +47,13 @@ public class Activity_notification_list extends Fragment {
         View view = inflater.inflate(R.layout.fragment_activity_notification_list, container, false);
 
         Objects.requireNonNull(getActivity()).setTitle("Notifications");
+        SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(getContext());
 
+        Gson gson = new GsonBuilder().setLenient().create();
+        String doctorString = prefs.getString("doctorString", null);
+        Doctor currentDoctor = gson.fromJson(doctorString, Doctor.class);
+        final String doctorId = currentDoctor.getSurgeronId();
         listView = view.findViewById(R.id.listView);
         notificationArrayList = new ArrayList<>();
         notificationAdapter = new NotificationAdapter(getContext(), R.layout.notification_list_adapter, notificationArrayList);
@@ -59,9 +70,11 @@ public class Activity_notification_list extends Fragment {
                     Log.i("Menu page", "Finding...");
 
                     Notification current = child.getValue(Notification.class);
-
-                    notificationArrayList.add(current);
+                    if(doctorId.equals(current.getDoctorId())){
+                        notificationArrayList.add(current);
+                    }
                 }
+                Log.i("Notification","list size get from fb:"+notificationArrayList.size());
                 listView.setAdapter(notificationAdapter);
             }
 
@@ -84,7 +97,6 @@ public class Activity_notification_list extends Fragment {
 
             }
         });
-
         return view;
     }
 

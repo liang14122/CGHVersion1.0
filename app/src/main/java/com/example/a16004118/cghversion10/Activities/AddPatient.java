@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.a16004118.cghversion10.Fragment.TabAssign;
 import com.example.a16004118.cghversion10.Fragment.TabMedical;
@@ -188,11 +189,20 @@ public class AddPatient extends AppCompatActivity {
                         lastMeal, lastFluid, lifeThreating, typeOfAnaesthesia, preOp,
                         contact, blood, airBorne, otherHighRisk, doctor, location, ot,
                         time,dept, ward, room, bed, table, null, null, -1);
+
+                String result = patientAndMedicalDetail.showAlert();
+                if(result.length()<28){
+                    String idFbChit = databaseReferenceChit.push().getKey();
+                    assert idFbChit != null;
+                    databaseReferenceChit.child(idFbChit).setValue(patientAndMedicalDetail);
+                    Log.i("AddPatient","chit submitted");
+                }
+                else{
+                    Toast.makeText(getBaseContext(),result,Toast.LENGTH_LONG).show();
+                }
+
                 //firebase part;
 
-                String idFbChit = databaseReferenceChit.push().getKey();
-                assert idFbChit != null;
-                databaseReferenceChit.child(idFbChit).setValue(patientAndMedicalDetail);
 
             }
         });
