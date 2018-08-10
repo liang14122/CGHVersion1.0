@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +32,7 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
     private HashMap<String, List<String>> listMDDetail;
     private PatientAndMedicalDetail patientDetail;
     private String patientDetailString;
-    private TextView tvWaitingTime, tvLastMeal, tvBedLocation, tvWarningMsg,tvEdit;
+    private TextView tvWaitingTime, tvLastMeal, tvBedLocation, tvWarningMsg, tvEdit;
     private GridLayout glEmergency;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -40,7 +41,9 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_detail);
 
+        //patientDetail -> idFB?
         patientDetail = (PatientAndMedicalDetail) getIntent().getSerializableExtra("patientDetail");
+
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
@@ -58,8 +61,14 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
         tvEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), EditPatient.class);
-                startActivity(i);
+                //if (patientDetail != null) {
+                    Intent i = new Intent(PatientMedicalDetailActivity.this, EditPatient.class);
+                    //Toast.makeText(getApplicationContext(), patientDetail.getName(), Toast.LENGTH_LONG).show();
+                    i.putExtra("patientDetail", patientDetail);
+                    //i.putExtra("idFB", getIntent().getStringExtra("idFB"));
+                    //Log.v("PASSING TO EDIT", patientDetail.getName());
+                    startActivity(i);
+                //}
             }
         });
 
@@ -107,6 +116,7 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
             case R.id.action_personal_detail:
                 // User chose the "Settings" item, show the app settings UI...
                 Intent i = new Intent(PatientMedicalDetailActivity.this, PatientPersonalDetailsActivity.class);
+                i.putExtra("idFB", getIntent().getStringExtra("idFB"));
                 i.putExtra("patientDetail",  getIntent().getSerializableExtra("patientDetail"));
                 startActivity(i);
                 return true;
@@ -134,43 +144,44 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
         listMDHeader.add("Assign Details");
 
 
-                if (patientDetail == null) {
-                    Toast.makeText(getApplicationContext(), "chit null", Toast.LENGTH_LONG).show();
-                } else {
+        if (patientDetail == null) {
+            Toast.makeText(getApplicationContext(), "chit null", Toast.LENGTH_LONG).show();
+        } else {
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        Objects.requireNonNull(getSupportActionBar()).setTitle(patientDetail.getName());
-                    }
-
-                    if (patientDetail.getLifeThreating()) {
-                        tvWarningMsg.setText(patientDetail.getPreOpDiagnosis());
-                    } else {
-                        glEmergency.setVisibility(GridLayout.GONE);
-                    }
-
-                    List<String> medical = new ArrayList<>();
-                    medical.add("Last Meal Taken: " + patientDetail.getLastMeal());
-                    medical.add("Last Clear Fluid: " + patientDetail.getLastClearFluid());
-                    medical.add("Type of Anaesthesia/Sedation: " + patientDetail.getTypeOfAnaesthesiaSedation());
-                    medical.add("Pre-Op Diagnosis: " + patientDetail.getPreOpDiagnosis());
-                    medical.add("Contact Precautions: " + patientDetail.getContactPrecautionsString());
-                    medical.add("Blood borne infections: " + patientDetail.getBloodBorneInfectionString());
-                    medical.add("AirBorne precautions: " + patientDetail.getAirbornePrecautionsString());
-                    medical.add("Location: " + patientDetail.getLocation());
-                    medical.add("OT: " + patientDetail.getOt());
-
-                    List<String> assign = new ArrayList<>();
-                    assign.add("Assign Doctor: " + patientDetail.getAssignDoctorId());
-                    assign.add("Assign Table: " + patientDetail.getTable());
-
-                    tvWaitingTime.setText(patientDetail.getChitSubmission());
-                    tvLastMeal.setText(patientDetail.getLastMeal());
-                    tvBedLocation.setText(patientDetail.getBed());
-
-                    listMDDetail.put(listMDHeader.get(0), medical); // Header, Child data
-                    listMDDetail.put(listMDHeader.get(1), assign);
-                }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                Objects.requireNonNull(getSupportActionBar()).setTitle(patientDetail.getName());
             }
+
+            if (patientDetail.getLifeThreating()) {
+                tvWarningMsg.setText(patientDetail.getPreOpDiagnosis());
+            } else {
+                glEmergency.setVisibility(GridLayout.GONE);
+            }
+
+            List<String> medical = new ArrayList<>();
+            medical.add("Last Meal Taken: " + patientDetail.getLastMeal());
+            medical.add("Last Clear Fluid: " + patientDetail.getLastClearFluid());
+            medical.add("Type of Anaesthesia/Sedation: " + patientDetail.getTypeOfAnaesthesiaSedation());
+            medical.add("Pre-Op Diagnosis: " + patientDetail.getPreOpDiagnosis());
+            medical.add("Contact Precautions: " + patientDetail.getContactPrecautionsString());
+            medical.add("Blood borne infections: " + patientDetail.getBloodBorneInfectionString());
+            medical.add("AirBorne precautions: " + patientDetail.getAirbornePrecautionsString());
+            medical.add("Location: " + patientDetail.getLocation());
+            medical.add("OT: " + patientDetail.getOt());
+
+            List<String> assign = new ArrayList<>();
+            assign.add("Assign Doctor: " + patientDetail.getAssignDoctorId());
+            assign.add("Assign Table: " + patientDetail.getTable());
+
+            tvWaitingTime.setText(patientDetail.getChitSubmission());
+            tvLastMeal.setText(patientDetail.getLastMeal());
+            tvBedLocation.setText(patientDetail.getBed());
+
+            listMDDetail.put(listMDHeader.get(0), medical); // Header, Child data
+            listMDDetail.put(listMDHeader.get(1), assign);
+        }
+
+    }
 
 
     @Override
@@ -190,7 +201,6 @@ public class PatientMedicalDetailActivity extends AppCompatActivity {
         super.onPause();
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(this);
-
         SharedPreferences.Editor editor = prefs.edit();
 
         Gson gson = new Gson();

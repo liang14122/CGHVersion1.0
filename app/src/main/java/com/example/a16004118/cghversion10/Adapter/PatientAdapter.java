@@ -155,6 +155,7 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.MyViewHo
             public void onClick(View v) {
 
                 Context context = v.getContext();
+
                 Intent intent = new Intent(context, PatientMedicalDetailActivity.class);
                 intent.putExtra("patientDetail", currentChit);
                 context.startActivity(intent);
