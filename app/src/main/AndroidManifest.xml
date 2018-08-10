@@ -60,7 +60,8 @@
         </activity>
         <activity
             android:name=".Activities.PatientPersonalDetailsActivity"
-            android:theme="@style/AppThemeWithActionBar">
+            android:theme="@style/AppThemeWithActionBar"
+            >
 
             <!-- <meta-data -->
             <!-- android:name="android.support.PARENT_ACTIVITY" -->

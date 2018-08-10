@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.a16004118.cghversion10.Activities.PatientMedicalDetailActivity;
 import com.example.a16004118.cghversion10.Alogrithm.Alogrithm;
 import com.example.a16004118.cghversion10.Alogrithm.Sort;
 import com.example.a16004118.cghversion10.Interface.ItemTouchHelper;
@@ -150,6 +151,14 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
                 alPatient.addAll(sort(alRawPatient, patientIdArr));
                 Log.i("PatientList", "name: " + alPatient.get(0).getName());
                 Log.i("Patient list", "Size of alPatient " + alPatient.size());
+                for(int i = 0; i<alPatient.size(); i++){
+                    PatientAndMedicalDetail current = alPatient.get(i);
+                    if(current.getIndex()!=-1){
+                        alPatient.remove(i);
+                        alPatient.add(current.getIndex(),current);
+                    }
+
+                }
                 pla.notifyDataSetChanged();
 
 
