@@ -62,7 +62,7 @@ public class PatientListFragment extends Fragment implements ItemTouchHelper {
         viewAll = view.findViewById(R.id.imageButton4);
         rvPatientList = view.findViewById(R.id.rvPatientList);
 
-        viewAll.performClick();
+        emergency.performClick();
 
 
         pla = new PatientAdapter(alPatient);

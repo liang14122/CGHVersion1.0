@@ -131,6 +131,8 @@ public class TabAssign extends Fragment {
 
                     SurgicalTable current = child.getValue(SurgicalTable.class);
                     surgicalTableArrayList.add(current);
+                    String currentId = current.getTableCode()+"/ "+current.getDetail();
+                    alSTable.add(currentId);
 
                 }
                 lvTable.setAdapter(aaTable);
