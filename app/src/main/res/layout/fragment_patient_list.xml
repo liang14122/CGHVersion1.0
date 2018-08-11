@@ -10,76 +10,101 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <ImageButton
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
             android:id="@+id/imageButton2"
-            android:layout_width="115dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/button_emergency"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginBottom="8dp"
+            android:text="@string/emergency"
+            android:textAlignment="center"
+            android:textColor="@color/EmergencyPatientList"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:theme="@style/QMUI"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:qmui_borderColor="@color/EmergencyPatientList"
+            app:qmui_borderWidth="2dp"
+            android:layout_marginStart="16dp" />
 
-        <ImageButton
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
             android:id="@+id/imageButton3"
             android:layout_width="115dp"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
+            android:text="@string/non_emergency"
+            android:textAlignment="center"
+            android:textColor="@color/EmergencyInfoCardViewBG"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:theme="@style/QMUI"
+            app:qmui_borderColor="@color/EmergencyInfoCardViewBG"
+            app:qmui_borderWidth="2dp"
             android:layout_marginEnd="4dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/button_non_emergency"
+            android:layout_marginBottom="8dp"
             app:layout_constraintEnd_toStartOf="@+id/imageButton4"
             app:layout_constraintStart_toEndOf="@+id/imageButton2"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <ImageButton
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
             android:id="@+id/imageButton4"
-            android:layout_width="115dp"
-            android:layout_height="40dp"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:text="@string/view_all"
+            android:textAlignment="center"
+            android:textColor="@color/ReadyPatientList"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:theme="@style/QMUI"
+            app:qmui_borderColor="@color/ReadyPatientList"
+            app:qmui_borderWidth="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/button_view_all"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginBottom="8dp"/>
 
-  <!--      <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton2">
 
-            <ListView
-                android:id="@+id/lvPatientList"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginBottom="?attr/actionBarSize"
-                android:layout_weight="1"
-                android:divider="@null"
-                android:scrollbars="none" />
 
-        </LinearLayout>-->
+        <!--      <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginBottom="2dp"
+                  android:layout_marginLeft="16dp"
+                  android:layout_marginRight="16dp"
+                  android:layout_marginTop="8dp"
+                  android:gravity="center_horizontal"
+                  android:orientation="vertical"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintRight_toRightOf="parent"
+                  app:layout_constraintTop_toBottomOf="@+id/imageButton2">
+
+                  <ListView
+                      android:id="@+id/lvPatientList"
+                      android:layout_width="match_parent"
+                      android:layout_height="0dp"
+                      android:layout_marginBottom="?attr/actionBarSize"
+                      android:layout_weight="1"
+                      android:divider="@null"
+                      android:scrollbars="none" />
+
+              </LinearLayout>-->
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvPatientList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/rvPatientList"
             android:scrollbars="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton4"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
 
     </android.support.constraint.ConstraintLayout>
 

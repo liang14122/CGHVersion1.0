@@ -35,14 +35,14 @@ import java.util.Map;
 import java.util.Objects;
 
 public class PatientListFragment extends Fragment implements ItemTouchHelper {
-    ImageButton emergency, nonEmergency, viewAll;
+    Button emergency, nonEmergency, viewAll;
     ArrayList<PatientAndMedicalDetail> alPatient;
     ArrayList<PatientAndMedicalDetail> alRawPatient;
     ArrayList<String> patientIdArr;
     DatabaseReference databaseReferenceChit;
     RecyclerView rvPatientList;
     PatientAdapter pla;
-    ImageButton currentBtn;
+    Button currentBtn;
     private android.support.v7.widget.helper.ItemTouchHelper touchHelper;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

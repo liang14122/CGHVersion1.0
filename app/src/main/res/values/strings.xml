@@ -56,6 +56,9 @@
     <string name="username_mrc">UserName/MRC</string>
     <string name="p0148f">P0148F</string>
     <string name="_123">123</string>
+    <string name="emergency">Emergency</string>
+    <string name="non_emergency">Non Emergency</string>
+    <string name="view_all">View All</string>
 
     <string-array name="spContact">
         <item>None</item>

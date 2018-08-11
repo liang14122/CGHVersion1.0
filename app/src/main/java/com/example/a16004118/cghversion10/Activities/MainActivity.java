@@ -88,7 +88,7 @@ public class MainActivity extends Activity {
                                 editor.apply();
 
                                 Intent i = new Intent(MainActivity.this, HomeActivity.class);
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(i);
 
                                 btnLogin.setEnabled(false);
